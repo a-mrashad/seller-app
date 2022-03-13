@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#FCF8EA</color>
+    <color name="primaryColor_opacity_10">#1AFF0000</color>
+    <color name="secondaryColor">#3BD6B2</color>
+    <color name="secondaryColor_opacity_20">#DEF6F0</color>
+    <color name="blue">#2F80ED</color>
+    <color name="blue_opacity_30">#330099BC</color>
+    <color name="blue_opacity_10">#F5F8FA</color>
+    <color name="alice_blue">#FCFDFF</color>
+    <color name="grey">#B4B4B4</color>
+    <color name="disabled">#D3D3D3</color>
+    <color name="orange">#F4A240</color>
+    <color name="red">@android:color/holo_red_dark</color>
+    <color name="casablanca">#F8B451</color>
+    <color name="verdigris">#5C4C3E</color>
+    <color name="green">#48D6A3</color>
+    <color name="white">#FFFFFF</color>
+</resources>

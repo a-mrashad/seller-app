@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "262528696842",
+    "project_id": "mazaj-seller",
+    "storage_bucket": "mazaj-seller.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262528696842:android:97c96cb20b02b1412a15f3",
+        "android_client_info": {
+          "package_name": "com.mazaj.seller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262528696842-o4u0tghlmak8nomb5n3k5lek5kb4nttg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyQHQklDUw5fkwUfDL199CDZQBcMikid4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262528696842-o4u0tghlmak8nomb5n3k5lek5kb4nttg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

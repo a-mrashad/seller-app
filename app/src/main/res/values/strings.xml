@@ -1,0 +1,43 @@
+<!-- TODO Remove the suppress warning -->
+<resources
+    tools:ignore="UnusedResources" xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Mazaj Seller</string>
+    <string name="shared_message_no_browser_installed">No browser found in your mobile</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="text_example">Test Example</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="network_error">Check your internet connection and try again in a while</string>
+    <string name="internet_is_back">Internet is back!</string>
+    <string name="no_internet">No Internet Connection</string>
+    <string name="welcome_text">Welcome to mazaj\nSeller</string>
+    <string name="welcome_hint_text">Large, medium or small business?\nYou\'re at the right place!</string>
+    <string name="get_started">Get Started</string>
+    <string name="login_title">Login and start\nreceiving orders</string>
+    <string name="login_subtitle">Please enter your Email and Password</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login">Login</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="forget_password_subtitle">Please insert your Email</string>
+    <string name="submit">Submit</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_password_subtitle">Please create a new password that is at least 8 characters long.</string>
+    <string name="new_password_hint">New password</string>
+    <string name="confirm_password_hint">Confirm password</string>
+    <string name="invalid_email_password">Invalid email or password less than 6</string>
+    <string name="invalid_credentials">Invalid email or password</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="reset_email_sent">An email with reset link was sent to your registered email address</string>
+    <string name="check_your_email">Check your email!</string>
+    <string name="sent_reset_password_email_hint">We sent an email to %s\nwith a magic link that\'ll reset your password</string>
+    <string name="resend_reset_password_email_text">I didn\'t get an email</string>
+    <string name="open_email_app">Open email app</string>
+    <string name="email_spam_hint">If you didn\'t get email, you can find in junk or spam folder</string>
+    <string name="choose_email_client">Choose your email application</string>
+    <string name="send_email_again_seconds">Send email again in %d</string>
+    <string name="send_email_again">Send email again</string>
+    <string name="change_email_address">Change email address</string>
+    <string name="no_get_mail">Didn\'t get an email?</string>
+    <string name="no_get_mail_hint">If you didn\'t get an email, please try on of the options below.</string>
+    <string name="logout">Logout</string>
+</resources>
