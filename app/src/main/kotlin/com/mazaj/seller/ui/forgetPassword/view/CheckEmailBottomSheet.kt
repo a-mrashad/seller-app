@@ -20,16 +20,17 @@ import com.mazaj.seller.ui.forgetPassword.viewModel.ForgetPasswordViewModel
 class CheckEmailBottomSheet : BottomSheetDialogFragment() {
     private val binding by lazy { BottomSheetCheckEmailBinding.inflate(layoutInflater) }
     private val viewModel by lazy { ViewModelProvider(requireActivity())[ForgetPasswordViewModel::class.java] }
-    private val countDownTimer = object: CountDownTimer(30000, 1000) {
+    private val countDownTimer = object : CountDownTimer(MILLIS_IN_FUTURE, COUNTDOWN_INTERVAL) {
         override fun onTick(millisUntilFinished: Long) {
-            binding.tvSendEmailAgain.text = getString(R.string.send_email_again_seconds, millisUntilFinished/1000)
+            binding.tvSendEmailAgain.text = getString(R.string.send_email_again_seconds, millisUntilFinished / COUNTDOWN_INTERVAL)
         }
 
+        @Suppress("all")
         override fun onFinish() {
             binding.tvSendEmailAgain.isEnabled = true
             binding.tvSendEmailAgain.text = getString(R.string.send_email_again)
             binding.tvSendEmailAgain.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_rounded_white)
-            val scale = (resources.displayMetrics.density*15) + 0.5f
+            val scale = resources.displayMetrics.density * 15 + 0.5f
             binding.tvSendEmailAgain.setPadding(0, scale.toInt(), 0, scale.toInt())
         }
     }
@@ -85,5 +86,10 @@ class CheckEmailBottomSheet : BottomSheetDialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer.cancel()
+    }
+
+    companion object {
+        const val MILLIS_IN_FUTURE = 30_000L
+        const val COUNTDOWN_INTERVAL = 1000L
     }
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mazaj.seller.databinding.ActivityMainBinding
 import com.mazaj.seller.extensions.newTask
-import com.mazaj.seller.extensions.showSnackBar
 import com.mazaj.seller.ui.login.view.LoginActivity
 import com.mazaj.seller.ui.main.viewModel.MainViewModel
 

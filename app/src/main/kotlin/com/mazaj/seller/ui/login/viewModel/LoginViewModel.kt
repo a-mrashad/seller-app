@@ -3,15 +3,12 @@ package com.mazaj.seller.ui.login.viewModel
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
-import com.mazaj.seller.Constants.DELAY_TIME_2
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseViewModel
 import com.mazaj.seller.common.SingleLiveEvent
 import com.mazaj.seller.extensions.isPresent
-import com.mazaj.seller.repository.preferences.AppPreferences
 import com.mazaj.seller.repository.repository
 import com.mazaj.seller.ui.shared.ErrorMessage
-import kotlinx.coroutines.delay
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
     var enableLoginButtonLiveData = MutableLiveData<Boolean>()
@@ -40,16 +37,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
             return@launchViewModelScope
         }
         isFormLoading.value = true
-//        repository.authenticateUser(email!!, password!!)
-//        onLoginSucceededLiveEvent.call()
-        delay(DELAY_TIME_2)
-        if (email != "seller@mazaj.app") {
-            messageLiveData.value = ErrorMessage(messageRes = R.string.invalid_credentials)
-            loginErrorsLiveEvent.call()
-        } else {
-            AppPreferences.token = "test"
-            onLoginSucceededLiveEvent.call()
-        }
+        repository.authenticateUser(email!!, password!!)?.accessToken
         isFormLoading.value = false
     }
 

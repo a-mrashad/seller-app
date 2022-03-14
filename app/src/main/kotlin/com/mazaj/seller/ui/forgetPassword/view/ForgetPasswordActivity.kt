@@ -1,6 +1,5 @@
 package com.mazaj.seller.ui.forgetPassword.view
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doAfterTextChanged
