@@ -1,6 +1,5 @@
 <!-- TODO Remove the suppress warning -->
-<resources
-    tools:ignore="UnusedResources" xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Mazaj Seller</string>
     <string name="shared_message_no_browser_installed">No browser found in your mobile</string>
     <string name="title_activity_main">MainActivity</string>
@@ -40,4 +39,15 @@
     <string name="no_get_mail">Didn\'t get an email?</string>
     <string name="no_get_mail_hint">If you didn\'t get an email, please try on of the options below.</string>
     <string name="logout">Logout</string>
+    <string name="new_label">New</string>
+    <string name="no_new_orders">No New Orders</string>
+    <string name="no_accepted_orders">No Accepted Orders</string>
+    <string name="accepted_label">Accepted</string>
+    <string name="ready_label">Ready For Pickup</string>
+    <string name="no_ready_orders">No ready to pickup yet</string>
+    <string name="one_time">One Time</string>
+    <string name="subscription">Subscription</string>
+    <string name="delivery">Delivery</string>
+    <string name="pickup">Pickup</string>
+    <string name="pickup_in">Pickup in</string>
 </resources>

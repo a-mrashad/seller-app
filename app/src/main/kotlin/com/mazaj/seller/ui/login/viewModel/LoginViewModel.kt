@@ -37,8 +37,9 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
             return@launchViewModelScope
         }
         isFormLoading.value = true
-        repository.authenticateUser(email!!, password!!)?.accessToken
+        repository.authenticateUser(email!!, password!!)
         isFormLoading.value = false
+        onLoginSucceededLiveEvent.call()
     }
 
     companion object { const val MIN_PASSWORD_LENGTH = 8 }

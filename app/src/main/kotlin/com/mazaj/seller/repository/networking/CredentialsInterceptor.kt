@@ -14,7 +14,7 @@ class CredentialsInterceptor : Interceptor {
                 .url(request.url)
                 .method(request.method, request.body)
                 .addHeader(ACCESS_TOKEN, it.token!!)
-                .addHeader(REFRESH_TOKEN, it.refresh_token!!)
+                .addHeader(REFRESH_TOKEN, it.refreshToken!!)
                 .build()
         }
         return chain.proceed(newRequest)

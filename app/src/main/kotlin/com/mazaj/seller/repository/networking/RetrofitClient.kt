@@ -5,6 +5,7 @@ import com.mazaj.seller.BuildConfig
 import com.mazaj.seller.Constants.PATH
 import com.mazaj.seller.common.ResponseInterceptor
 import com.mazaj.seller.repository.networking.api.AuthenticationApiService
+import com.mazaj.seller.repository.networking.api.OrdersApiService
 import com.mazaj.seller.repository.networking.models.ErrorBody
 import java.util.concurrent.TimeUnit
 import kotlinx.serialization.SerializationException
@@ -56,4 +57,5 @@ object RetrofitClient {
     }
 
     val authenticationApiService by lazy { retrofit(withAuthenticationHeaders = false).create(AuthenticationApiService::class.java) }
+    val ordersApiService by lazy { retrofit(withAuthenticationHeaders = true).create(OrdersApiService::class.java) }
 }

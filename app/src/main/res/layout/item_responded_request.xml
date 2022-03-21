@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="288dp"
+    android:layout_height="114dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="3dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_rounded_white">
+
+    <TextView
+        android:id="@+id/tvOrderId"
+        style="@style/h2_16_medium"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="#555684"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/h2_14"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOrderId"
+        app:layout_constraintBottom_toTopOf="@id/tvPickup"
+        tools:text="Mohammad S."/>
+
+    <TextView
+        android:id="@+id/tvPickup"
+        style="@style/h2_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/pickup_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvPickupTime"
+        style="@style/h1_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvPickup"
+        app:layout_constraintStart_toEndOf="@id/tvPickup"
+        app:layout_constraintTop_toTopOf="@id/tvPickup"
+        tools:text="18 min"/>
+
+    <TextView
+        android:id="@+id/tvPaymentStatus"
+        style="@style/h1_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tvOrderId"
+        app:layout_constraintBottom_toBottomOf="@id/tvOrderId"
+        app:layout_constraintHorizontal_bias="1"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toEndOf="@id/tvOrderId"
+        app:layout_constraintEnd_toStartOf="@id/tvOrderTypeSubscription"
+        tools:text="PAID"/>
+
+    <TextView
+        android:id="@+id/tvOrderTypeOneTime"
+        style="@style/h2_16_medium"
+        android:visibility="visible"
+        android:background="@drawable/bg_rounded_white_3dp"
+        android:backgroundTint="@color/sky_blue"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/one_time"
+        android:layout_margin="10dp"
+        android:padding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvOrderTypeSubscription"
+        style="@style/h2_16_medium"
+        android:visibility="gone"
+        android:background="@drawable/bg_rounded_white_3dp"
+        android:backgroundTint="@color/orange"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/subscription"
+        android:layout_margin="10dp"
+        android:padding="3dp"
+        app:layout_constraintEnd_toStartOf="@id/tvOrderTypeOneTime"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvDeliveryType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/h2_16"
+        android:text="@string/delivery"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_delivery"
+        android:drawablePadding="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvOrderId"
+        app:layout_constraintBottom_toTopOf="@id/tvItemsCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/tvPickupType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/h2_16"
+        android:text="@string/pickup"
+        app:drawableStartCompat="@drawable/ic_pickup"
+        android:drawablePadding="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvOrderId"
+        app:layout_constraintBottom_toTopOf="@id/tvItemsCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/tvItemsCount"
+        style="@style/h2_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="12 Items"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

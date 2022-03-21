@@ -26,5 +26,14 @@ class MainActivity : com.mazaj.seller.base.BaseActivity() {
 
     private fun setObservers() {
         viewModel.onLogoutSucceeded.observe(this, Observer { startActivity(Intent(this, LoginActivity::class.java).newTask()) })
+        viewModel.newOrdersLiveData.observe(this, Observer {
+
+        })
+        viewModel.acceptedOrdersLiveData.observe(this, Observer {
+
+        })
+        viewModel.readyOrdersLiveData.observe(this, Observer {
+
+        })
     }
 }

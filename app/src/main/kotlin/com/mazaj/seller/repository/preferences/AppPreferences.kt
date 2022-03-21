@@ -43,7 +43,7 @@ object AppPreferences {
         get() = Key.TOKEN.getString().orEmpty()
         set(value) = Key.TOKEN.setString(value)
 
-    var refresh_token: String?
+    var refreshToken: String?
         get() = Key.REFRESH_TOKEN.getString().orEmpty()
         set(value) = Key.REFRESH_TOKEN.setString(value)
 

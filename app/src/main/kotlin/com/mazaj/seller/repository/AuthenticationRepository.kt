@@ -9,8 +9,8 @@ interface AuthenticationRepository {
 
     suspend fun authenticateUser(username: String, password: String) = authenticationApiService.login(username, password).body()?.apply {
         appPreferences.token = accessToken
-        appPreferences.refresh_token = refreshToken
+        appPreferences.refreshToken = refreshToken
     }
 
-    fun alreadyAuthenticated() = appPreferences.let { listOf(it.token, it.refresh_token).all { value -> value?.isNotEmpty()!! } }
+    fun alreadyAuthenticated() = appPreferences.let { listOf(it.token, it.refreshToken).all { value -> value?.isNotEmpty()!! } }
 }
