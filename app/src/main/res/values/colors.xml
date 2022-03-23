@@ -16,6 +16,11 @@
     <color name="verdigris">#5C4C3E</color>
     <color name="green">#48D6A3</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="egg_shell">#F0EBDD</color>
     <color name="sky_blue">#06B4FF</color>
+    <color name="light_red">#EB5757</color>
+    <color name="light_sky_blue">#e5efeb</color>
+    <color name="dark_orange">#FF6C0A</color>
+    <color name="dark_grey">#666363</color>
 </resources>

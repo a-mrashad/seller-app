@@ -9,21 +9,25 @@
     <application
         android:name=".MazajSellerApplication"
         android:allowBackup="false"
+        android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:extractNativeLibs="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <activity
+            android:name=".ui.orderDetails.view.OrderDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.view.SplashActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,15 +36,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.login.view.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.forgetPassword.view.ForgetPasswordActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.resetPassword.view.ResetPasswordActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.view.MainActivity"
             android:screenOrientation="portrait" />
@@ -49,4 +53,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
 </manifest>

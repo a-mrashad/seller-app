@@ -13,6 +13,7 @@ class LocaleInterceptor : Interceptor {
         val newRequest = request.newBuilder()
             .url(addQueryParameters(request.url))
             .method(request.method, request.body)
+            .addHeader(ACCEPT, "application/json")
             .build()
         return chain.proceed(newRequest)
     }
@@ -21,5 +22,6 @@ class LocaleInterceptor : Interceptor {
 
     companion object {
         private const val LOCALE = "lang"
+        private const val ACCEPT = "Accept"
     }
 }

@@ -50,4 +50,12 @@
     <string name="delivery">Delivery</string>
     <string name="pickup">Pickup</string>
     <string name="pickup_in">Pickup in</string>
+    <string name="decline">Decline</string>
+    <string name="accept_let_do_it">Accept, Let’s do it</string>
+    <string name="total">Total</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="size">Size</string>
+    <string name="type_of_milk">Type of Milk</string>
+    <string name="syrups">Syrups</string>
+    <string name="add_ons">Add Ons</string>
 </resources>

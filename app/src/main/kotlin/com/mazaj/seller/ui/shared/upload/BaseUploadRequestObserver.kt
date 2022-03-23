@@ -49,7 +49,6 @@ interface BaseUploadRequestObserver : RequestObserverDelegate {
         var messageResId: Int? = null
 
         when (exception) {
-            is UploadError -> if (errorBody?.errors?.isNullOrEmpty().orTrue()) messageResId = R.string.something_went_wrong
             is IOException -> messageResId = R.string.network_error
         }
 

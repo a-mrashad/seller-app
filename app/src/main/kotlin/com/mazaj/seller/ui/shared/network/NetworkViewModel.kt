@@ -28,7 +28,7 @@ interface NetworkViewModel {
             when (exception) {
                 is ErrorResponseException -> {
                     errorBody = exception.errorMessage as ErrorBody
-                    if (errorBody.errors == null) messageResId = R.string.something_went_wrong
+                    if (errorBody.message == null) messageResId = R.string.something_went_wrong
                 }
                 is IOException -> messageResId = R.string.network_error
             }
@@ -40,6 +40,6 @@ interface NetworkViewModel {
     }
 
     fun onFailure(errorBody: ErrorBody?, messageResId: Int?) {
-        messageLiveData.value = ErrorMessage(messageString = errorBody?.errors?.joinToString(), messageRes = messageResId)
+        messageLiveData.value = ErrorMessage(messageString = errorBody?.message, messageRes = messageResId)
     }
 }

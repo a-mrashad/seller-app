@@ -13,15 +13,14 @@ class CredentialsInterceptor : Interceptor {
             request.newBuilder()
                 .url(request.url)
                 .method(request.method, request.body)
-                .addHeader(ACCESS_TOKEN, it.token!!)
-                .addHeader(REFRESH_TOKEN, it.refreshToken!!)
+                .addHeader(ACCESS_TOKEN, "Bearer ${it.token!!}")
                 .build()
         }
         return chain.proceed(newRequest)
     }
 
     companion object {
-        private const val ACCESS_TOKEN = "access_token"
+        private const val ACCESS_TOKEN = "Authorization"
         private const val REFRESH_TOKEN = "refresh_token"
     }
 }

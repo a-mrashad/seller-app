@@ -30,9 +30,9 @@ data class Order (
     @SerialName("payment_type")
     val paymentType: Int,
     @SerialName("payment_type_label")
-    val paymentTypeLabel: Int,
+    val paymentTypeLabel: String,
     val items: List<OrderItem>,
-    val price: OrderPrice,
+    val price: OrderPrice? = null,
     @SerialName("add_ons")
     val addOns: OrderAddOns? = null,
     val options: OrderOptions? = null,
@@ -51,7 +51,7 @@ data class OrderItem(
     @SerialName("ar_unit_name")
     val arUnitName: String? = null,
     val quantity: Int? = null,
-    val total: Int? = null,
+    val total: Float? = null,
     @SerialName("additional_information")
     val additionalInformation: OrderAdditionalInformation? = null
 )
