@@ -135,11 +135,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/item_order_items_syrups"
+            android:id="@+id/tvSyrups"
             style="@style/h2_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Skimed"
+            android:text="Skimmed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -147,7 +147,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/item_order_items_add_ons_container"
+        android:id="@+id/addonsContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -158,7 +158,7 @@
 
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tvAddOns"
             style="@style/h1_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -167,22 +167,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/item_order_items_add_ons_recycler"
+            android:id="@+id/rvAddOns"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/tvAddOns" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/item_order_items_box_variants_recycler"
+        android:id="@+id/rvVariants"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/item_order_items_quantity"
-        app:layout_constraintTop_toBottomOf="@+id/item_order_items_add_ons_container" />
+        app:layout_constraintTop_toBottomOf="@+id/addonsContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

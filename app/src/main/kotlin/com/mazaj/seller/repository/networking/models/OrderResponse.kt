@@ -6,12 +6,12 @@ import kotlinx.serialization.Serializable
 import org.joda.time.DateTime
 
 @Serializable
-data class OrderResponse (
+data class OrderResponse(
     val data: List<Order>
 )
 
 @Serializable
-data class Order (
+data class Order(
     val id: String,
     @SerialName("order_number")
     val orderNumber: String,
@@ -53,7 +53,12 @@ data class OrderItem(
     val quantity: Int? = null,
     val total: Float? = null,
     @SerialName("additional_information")
-    val additionalInformation: OrderAdditionalInformation? = null
+    val additionalInformation: OrderAdditionalInformation? = null,
+    @SerialName("add_ons")
+    val addOns: MutableList<OrderAddOns>? = null,
+    val options: MutableList<OrderOptions>? = null,
+    val variants: MutableList<OrderVariants>? = null,
+    val price: OrderPrice? = null
 )
 
 @Serializable
@@ -114,7 +119,7 @@ data class OrderPrice(
 
 @Serializable
 data class OrderAddOns(
-    val id: String,
+    val id: String? = null,
     val price: String,
     @SerialName("en_name")
     val enName: String? = null,
@@ -130,7 +135,7 @@ data class OrderAddOns(
 @Serializable
 data class OrderOptions(
     val price: String? = null,
-    val id: String,
+    val id: String? = null,
     @SerialName("en_name")
     val enName: String? = null,
     @SerialName("ar_name")
@@ -169,4 +174,9 @@ data class OrderVariantsDetails(
     val id: String,
     val quantity: String? = null,
     val name: String? = null
+)
+
+@Serializable
+data class AcceptOrderResponse(
+    val message: String? = null
 )

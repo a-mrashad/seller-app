@@ -6,22 +6,23 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mazaj.seller.base.BaseActivity
 import com.mazaj.seller.databinding.ActivityMainBinding
 import com.mazaj.seller.extensions.newTask
 import com.mazaj.seller.ui.login.view.LoginActivity
 import com.mazaj.seller.ui.main.viewModel.MainViewModel
-import com.mazaj.seller.ui.orderDetails.view.OrderDetailActivity
+import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity
+import com.mazaj.seller.ui.shared.network.OnFetchingData
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), OnFetchingData {
     override val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val onRequestClicked: () -> (Unit) = { startActivity(Intent(this, OrderDetailActivity::class.java)) }
+    private val onRequestClicked: (String) -> (Unit) = { startActivity(Intent(this, OrderDetailsActivity::class.java).apply { putExtra("id", it) }) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setupOnFetchingData()
         setListeners()
         setObservers()
     }

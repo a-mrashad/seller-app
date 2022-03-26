@@ -3,7 +3,6 @@ package com.mazaj.seller.ui.shared.upload
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.mazaj.seller.R
-import com.mazaj.seller.extensions.orTrue
 import com.mazaj.seller.extensions.throwIf
 import com.mazaj.seller.repository.networking.models.ErrorBody
 import com.mazaj.seller.utils.jsonDefaultConfig

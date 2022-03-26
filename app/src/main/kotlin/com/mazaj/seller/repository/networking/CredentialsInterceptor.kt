@@ -21,6 +21,6 @@ class CredentialsInterceptor : Interceptor {
 
     companion object {
         private const val ACCESS_TOKEN = "Authorization"
-        private const val REFRESH_TOKEN = "refresh_token"
+        // private const val REFRESH_TOKEN = "refresh_token"
     }
 }

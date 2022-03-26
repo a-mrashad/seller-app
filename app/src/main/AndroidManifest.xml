@@ -18,7 +18,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <activity
-            android:name=".ui.orderDetails.view.OrderDetailActivity"
+            android:name=".ui.orderDetails.view.OrderDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.splash.view.SplashActivity"

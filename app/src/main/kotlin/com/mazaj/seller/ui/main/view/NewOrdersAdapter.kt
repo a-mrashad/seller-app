@@ -8,9 +8,12 @@ import com.mazaj.seller.R
 import com.mazaj.seller.databinding.ItemNewRequestBinding
 import com.mazaj.seller.repository.networking.models.Order
 
-class NewOrdersAdapter(private val items: MutableList<Order>, private val onClick: () -> Unit) : RecyclerView.Adapter<NewOrdersAdapter.NewOrderViewHolder>() {
+class NewOrdersAdapter(
+    private val items: MutableList<Order>,
+    private val onClick: (String) -> Unit
+) : RecyclerView.Adapter<NewOrdersAdapter.NewOrderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        NewOrderViewHolder((LayoutInflater.from(parent.context).inflate(R.layout.item_new_request, parent, false)))
+        NewOrderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_new_request, parent, false))
 
     override fun onBindViewHolder(holder: NewOrdersAdapter.NewOrderViewHolder, position: Int) = holder.bind(items[position])
 
@@ -20,7 +23,7 @@ class NewOrdersAdapter(private val items: MutableList<Order>, private val onClic
         private val binding = ItemNewRequestBinding.bind(itemView)
 
         fun bind(order: Order) {
-            binding.root.setOnClickListener { onClick() }
+            binding.root.setOnClickListener { onClick(order.id) }
             binding.apply {
                 tvOrderId.text = "#${order.orderNumber}"
                 tvItemsCount.text = "${order.itemsCount} items"

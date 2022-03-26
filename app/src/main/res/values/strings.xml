@@ -58,4 +58,7 @@
     <string name="type_of_milk">Type of Milk</string>
     <string name="syrups">Syrups</string>
     <string name="add_ons">Add Ons</string>
+    <string name="items">Items</string>
+    <string name="currency">SAR</string>
+    <string name="minute">mins</string>
 </resources>

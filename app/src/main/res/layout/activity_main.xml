@@ -186,5 +186,8 @@
             app:layout_constraintEnd_toEndOf="@id/rvReadyOrders"
             app:layout_constraintStart_toStartOf="@id/rvReadyOrders"
             app:layout_constraintBottom_toBottomOf="@id/rvReadyOrders"/>
+
+        <include layout="@layout/loading_bar"
+            android:id="@+id/loadingBar"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

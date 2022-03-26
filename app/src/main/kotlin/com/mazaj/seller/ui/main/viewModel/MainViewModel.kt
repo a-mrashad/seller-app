@@ -18,9 +18,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun getOrders() = launchViewModelScope {
+        isScreenLoading.value = true
         readyOrdersLiveData.value = repository.getOrders(READY).body()?.data
         acceptedOrdersLiveData.value = repository.getOrders(ACCEPTED).body()?.data
         newOrdersLiveData.value = repository.getOrders(NEW).body()?.data
+        isScreenLoading.value = false
     }
 
     fun onLogoutClicked() {
