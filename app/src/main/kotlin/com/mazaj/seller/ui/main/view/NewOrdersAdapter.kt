@@ -10,7 +10,8 @@ import com.mazaj.seller.repository.networking.models.Order
 
 class NewOrdersAdapter(
     private val items: MutableList<Order>,
-    private val onClick: (String) -> Unit
+    private val onClick: (String) -> Unit,
+    private val isFullScreen: Boolean = false
 ) : RecyclerView.Adapter<NewOrdersAdapter.NewOrderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         NewOrderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_new_request, parent, false))
@@ -23,6 +24,11 @@ class NewOrdersAdapter(
         private val binding = ItemNewRequestBinding.bind(itemView)
 
         fun bind(order: Order) {
+            if (isFullScreen) {
+                val params = binding.root.layoutParams
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT
+                binding.root.layoutParams = params
+            }
             binding.root.setOnClickListener { onClick(order.id) }
             binding.apply {
                 tvOrderId.text = "#${order.orderNumber}"

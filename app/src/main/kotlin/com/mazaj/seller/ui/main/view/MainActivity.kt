@@ -11,7 +11,12 @@ import com.mazaj.seller.databinding.ActivityMainBinding
 import com.mazaj.seller.extensions.newTask
 import com.mazaj.seller.ui.login.view.LoginActivity
 import com.mazaj.seller.ui.main.viewModel.MainViewModel
+import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.ACCEPTED
+import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW
+import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.READY
 import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity
+import com.mazaj.seller.ui.ordersList.view.OrdersListActivity
+import com.mazaj.seller.ui.ordersList.view.OrdersListActivity.Companion.STATUS_KEY
 import com.mazaj.seller.ui.shared.network.OnFetchingData
 
 class MainActivity : BaseActivity(), OnFetchingData {
@@ -29,6 +34,13 @@ class MainActivity : BaseActivity(), OnFetchingData {
 
     private fun setListeners() {
         binding.logout.setOnClickListener { viewModel.onLogoutClicked() }
+        binding.tvNewCounter.setOnClickListener { openOrdersList(NEW) }
+        binding.tvAcceptedCounter.setOnClickListener { openOrdersList(ACCEPTED) }
+        binding.tvReadyCounter.setOnClickListener { openOrdersList(READY) }
+    }
+
+    private fun openOrdersList(status: String) {
+        startActivity(Intent(this, OrdersListActivity::class.java).apply { putExtra(STATUS_KEY, status) })
     }
 
     private fun setObservers() {

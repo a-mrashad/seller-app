@@ -21,6 +21,9 @@
             android:name=".ui.orderDetails.view.OrderDetailsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.ordersList.view.OrdersListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.view.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -48,6 +51,14 @@
         <activity
             android:name=".ui.main.view.MainActivity"
             android:screenOrientation="portrait" />
+
+        <service
+            android:name=".services.CustomMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="preloaded_fonts"

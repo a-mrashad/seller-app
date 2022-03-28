@@ -12,7 +12,8 @@ import org.joda.time.DateTime
 
 class RespondedOrdersAdapter(
     private val items: MutableList<Order>,
-    private val onClick: (String) -> Unit
+    private val onClick: (String) -> Unit,
+    private val isFullScreen: Boolean = false
 ) : RecyclerView.Adapter<RespondedOrdersAdapter.RespondedOrderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RespondedOrdersAdapter.RespondedOrderViewHolder =
         RespondedOrderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_responded_request, parent, false))
@@ -25,6 +26,11 @@ class RespondedOrdersAdapter(
         private val binding = ItemRespondedRequestBinding.bind(itemView)
 
         fun bind(order: Order) {
+            if (isFullScreen) {
+                val params = binding.root.layoutParams
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT
+                binding.root.layoutParams = params
+            }
             binding.root.setOnClickListener { onClick(order.id) }
             binding.apply {
                 tvOrderId.text = "#${order.orderNumber}"
