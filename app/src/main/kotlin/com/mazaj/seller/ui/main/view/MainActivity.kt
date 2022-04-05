@@ -46,22 +46,25 @@ class MainActivity : BaseActivity(), OnFetchingData {
     private fun setObservers() {
         viewModel.onLogoutSucceeded.observe(this, Observer { startActivity(Intent(this, LoginActivity::class.java).newTask()) })
         viewModel.newOrdersLiveData.observe(this, Observer {
-            binding.tvNewCounter.text = it.size.toString()
             binding.tvNoNewOrdersFound.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             binding.rvNewOrders.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding.rvNewOrders.adapter = NewOrdersAdapter(it.toMutableList(), onRequestClicked)
         })
         viewModel.acceptedOrdersLiveData.observe(this, Observer {
-            binding.tvAcceptedCounter.text = it.size.toString()
             binding.tvNoAcceptedOrdersFound.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             binding.rvAcceptedOrders.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding.rvAcceptedOrders.adapter = RespondedOrdersAdapter(it.toMutableList(), onRequestClicked)
         })
         viewModel.readyOrdersLiveData.observe(this, Observer {
-            binding.tvReadyCounter.text = it.size.toString()
             binding.tvNoReadyOrdersFound.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             binding.rvReadyOrders.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding.rvAcceptedOrders.adapter = RespondedOrdersAdapter(it.toMutableList(), onRequestClicked)
+        })
+        viewModel.overviewCountsLiveData.observe(this, Observer { counts ->
+            val zeroCount = "0"
+            binding.tvNewCounter.text = counts?.filter { it.status == NEW }?.getOrNull(0)?.total ?: zeroCount
+            binding.tvAcceptedCounter.text = counts?.filter { it.status == ACCEPTED }?.getOrNull(0)?.total ?: zeroCount
+            binding.tvReadyCounter.text = counts?.filter { it.status == READY }?.getOrNull(0)?.total ?: zeroCount
         })
     }
 }

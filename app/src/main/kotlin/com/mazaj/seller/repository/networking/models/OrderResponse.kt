@@ -17,7 +17,7 @@ data class Order(
     val orderNumber: String,
     @SerialName("pickup_at")
     @Serializable(with = DateTimeSerializer::class)
-    val pickupAt: DateTime,
+    val pickupAt: DateTime? = null,
     @SerialName("delivery_at")
     @Serializable(with = DateTimeSerializer::class)
     val deliveryAt: DateTime,

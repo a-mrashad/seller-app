@@ -1,9 +1,5 @@
 package com.mazaj.seller.utils
 
-import com.mazaj.seller.BuildConfig
-import com.mazaj.seller.R
-import com.mazaj.seller.extensions.newTask
-import com.mazaj.seller.ui.main.view.MainActivity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_HIGH
@@ -19,9 +15,13 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_MAX
+import com.mazaj.seller.BuildConfig
+import com.mazaj.seller.R
+import com.mazaj.seller.extensions.newTask
 import com.mazaj.seller.extensions.toRGB
 import com.mazaj.seller.repository.preferences.AppPreferences
 import com.mazaj.seller.services.NotificationParams
+import com.mazaj.seller.ui.main.view.MainActivity
 import kotlin.time.seconds
 
 class NotificationHelperUtils(context: Context?) : ContextWrapper(context) {
@@ -98,7 +98,7 @@ class NotificationHelperUtils(context: Context?) : ContextWrapper(context) {
     }
 
     private fun setContentIntentForNotificationGroup(notificationBuilder: NotificationCompat.Builder, intents: Array<Intent?>, requestCode: Int) {
-        val pendingIntent = PendingIntent.getActivities(this, requestCode, intents, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT )
+        val pendingIntent = PendingIntent.getActivities(this, requestCode, intents, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         notificationBuilder.setContentIntent(pendingIntent)
     }
 

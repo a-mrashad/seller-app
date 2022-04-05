@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.mazaj.seller.base.BaseViewModel
 import com.mazaj.seller.common.SingleLiveEvent
 import com.mazaj.seller.repository.networking.models.Order
+import com.mazaj.seller.repository.networking.models.OrdersOverviewCounts
 import com.mazaj.seller.repository.repository
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
@@ -12,6 +13,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val newOrdersLiveData = MutableLiveData<List<Order>>()
     val acceptedOrdersLiveData = MutableLiveData<List<Order>>()
     val readyOrdersLiveData = MutableLiveData<List<Order>>()
+    val overviewCountsLiveData = MutableLiveData<List<OrdersOverviewCounts>?>()
 
     init {
         getOrders()
@@ -22,6 +24,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         readyOrdersLiveData.value = repository.getOrders(READY).body()?.data
         acceptedOrdersLiveData.value = repository.getOrders(ACCEPTED).body()?.data
         newOrdersLiveData.value = repository.getOrders(NEW).body()?.data
+        overviewCountsLiveData.value = repository.getOrdersOverviewCounts().body()
         isScreenLoading.value = false
     }
 

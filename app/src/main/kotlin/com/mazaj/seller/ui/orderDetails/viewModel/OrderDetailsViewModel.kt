@@ -11,7 +11,7 @@ class OrderDetailsViewModel(application: Application) : BaseViewModel(applicatio
 
     fun getOrderDetail(id: String) = launchViewModelScope {
         isFormLoading.value = true
-        orderDetailLiveData.value = repository.orderApiService.getOrderDetails(id).body()
+        orderDetailLiveData.value = repository.getOrderDetails(id).body()
         isFormLoading.value = false
     }
 
