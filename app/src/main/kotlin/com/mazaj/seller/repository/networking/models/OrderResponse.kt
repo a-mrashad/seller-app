@@ -24,14 +24,14 @@ data class Order(
     @SerialName("items_count")
     val itemsCount: Int,
     @SerialName("payment_status")
-    val paymentStatus: Int,
+    val paymentStatus: Int? = null,
     @SerialName("payment_status_label")
-    val paymentStatusLabel: String,
+    val paymentStatusLabel: String? = null,
     @SerialName("payment_type")
-    val paymentType: Int,
+    val paymentType: Int? = null,
     @SerialName("payment_type_label")
-    val paymentTypeLabel: String,
-    val items: List<OrderItem>,
+    val paymentTypeLabel: String? = null,
+    val items: List<OrderItem>? = null,
     val price: OrderPrice? = null,
     @SerialName("add_ons")
     val addOns: OrderAddOns? = null,

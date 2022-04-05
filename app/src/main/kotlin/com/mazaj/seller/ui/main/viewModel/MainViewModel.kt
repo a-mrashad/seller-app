@@ -35,7 +35,10 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     companion object {
         const val NEW = "NEW"
+        const val NEW_STATUS = 60
         const val ACCEPTED = "ACCEPTED"
+        const val ACCEPTED_STATUS = 65
         const val READY = "READY"
+        const val READY_STATUS = 70
     }
 }

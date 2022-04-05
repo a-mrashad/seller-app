@@ -15,6 +15,8 @@ interface OrdersRepository {
 
     suspend fun getOrderDetails(orderId: String) = orderApiService.getOrderDetails(orderId)
 
+    suspend fun getOrdersList(status: Int) = orderApiService.getOrdersList(status)
+
     suspend fun acceptOrder(orderId: String) = orderApiService.acceptOrder(orderId)
 
     suspend fun setOrderAsReadyForPick(orderId: String) = orderApiService.setOrderAsReadyForPick(orderId)

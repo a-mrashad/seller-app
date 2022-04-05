@@ -20,6 +20,9 @@ interface OrdersApiService {
     @GET("orders/{id}")
     suspend fun getOrderDetails(@Path("id") id: String): Response<OrderDetailResponse>
 
+    @GET("orders/list")
+    suspend fun getOrdersList(@Query("status") status: Int): Response<OrderResponse>
+
     @POST("orders/{id}/accept")
     suspend fun acceptOrder(@Path("id") id: String): Response<AcceptOrderResponse>
 
