@@ -8,9 +8,7 @@ import com.mazaj.seller.R
 import com.mazaj.seller.databinding.ItemBoxVariantBinding
 import com.mazaj.seller.repository.networking.models.OrderVariants
 
-class OrderBoxVariantsAdapter(private val items: MutableList<OrderVariants>) :
-
-    RecyclerView.Adapter<OrderBoxVariantsAdapter.OrderVariantsViewHolder>() {
+class OrderBoxVariantsAdapter(private val items: MutableList<OrderVariants>) : RecyclerView.Adapter<OrderBoxVariantsAdapter.OrderVariantsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderVariantsViewHolder =
         OrderVariantsViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_box_variant, parent, false))
@@ -24,10 +22,8 @@ class OrderBoxVariantsAdapter(private val items: MutableList<OrderVariants>) :
 
         fun bind(orderVariants: OrderVariants) {
             binding.apply {
-                orderVariants.details?.let {
-                    itemBoxVariantQuantity.text = "X ${it.quantity}"
-                    itemBoxVariantName.text = it.name
-                }
+                itemBoxVariantQuantity.text = "${orderVariants.quantity}x"
+                itemBoxVariantName.text = orderVariants.name
             }
         }
     }

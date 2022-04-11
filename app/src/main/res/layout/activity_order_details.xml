@@ -116,6 +116,7 @@
         <TextView
             android:id="@+id/tvTotal"
             style="@style/h1_28"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -127,6 +128,7 @@
         <TextView
             android:id="@+id/tvTotalPrice"
             style="@style/h1_28"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -150,19 +152,22 @@
             style="@style/h2_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:drawablePadding="4dp"
             android:text="@string/cash_on_delivery"
             app:drawableStartCompat="@drawable/ic_cash_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/layoutAction"
             app:layout_constraintTop_toBottomOf="@+id/tvVatDetails" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutAction"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:elevation="14dp"
+            android:elevation="9dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -9,17 +9,14 @@ import com.mazaj.seller.R
 import com.mazaj.seller.databinding.ItemOrderItemsBinding
 import com.mazaj.seller.repository.networking.models.OrderAddOns
 import com.mazaj.seller.repository.networking.models.OrderItem
+import com.mazaj.seller.repository.networking.models.OrderOptions
 import com.mazaj.seller.repository.networking.models.OrderVariants
 
 class OrderItemsAdapter(private val items: MutableList<OrderItem>) : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewHolder>() {
-    private lateinit var addOnsOrderAdapter: AddOnsOrderAdapter
-    private lateinit var orderBoxVariantsAdapter: OrderBoxVariantsAdapter
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemsViewHolder =
         OrderItemsViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_order_items, parent, false))
 
-    override fun onBindViewHolder(holder: OrderItemsViewHolder, position: Int) =
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: OrderItemsViewHolder, position: Int) = holder.bind(items[position])
 
     override fun getItemCount(): Int = items.size
 
@@ -28,13 +25,26 @@ class OrderItemsAdapter(private val items: MutableList<OrderItem>) : RecyclerVie
 
         fun bind(order: OrderItem) {
             binding.apply {
-                itemOrderItemsQuantity.text = "X ${order.quantity}"
-                itemOrderItemsName.text = order.additionalInformation?.enName
+                tvQuantity.text = "${order.quantity}x"
+                tvItemName.text = order.additionalInformation?.enName
                 // TODO handle order comment
-                // TODO handle options
+                handleOrderOptions(order.options)
                 handleAddonsView(order.addOns)
                 handleVariantsView(order.variants)
             }
+        }
+
+        private fun handleOrderOptions(options: MutableList<OrderOptions>?) {
+            if (options.isNullOrEmpty()) {
+                binding.rvOptions.visibility = View.GONE
+                return
+            }
+            binding.rvOptions.apply {
+                layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
+                (layoutManager as LinearLayoutManager).initialPrefetchItemCount = options.size
+                adapter = OrderOptionsAdapter(options)
+            }
+            binding.rvOptions.visibility = View.VISIBLE
         }
 
         private fun handleAddonsView(addOns: MutableList<OrderAddOns>?) {
@@ -43,27 +53,27 @@ class OrderItemsAdapter(private val items: MutableList<OrderItem>) : RecyclerVie
                 binding.tvAddOns.visibility = View.GONE
                 return
             }
-
-            addOnsOrderAdapter = AddOnsOrderAdapter(addOns)
             binding.rvAddOns.apply {
                 layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
                 (layoutManager as LinearLayoutManager).initialPrefetchItemCount = addOns.size
-                adapter = addOnsOrderAdapter
+                adapter = AddOnsOrderAdapter(addOns)
             }
+            binding.tvAddOns.visibility = View.VISIBLE
             binding.rvAddOns.visibility = View.VISIBLE
         }
 
         private fun handleVariantsView(variants: MutableList<OrderVariants>?) {
             if (variants.isNullOrEmpty()) {
+                binding.tvVariants.visibility = View.GONE
                 binding.rvVariants.visibility = View.GONE
                 return
             }
-            orderBoxVariantsAdapter = OrderBoxVariantsAdapter(variants)
             binding.rvVariants.apply {
                 layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
                 (layoutManager as LinearLayoutManager).initialPrefetchItemCount = variants.size
-                adapter = orderBoxVariantsAdapter
+                adapter = OrderBoxVariantsAdapter(variants)
             }
+            binding.tvVariants.visibility = View.VISIBLE
             binding.rvVariants.visibility = View.VISIBLE
         }
     }

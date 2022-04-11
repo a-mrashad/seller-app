@@ -166,13 +166,8 @@ data class OrderItemOption(
 @Serializable
 data class OrderVariants(
     val id: String? = null,
-    val details: OrderVariantsDetails? = null
-)
-
-@Serializable
-data class OrderVariantsDetails(
-    val id: String,
     val quantity: String? = null,
+    @SerialName("en_name")
     val name: String? = null
 )
 

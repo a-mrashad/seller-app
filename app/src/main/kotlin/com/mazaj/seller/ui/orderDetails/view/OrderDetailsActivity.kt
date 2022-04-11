@@ -18,7 +18,6 @@ import org.joda.time.DateTime
 class OrderDetailsActivity : BaseActivity() {
     private val binding by lazy { ActivityOrderDetailsBinding.inflate(layoutInflater) }
     override val viewModel by lazy { ViewModelProvider(this)[OrderDetailsViewModel::class.java] }
-    private lateinit var orderItemsAdapter: OrderItemsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,10 +63,9 @@ class OrderDetailsActivity : BaseActivity() {
     }
 
     private fun handleOrderItems(items: MutableList<OrderItem>) {
-        orderItemsAdapter = OrderItemsAdapter(items)
         binding.rvOrderDetails.apply {
             layoutManager = LinearLayoutManager(this@OrderDetailsActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = orderItemsAdapter
+            adapter = OrderItemsAdapter(items)
         }
     }
 }
