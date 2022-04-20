@@ -9,7 +9,7 @@ import com.mazaj.seller.repository.repository
 class OrdersListViewModel(application: Application) : BaseViewModel(application) {
     val ordersLiveData = MutableLiveData<List<Order>>()
 
-    fun onStatusReceived(status: Int) = launchViewModelScope {
+    fun getOrdersList(status: Int) = launchViewModelScope {
         isScreenLoading.value = true
         ordersLiveData.value = repository.getOrdersList(status).body()?.data
         isScreenLoading.value = false

@@ -27,9 +27,13 @@ class OrdersListActivity : BaseActivity(), OnFetchingData {
         setContentView(binding.root)
         setupOnFetchingData()
         binding.rvItems.layoutManager = LinearLayoutManager(this)
-        viewModel.onStatusReceived(intent.extras?.getInt(STATUS_KEY, 0) ?: 0)
         setListeners()
         setObservers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getOrdersList(intent.extras?.getInt(STATUS_KEY, 0) ?: 0)
     }
 
     private fun setListeners() {

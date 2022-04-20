@@ -172,6 +172,11 @@ data class OrderVariants(
 )
 
 @Serializable
-data class AcceptOrderResponse(
+data class OrderReplyResponse(
     val message: String? = null
+)
+
+@Serializable
+data class DeclineOrderBody(
+    val reason: String
 )

@@ -35,11 +35,17 @@ class MainActivity : BaseActivity(), OnFetchingData {
         setObservers()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getOrders()
+    }
+
     private fun setListeners() {
         binding.logout.setOnClickListener { viewModel.onLogoutClicked() }
         binding.tvNewCounter.setOnClickListener { openOrdersList(NEW_STATUS) }
         binding.tvAcceptedCounter.setOnClickListener { openOrdersList(ACCEPTED_STATUS) }
         binding.tvReadyCounter.setOnClickListener { openOrdersList(READY_STATUS) }
+        binding.pullToRefresh.setOnRefreshListener { viewModel.getOrders() }
     }
 
     private fun openOrdersList(status: Int) {
@@ -52,22 +58,26 @@ class MainActivity : BaseActivity(), OnFetchingData {
             binding.tvNoNewOrdersFound.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             binding.rvNewOrders.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding.rvNewOrders.adapter = NewOrdersAdapter(it.toMutableList(), onRequestClicked)
+            binding.pullToRefresh.isRefreshing = false
         })
         viewModel.acceptedOrdersLiveData.observe(this, Observer {
             binding.tvNoAcceptedOrdersFound.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             binding.rvAcceptedOrders.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding.rvAcceptedOrders.adapter = RespondedOrdersAdapter(it.toMutableList(), onRequestClicked)
+            binding.pullToRefresh.isRefreshing = false
         })
         viewModel.readyOrdersLiveData.observe(this, Observer {
             binding.tvNoReadyOrdersFound.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             binding.rvReadyOrders.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding.rvAcceptedOrders.adapter = RespondedOrdersAdapter(it.toMutableList(), onRequestClicked)
+            binding.pullToRefresh.isRefreshing = false
         })
         viewModel.overviewCountsLiveData.observe(this, Observer { counts ->
             val zeroCount = "0"
             binding.tvNewCounter.text = counts?.filter { it.status == NEW }?.getOrNull(0)?.total ?: zeroCount
             binding.tvAcceptedCounter.text = counts?.filter { it.status == ACCEPTED }?.getOrNull(0)?.total ?: zeroCount
             binding.tvReadyCounter.text = counts?.filter { it.status == READY }?.getOrNull(0)?.total ?: zeroCount
+            binding.pullToRefresh.isRefreshing = false
         })
     }
 }

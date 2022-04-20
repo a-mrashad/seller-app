@@ -15,11 +15,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val readyOrdersLiveData = MutableLiveData<List<Order>>()
     val overviewCountsLiveData = MutableLiveData<List<OrdersOverviewCounts>?>()
 
-    init {
-        getOrders()
-    }
-
-    private fun getOrders() = launchViewModelScope {
+    fun getOrders() = launchViewModelScope {
         isScreenLoading.value = true
         readyOrdersLiveData.value = repository.getOrders(READY).body()?.data
         acceptedOrdersLiveData.value = repository.getOrders(ACCEPTED).body()?.data
@@ -40,5 +36,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         const val ACCEPTED_STATUS = 65
         const val READY = "READY"
         const val READY_STATUS = 70
+        const val NEW_ACCEPTANCE_STATUS = 2
+        const val ACCEPTED_ACCEPTANCE_STATUS = 3
     }
 }
