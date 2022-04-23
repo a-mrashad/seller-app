@@ -21,7 +21,7 @@ class OrderOptionsAdapter(private val items: MutableList<OrderOptions>) : Recycl
 
         fun bind(orderOptions: OrderOptions) {
             binding.apply {
-                tvOptionName.text = orderOptions.itemOption?.enName
+                tvOptionName.text = orderOptions.itemOption?.enName ?: orderOptions.name
                 tvOptionSize.text = orderOptions.enName
             }
         }

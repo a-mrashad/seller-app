@@ -12,17 +12,20 @@ interface OrdersApiService {
     suspend fun getOrdersOverviewCounts(): Response<List<OrdersOverviewCounts>>
 
     @GET("orders/{id}")
-    suspend fun getOrderDetails(@Path("id") id: String): Response<OrderDetailResponse>
+    suspend fun getOrderDetails(@Path("id") id: Long): Response<OrderDetailResponse>
+
+    @GET("subscriptions/{id}")
+    suspend fun getSubscriptionDetails(@Path("id") id: Long): Response<SubscriptionsDetailsResponse>
 
     @GET("orders/list")
     suspend fun getOrdersList(@Query("status") status: Int): Response<OrderResponse>
 
     @POST("orders/{id}/accept")
-    suspend fun acceptOrder(@Path("id") id: String): Response<OrderReplyResponse>
+    suspend fun acceptOrder(@Path("id") id: Long): Response<OrderReplyResponse>
 
     @POST("orders/{id}/decline")
-    suspend fun declineOrder(@Path("id") id: String, @Body body: DeclineOrderBody): Response<OrderReplyResponse>
+    suspend fun declineOrder(@Path("id") id: Long, @Body body: DeclineOrderBody): Response<OrderReplyResponse>
 
     @POST("orders/{id}/ready-for-pickup")
-    suspend fun setOrderAsReadyForPick(@Path("id") id: String): Response<OrderReplyResponse>
+    suspend fun setOrderAsReadyForPick(@Path("id") id: Long): Response<OrderReplyResponse>
 }

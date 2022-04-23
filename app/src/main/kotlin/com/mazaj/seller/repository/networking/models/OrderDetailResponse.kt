@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 
 @Serializable
 data class OrderDetailResponse(
-    val id: String,
+    val id: Long,
     val status: Int,
     @SerialName("status_label")
     val statusLabel: String? = null,
@@ -19,25 +19,25 @@ data class OrderDetailResponse(
     // val compensations: List<String>? = null,
     // val refunds: List<String>? = null,
     @SerialName("sub_total_without_delivery")
-    val subTotalWithoutDelivery: String? = null,
+    val subTotalWithoutDelivery: Double? = null,
     @SerialName("total_price")
-    val totalPrice: String? = null,
+    val totalPrice: Double? = null,
     @SerialName("order_number")
     val orderNumber: String? = null,
     @SerialName("delivery_earn")
     val deliveryEarn: Int? = null,
     @SerialName("delivery_fees_after_discount")
-    val deliveryFeesAfterDiscount: String? = null,
+    val deliveryFeesAfterDiscount: Double? = null,
     @SerialName("delivery_vat")
-    val deliveryVat: Int? = null,
+    val deliveryVat: Double? = null,
     @SerialName("delivery_vat_value")
-    val deliveryVatValue: String? = null,
+    val deliveryVatValue: Double? = null,
     @SerialName("total_items_vat")
-    val totalItemsVat: Int? = null,
+    val totalItemsVat: Double? = null,
     @SerialName("total_items_vat_value")
-    val totalItemsVatValue: String? = null,
+    val totalItemsVatValue: Double? = null,
     @SerialName("total_vat")
-    val totalVat: String? = null,
+    val totalVat: Double? = null,
     val tracking: Tracking? = null,
     @SerialName("can_refund")
     val canRefund: Boolean? = null,
@@ -56,7 +56,7 @@ data class OrderDetailResponse(
     @Serializable(with = DateTimeSerializer::class)
     val updatedAt: DateTime,
     @SerialName("customer_id")
-    val customerId: Int? = null,
+    val customerId: Long? = null,
     val customer: Customer? = null,
     val delivery: OrderDelivery? = null,
     val branch: Branch? = null,
@@ -76,12 +76,12 @@ data class OrderDetailResponse(
     @SerialName("can_update_delivery_time")
     val canUpdateDeliveryTime: Boolean? = null,
     @SerialName("coupon_id")
-    val couponId: String? = null
+    val couponId: Long? = null
 )
 
 @Serializable
 data class OrderDelivery(
-    val id: String,
+    val id: Long,
     val address: String,
     val longitude: Double,
     val latitude: Double
@@ -89,7 +89,7 @@ data class OrderDelivery(
 
 @Serializable
 data class OrderLogs(
-    val id: String,
+    val id: Long,
     val status: Int,
     @SerialName("status_label")
     val statusLabel: String? = null,
@@ -118,7 +118,7 @@ data class Tracking(
 
 @Serializable
 data class Customer(
-    val id: Int? = null,
+    val id: Long? = null,
     val name: String? = null,
     val mobile: Int? = null,
     @SerialName("note_to_driver")
@@ -127,28 +127,28 @@ data class Customer(
 
 @Serializable
 data class Branch(
-    val id: String? = null,
+    val id: Long? = null,
     @SerialName("en_name")
     val enName: String? = null,
     @SerialName("ar_name")
     val arName: String? = null,
     @SerialName("phone_number")
-    val phoneNumber: String? = null,
+    val phoneNumber: Long? = null,
     val address: String? = null,
     val latitude: Double? = null,
     val longitude: Double? = null,
     @SerialName("city_id")
-    val cityId: Int? = null,
+    val cityId: Long? = null,
     val city: City? = null,
     @SerialName("seller_id")
-    val sellerId: Int? = null,
+    val sellerId: Long? = null,
     val seller: Seller? = null,
     val email: String? = null
 )
 
 @Serializable
 data class City(
-    val id: Int? = null,
+    val id: Long? = null,
     @SerialName("en_name")
     val enName: String? = null,
     @SerialName("ar_name")
@@ -161,12 +161,12 @@ data class City(
     @Serializable(with = DateTimeSerializer::class)
     val createdAt: DateTime,
     @SerialName("country_id")
-    val countryId: Int? = null
+    val countryId: Long? = null
 )
 
 @Serializable
 data class Seller(
-    val id: Int? = null,
+    val id: Long? = null,
     @SerialName("en_name")
     val enName: String? = null,
     @SerialName("ar_name")
@@ -180,19 +180,19 @@ data class Seller(
     @SerialName("commercial_name_ar")
     val commercialNameAr: String? = null,
     @SerialName("city_id")
-    val cityId: String? = null,
+    val cityId: Long? = null,
     val website: String? = null,
     @SerialName("legal_email")
     val legalEmail: String? = null,
     @SerialName("phone_number")
-    val phoneNumber: String? = null,
+    val phoneNumber: Long? = null,
     @SerialName("head_office_address")
     val headOfficeAddress: String? = null,
     val email: String? = null,
     @SerialName("beneficiary_name")
     val beneficiaryName: String? = null,
     @SerialName("bank_id")
-    val bankId: String? = null,
+    val bankId: Long? = null,
     @SerialName("time_of_money_transfer")
     val timeOfMoneyTransfer: Int? = null,
     val iban: String? = null,

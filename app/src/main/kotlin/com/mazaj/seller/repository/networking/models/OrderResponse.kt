@@ -12,9 +12,12 @@ data class OrderResponse(
 
 @Serializable
 data class Order(
-    val id: String,
+    val id: Long,
     @SerialName("order_number")
     val orderNumber: String,
+    val type: Int = 0,
+    @SerialName("type_label")
+    val typeLabel: String? = null,
     @SerialName("pickup_at")
     @Serializable(with = DateTimeSerializer::class)
     val pickupAt: DateTime? = null,
@@ -41,16 +44,16 @@ data class Order(
 
 @Serializable
 data class OrderItem(
-    val id: String,
+    val id: Long,
     @SerialName("item_id")
-    val itemId: String,
+    val itemId: Long,
     @SerialName("price_per_item")
-    val pricePerItem: String? = null,
+    val pricePerItem: Double? = null,
     @SerialName("en_unit_name")
     val enUnitName: String? = null,
     @SerialName("ar_unit_name")
     val arUnitName: String? = null,
-    val quantity: Int? = null,
+    val quantity: Long? = null,
     val total: Float? = null,
     @SerialName("additional_information")
     val additionalInformation: OrderAdditionalInformation? = null,
@@ -63,7 +66,7 @@ data class OrderItem(
 
 @Serializable
 data class OrderAdditionalInformation(
-    val id: String,
+    val id: Long,
     @SerialName("en_name")
     val enName: String? = null,
     @SerialName("ar_name")
@@ -85,9 +88,9 @@ data class OrderAdditionalInformation(
     @SerialName("price_type_label")
     val priceTypeLabel: String? = null,
     @SerialName("section_id")
-    val sectionId: String? = null,
+    val sectionId: Long? = null,
     @SerialName("seller_id")
-    val sellerId: String? = null,
+    val sellerId: Long? = null,
     val status: Int? = null,
     @SerialName("status_label")
     val statusLabel: String? = null,
@@ -98,20 +101,20 @@ data class OrderAdditionalInformation(
 
 @Serializable
 data class OrderPrice(
-    val id: String,
+    val id: Long,
     @SerialName("unit_name_en")
     val unitNameEn: String? = null,
     @SerialName("unit_name_ar")
     val unitNameAr: String? = null,
-    val price: String? = null,
+    val price: Double? = null,
     @SerialName("of_serves")
-    val ofServes: String? = null,
+    val ofServes: Long? = null,
     @SerialName("allow_to_choose")
-    val allowToChoose: String? = null,
+    val allowToChoose: Long? = null,
     @SerialName("unit_id")
-    val unitId: String? = null,
+    val unitId: Long? = null,
     @SerialName("item_id")
-    val itemId: String? = null,
+    val itemId: Long? = null,
     @SerialName("created_at")
     @Serializable(with = DateTimeSerializer::class)
     val createdAt: DateTime? = null
@@ -119,14 +122,15 @@ data class OrderPrice(
 
 @Serializable
 data class OrderAddOns(
-    val id: String? = null,
-    val price: String,
+    val id: Long? = null,
+    val name: String? = null,
+    val price: Double? = null,
     @SerialName("en_name")
     val enName: String? = null,
     @SerialName("ar_name")
     val arName: String? = null,
     @SerialName("item_id")
-    val itemId: String? = null,
+    val itemId: Long? = null,
     @SerialName("created_at")
     @Serializable(with = DateTimeSerializer::class)
     val createdAt: DateTime? = null
@@ -134,14 +138,15 @@ data class OrderAddOns(
 
 @Serializable
 data class OrderOptions(
-    val price: String? = null,
-    val id: String? = null,
+    val price: Double? = null,
+    val id: Long? = null,
+    val name: String? = null,
     @SerialName("en_name")
     val enName: String? = null,
     @SerialName("ar_name")
     val arName: String? = null,
     @SerialName("item_option_id")
-    val itemOptionId: String? = null,
+    val itemOptionId: Long? = null,
     @SerialName("created_at")
     @Serializable(with = DateTimeSerializer::class)
     val createdAt: DateTime? = null,
@@ -151,13 +156,13 @@ data class OrderOptions(
 
 @Serializable
 data class OrderItemOption(
-    val id: String,
+    val id: Long,
     @SerialName("en_name")
     val enName: String? = null,
     @SerialName("ar_name")
     val arName: String? = null,
     @SerialName("item_id")
-    val itemId: String? = null,
+    val itemId: Long? = null,
     @SerialName("created_at")
     @Serializable(with = DateTimeSerializer::class)
     val createdAt: DateTime? = null
@@ -165,8 +170,8 @@ data class OrderItemOption(
 
 @Serializable
 data class OrderVariants(
-    val id: String? = null,
-    val quantity: String? = null,
+    val id: Long? = null,
+    val quantity: Long? = null,
     @SerialName("en_name")
     val name: String? = null
 )

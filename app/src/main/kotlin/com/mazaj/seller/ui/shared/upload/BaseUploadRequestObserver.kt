@@ -40,7 +40,7 @@ interface BaseUploadRequestObserver : RequestObserverDelegate {
 
         val error = (exception as? UploadError)?.serverResponse?.bodyString
         val errorBody: ErrorBody? = try {
-            error?.let { jsonDefaultConfig().parse(ErrorBody.serializer(), it) }
+            error?.let { jsonDefaultConfig().decodeFromString(ErrorBody.serializer(), it) }
         } catch (serializationException: SerializationException) {
             ErrorBody()
         }

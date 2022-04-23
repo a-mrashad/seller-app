@@ -25,7 +25,9 @@ import com.mazaj.seller.ui.shared.network.OnFetchingData
 class MainActivity : BaseActivity(), OnFetchingData {
     override val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val onRequestClicked: (String) -> (Unit) = { startActivity(Intent(this, OrderDetailsActivity::class.java).apply { putExtra("id", it) }) }
+    private val onRequestClicked: (Long, String) -> (Unit) = { value, key -> startActivity(Intent(this, OrderDetailsActivity::class.java).apply {
+        putExtra(key, value) })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +76,9 @@ class MainActivity : BaseActivity(), OnFetchingData {
         })
         viewModel.overviewCountsLiveData.observe(this, Observer { counts ->
             val zeroCount = "0"
-            binding.tvNewCounter.text = counts?.filter { it.status == NEW }?.getOrNull(0)?.total ?: zeroCount
-            binding.tvAcceptedCounter.text = counts?.filter { it.status == ACCEPTED }?.getOrNull(0)?.total ?: zeroCount
-            binding.tvReadyCounter.text = counts?.filter { it.status == READY }?.getOrNull(0)?.total ?: zeroCount
+            binding.tvNewCounter.text = counts?.filter { it.status == NEW }?.getOrNull(0)?.total?.toString() ?: zeroCount
+            binding.tvAcceptedCounter.text = counts?.filter { it.status == ACCEPTED }?.getOrNull(0)?.total?.toString() ?: zeroCount
+            binding.tvReadyCounter.text = counts?.filter { it.status == READY }?.getOrNull(0)?.total?.toString() ?: zeroCount
             binding.pullToRefresh.isRefreshing = false
         })
     }

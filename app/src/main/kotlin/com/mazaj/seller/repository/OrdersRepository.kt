@@ -14,13 +14,15 @@ interface OrdersRepository {
 
     suspend fun getOrdersOverviewCounts(): Response<List<OrdersOverviewCounts>> = orderApiService.getOrdersOverviewCounts()
 
-    suspend fun getOrderDetails(orderId: String) = orderApiService.getOrderDetails(orderId)
+    suspend fun getOrderDetails(orderId: Long) = orderApiService.getOrderDetails(orderId)
+
+    suspend fun getSubscriptionDetails(subId: Long) = orderApiService.getSubscriptionDetails(subId)
 
     suspend fun getOrdersList(status: Int) = orderApiService.getOrdersList(status)
 
-    suspend fun acceptOrder(orderId: String) = orderApiService.acceptOrder(orderId)
+    suspend fun acceptOrder(orderId: Long) = orderApiService.acceptOrder(orderId)
 
-    suspend fun declineOrder(orderId: String) = orderApiService.declineOrder(orderId, DeclineOrderBody("reason"))
+    suspend fun declineOrder(orderId: Long) = orderApiService.declineOrder(orderId, DeclineOrderBody("reason"))
 
-    suspend fun setOrderAsReadyForPick(orderId: String) = orderApiService.setOrderAsReadyForPick(orderId)
+    suspend fun setOrderAsReadyForPick(orderId: Long) = orderApiService.setOrderAsReadyForPick(orderId)
 }

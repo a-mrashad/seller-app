@@ -6,11 +6,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.mazaj.seller.extensions.orFalse
 import com.mazaj.seller.extensions.orTrue
-import com.mazaj.seller.repository.networking.models.User
-import com.mazaj.seller.utils.jsonDefaultConfig
 import java.util.*
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.stringify
 
 const val FILE_NAME = "Example Application"
 
@@ -35,10 +31,6 @@ object AppPreferences {
         get() = Key.CURRENT_LANGUAGE.getString() ?: Locale.getDefault().toString()
         set(value) = Key.CURRENT_LANGUAGE.setString(value)
 
-    var user: User?
-        get() = Key.USER.getUser()
-        set(value) = Key.USER.setUser(value)
-
     var token: String?
         get() = Key.TOKEN.getString().orEmpty()
         set(value) = Key.TOKEN.setString(value)
@@ -48,21 +40,19 @@ object AppPreferences {
         set(value) = Key.REFRESH_TOKEN.setString(value)
 
     private enum class Key {
-        NETWORK_AVAILABLE, TOKEN, REFRESH_TOKEN, CURRENT_LANGUAGE, USER, IS_FIRST_TIME;
+        NETWORK_AVAILABLE, TOKEN, REFRESH_TOKEN, CURRENT_LANGUAGE, IS_FIRST_TIME;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
         fun getFloat(): Float? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getFloat(name, 0f) else null
         fun getInt(): Int? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getInt(name, 0) else null
         fun getLong(default: Long = 0): Long? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getLong(name, default) else null
         fun getString(): String? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getString(name, "") else null
-        fun getUser(): User? = getString()?.let { jsonDefaultConfig().fromJson(jsonDefaultConfig().parseJson(it)) }
 
         fun setBoolean(value: Boolean?) = value?.let { sharedPreferences!!.edit { putBoolean(name, value) } } ?: remove()
         fun setFloat(value: Float?) = value?.let { sharedPreferences!!.edit { putFloat(name, value) } } ?: remove()
         fun setInt(value: Int?) = value?.let { sharedPreferences!!.edit { putInt(name, value) } } ?: remove()
         fun setLong(value: Long?) = value?.let { sharedPreferences!!.edit { putLong(name, value) } } ?: remove()
         fun setString(value: String?) = value?.let { sharedPreferences!!.edit { putString(name, value) } } ?: remove()
-        fun setUser(value: User?) = value?.let { setString(Json.stringify(value)) } ?: remove()
 
         fun exists(): Boolean = sharedPreferences!!.contains(name)
         fun remove() = sharedPreferences!!.edit { remove(name) }

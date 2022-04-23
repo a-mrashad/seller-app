@@ -10,7 +10,6 @@ import com.mazaj.seller.repository.networking.models.ErrorBody
 import java.util.concurrent.TimeUnit
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -28,13 +27,13 @@ object RetrofitClient {
     private val parsingErrors: (String?) -> (Any) = { error: String? ->
         try {
             val json = jsonDefaultConfig()
-            json.parse(ErrorBody.serializer(), error!!)
+            json.decodeFromString(ErrorBody.serializer(), error!!)
         } catch (serializationException: SerializationException) {
             ErrorBody()
         }
     }
 
-    private fun jsonDefaultConfig() = Json(JsonConfiguration.Stable.copy(ignoreUnknownKeys = true, isLenient = true))
+    private fun jsonDefaultConfig() = Json { ignoreUnknownKeys = true }
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()

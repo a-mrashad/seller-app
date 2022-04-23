@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mazaj.seller.R
 import com.mazaj.seller.databinding.ItemNewRequestBinding
 import com.mazaj.seller.repository.networking.models.Order
+import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity.Companion.ID_KEY
+import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity.Companion.SUBSCRIPTION_ID_KEY
 
 class NewOrdersAdapter(
     private val items: MutableList<Order>,
-    private val onClick: (String) -> Unit,
+    private val onClick: (Long, String) -> Unit,
     private val isFullScreen: Boolean = false
 ) : RecyclerView.Adapter<NewOrdersAdapter.NewOrderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -29,7 +31,9 @@ class NewOrdersAdapter(
                 params.width = ViewGroup.LayoutParams.MATCH_PARENT
                 binding.root.layoutParams = params
             }
-            binding.root.setOnClickListener { onClick(order.id) }
+            binding.root.setOnClickListener {
+                if (order.type == 1) onClick(order.id, ID_KEY) else onClick(order.id, SUBSCRIPTION_ID_KEY)
+            }
             binding.apply {
                 tvOrderId.text = "#${order.orderNumber}"
                 tvItemsCount.text = "${order.itemsCount} items"

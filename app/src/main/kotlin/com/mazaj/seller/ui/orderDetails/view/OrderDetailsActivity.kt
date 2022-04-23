@@ -13,6 +13,8 @@ import com.mazaj.seller.base.BaseActivity
 import com.mazaj.seller.databinding.ActivityOrderDetailsBinding
 import com.mazaj.seller.repository.networking.models.OrderDetailResponse
 import com.mazaj.seller.repository.networking.models.OrderItem
+import com.mazaj.seller.repository.networking.models.SubscriptionOrder
+import com.mazaj.seller.repository.networking.models.SubscriptionsDetailsResponse
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW_ACCEPTANCE_STATUS
 import com.mazaj.seller.ui.orderDetails.viewModel.OrderDetailsViewModel
 import com.mazaj.seller.ui.shared.network.OnFormSubmitted
@@ -28,7 +30,8 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
         setListeners()
         setObservers()
         setupOnFormSubmitted()
-        viewModel.getOrderDetail(intent.extras!!.getString("id", "0"))
+        intent.extras!!.getLong(SUBSCRIPTION_ID_KEY, -1).apply { if (this != -1L) viewModel.getSubscriptionDetails(this) }
+        intent.extras!!.getLong(ID_KEY, -1).apply { viewModel.getOrderDetail(this) }
     }
 
     private fun setListeners() = binding.apply {
@@ -39,7 +42,41 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
 
     private fun setObservers() {
         viewModel.orderDetailsLiveData.observe(this, Observer { setOrderData(it) })
+        viewModel.subscriptionOrderDetailsLiveData.observe(this, Observer { setSubscriptionData(it) })
         viewModel.onOrderAccepted.observe(this, Observer { finish() })
+    }
+
+    private fun setSubscriptionData(order: SubscriptionsDetailsResponse?) {
+        binding.apply {
+            // tvOrderNumber.text = order?.orderNumber
+            tvOrderType.text = order?.typeLabel
+            // val orderPickupDate = order?.pickupAt?.minus(DateTime.now().millis)?.millis?.div(MINUTE)
+//            val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
+//            tvOrderDate.text =
+//                StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
+//                    .append(getString(R.string.minute))
+//                    .append(" | ")
+//                    .append(order?.pickupAt?.toString("hh:mma"))
+//                    .toString()
+//            if (order?.pickupAt?.minus(DateTime.now().millis)?.millis ?: 0 < MINUTE.toLong()) {
+//                tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
+//                tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
+//            }
+            val totalCountText = "${order?.items?.size} ${getString(R.string.items)}"
+            tvItemsCount.text = totalCountText
+            tvTotalPrice.text = "${order?.totalPrice} ${getString(R.string.currency)}"
+            // tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
+            tvTotalCount.text = totalCountText
+        }
+        order?.items?.let { handleSubscriptionOrderItems(it.toMutableList()) }
+        // handleOrderButton(order.acceptanceStatus!!)
+    }
+
+    private fun handleSubscriptionOrderItems(subscriptionOrder: MutableList<SubscriptionOrder>) {
+        binding.rvOrderDetails.apply {
+            layoutManager = LinearLayoutManager(this@OrderDetailsActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = SubscriptionOrderItemsAdapter(subscriptionOrder)
+        }
     }
 
     private fun setOrderData(order: OrderDetailResponse) {
@@ -87,4 +124,9 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
     private fun getActionButtonColor(status: Int): Int = if (status == NEW_ACCEPTANCE_STATUS) R.color.green else R.color.sky_blue
 
     private fun getActionButtonText(status: Int): Int = if (status == NEW_ACCEPTANCE_STATUS) R.string.accept_let_do_it else R.string.ready_label
+
+    companion object {
+        const val ID_KEY = "id"
+        const val SUBSCRIPTION_ID_KEY = "subscription_id"
+    }
 }

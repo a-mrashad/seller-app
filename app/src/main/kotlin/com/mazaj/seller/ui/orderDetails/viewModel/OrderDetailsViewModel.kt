@@ -5,16 +5,24 @@ import androidx.lifecycle.MutableLiveData
 import com.mazaj.seller.base.BaseViewModel
 import com.mazaj.seller.common.SingleLiveEvent
 import com.mazaj.seller.repository.networking.models.OrderDetailResponse
+import com.mazaj.seller.repository.networking.models.SubscriptionsDetailsResponse
 import com.mazaj.seller.repository.repository
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW_ACCEPTANCE_STATUS
 
 class OrderDetailsViewModel(application: Application) : BaseViewModel(application) {
     val orderDetailsLiveData = MutableLiveData<OrderDetailResponse>()
+    val subscriptionOrderDetailsLiveData = MutableLiveData<SubscriptionsDetailsResponse>()
     val onOrderAccepted = SingleLiveEvent<Void>()
 
-    fun getOrderDetail(id: String) = launchViewModelScope {
+    fun getOrderDetail(id: Long) = launchViewModelScope {
         isFormLoading.value = true
         orderDetailsLiveData.value = repository.getOrderDetails(id).body()
+        isFormLoading.value = false
+    }
+
+    fun getSubscriptionDetails(subscriptionId: Long) = launchViewModelScope {
+        isFormLoading.value = true
+        subscriptionOrderDetailsLiveData.value = repository.getSubscriptionDetails(subscriptionId).body()
         isFormLoading.value = false
     }
 

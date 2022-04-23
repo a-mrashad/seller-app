@@ -19,8 +19,8 @@ import com.mazaj.seller.ui.shared.network.OnFetchingData
 class OrdersListActivity : BaseActivity(), OnFetchingData {
     override val viewModel by lazy { ViewModelProvider(this)[OrdersListViewModel::class.java] }
     private val binding by lazy { ActivityOrdersListBinding.inflate(layoutInflater) }
-    private val onRequestClicked: (String) -> (Unit) =
-        { startActivity(Intent(this, OrderDetailsActivity::class.java).apply { putExtra("id", it) }) }
+    private val onRequestClicked: (Long, String) -> (Unit) =
+        { value, key -> startActivity(Intent(this, OrderDetailsActivity::class.java).apply { putExtra(key, value) }) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

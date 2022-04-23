@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class OrdersOverviewCounts(
-    val total: String,
+    val total: Long,
     val status: String,
     @SerialName("status_label")
     val statusLabel: String

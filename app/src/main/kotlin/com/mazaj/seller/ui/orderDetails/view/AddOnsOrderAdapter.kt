@@ -21,7 +21,7 @@ class AddOnsOrderAdapter(private val items: MutableList<OrderAddOns>) : Recycler
 
         fun bind(orderAddOns: OrderAddOns) {
             binding.apply {
-                itemAddOnsText.text = orderAddOns.enName
+                itemAddOnsText.text = orderAddOns.enName ?: orderAddOns.name
             }
         }
     }
