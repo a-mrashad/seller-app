@@ -22,7 +22,13 @@ interface OrdersRepository {
 
     suspend fun acceptOrder(orderId: Long) = orderApiService.acceptOrder(orderId)
 
-    suspend fun declineOrder(orderId: Long) = orderApiService.declineOrder(orderId, DeclineOrderBody("reason"))
+    suspend fun declineOrder(orderId: Long) = orderApiService.declineOrder(orderId, DeclineOrderBody("order_reason"))
+
+    suspend fun acceptSubscription(orderId: Long) = orderApiService.acceptSubscriptions(orderId)
+
+    suspend fun declineSubscription(orderId: Long) = orderApiService.declineSubscriptions(orderId, DeclineOrderBody("subscription_reason"))
 
     suspend fun setOrderAsReadyForPick(orderId: Long) = orderApiService.setOrderAsReadyForPick(orderId)
+
+    suspend fun setSubscriptionReadyForPickup(orderId: Long) = orderApiService.setSubscriptionReadyForPickup(orderId)
 }

@@ -32,11 +32,13 @@ class NewOrdersAdapter(
                 binding.root.layoutParams = params
             }
             binding.root.setOnClickListener {
-                if (order.type == 1) onClick(order.id, ID_KEY) else onClick(order.id, SUBSCRIPTION_ID_KEY)
+                if (order.type == 1) onClick(order.id, ID_KEY) else onClick(order.orderId!!, SUBSCRIPTION_ID_KEY)
             }
             binding.apply {
                 tvOrderId.text = "#${order.orderNumber}"
                 tvItemsCount.text = "${order.itemsCount} items"
+                tvOrderTypeOneTime.visibility = if (order.type == 1) View.VISIBLE else View.GONE
+                tvOrderTypeSubscription.visibility = if (order.type == 2) View.VISIBLE else View.GONE
             }
         }
     }

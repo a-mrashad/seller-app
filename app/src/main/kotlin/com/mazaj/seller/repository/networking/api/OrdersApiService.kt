@@ -23,9 +23,18 @@ interface OrdersApiService {
     @POST("orders/{id}/accept")
     suspend fun acceptOrder(@Path("id") id: Long): Response<OrderReplyResponse>
 
+    @POST("subscriptions/{id}/accept")
+    suspend fun acceptSubscriptions(@Path("id") id: Long): Response<OrderReplyResponse>
+
+    @POST("subscriptions/{id}/decline")
+    suspend fun declineSubscriptions(@Path("id") id: Long, @Body body: DeclineOrderBody): Response<OrderReplyResponse>
+
     @POST("orders/{id}/decline")
     suspend fun declineOrder(@Path("id") id: Long, @Body body: DeclineOrderBody): Response<OrderReplyResponse>
 
     @POST("orders/{id}/ready-for-pickup")
     suspend fun setOrderAsReadyForPick(@Path("id") id: Long): Response<OrderReplyResponse>
+
+    @POST("subscriptions/{id}/ready-for-pickup")
+    suspend fun setSubscriptionReadyForPickup(@Path("id") id: Long): Response<OrderReplyResponse>
 }

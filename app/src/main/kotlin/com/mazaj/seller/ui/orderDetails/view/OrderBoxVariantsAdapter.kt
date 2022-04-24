@@ -22,8 +22,10 @@ class OrderBoxVariantsAdapter(private val items: MutableList<OrderVariants>) : R
 
         fun bind(orderVariants: OrderVariants) {
             binding.apply {
-                itemBoxVariantQuantity.text = "${orderVariants.quantity}x"
-                itemBoxVariantName.text = orderVariants.name
+                val quantity = orderVariants.quantity ?: orderVariants.details?.quantity
+                val name = orderVariants.name ?: orderVariants.details?.name
+                itemBoxVariantQuantity.text = "${quantity}x"
+                itemBoxVariantName.text = name
             }
         }
     }

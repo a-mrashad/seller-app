@@ -15,6 +15,8 @@ data class Order(
     val id: Long,
     @SerialName("order_number")
     val orderNumber: String,
+    @SerialName("order_id")
+    val orderId: Long? = null,
     val type: Int = 0,
     @SerialName("type_label")
     val typeLabel: String? = null,
@@ -171,8 +173,16 @@ data class OrderItemOption(
 @Serializable
 data class OrderVariants(
     val id: Long? = null,
+    val details: OrderVariantDetails? = null,
     val quantity: Long? = null,
     @SerialName("en_name")
+    val name: String? = null
+)
+
+@Serializable
+data class OrderVariantDetails(
+    val id: Long,
+    val quantity: Long? = null,
     val name: String? = null
 )
 

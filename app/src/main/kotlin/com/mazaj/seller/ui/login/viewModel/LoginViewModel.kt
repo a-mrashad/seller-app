@@ -1,6 +1,7 @@
 package com.mazaj.seller.ui.login.viewModel
 
 import android.app.Application
+import android.provider.Settings
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import com.mazaj.seller.R
@@ -37,7 +38,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
             return@launchViewModelScope
         }
         isFormLoading.value = true
-        repository.authenticateUser(email!!, password!!)
+        repository.authenticateUser(email!!, password!!, Settings.Secure.getString(getApplication<Application>().contentResolver, Settings.Secure.ANDROID_ID))
         isFormLoading.value = false
         onLoginSucceededLiveEvent.call()
     }

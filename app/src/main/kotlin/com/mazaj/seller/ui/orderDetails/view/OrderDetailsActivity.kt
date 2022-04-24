@@ -31,7 +31,7 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
         setObservers()
         setupOnFormSubmitted()
         intent.extras!!.getLong(SUBSCRIPTION_ID_KEY, -1).apply { if (this != -1L) viewModel.getSubscriptionDetails(this) }
-        intent.extras!!.getLong(ID_KEY, -1).apply { viewModel.getOrderDetail(this) }
+        intent.extras!!.getLong(ID_KEY, -1).apply { if (this != -1L) viewModel.getOrderDetail(this) }
     }
 
     private fun setListeners() = binding.apply {
@@ -48,28 +48,44 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
 
     private fun setSubscriptionData(order: SubscriptionsDetailsResponse?) {
         binding.apply {
-            // tvOrderNumber.text = order?.orderNumber
+            val deliveryJob = order?.subscriptions?.filter { it.isCurrent == true }?.getOrNull(0) ?: order?.subscriptions?.getOrNull(0) ?: return
+            tvOrderNumber.text = deliveryJob.subscriptionNo
             tvOrderType.text = order?.typeLabel
-            // val orderPickupDate = order?.pickupAt?.minus(DateTime.now().millis)?.millis?.div(MINUTE)
-//            val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
-//            tvOrderDate.text =
-//                StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
-//                    .append(getString(R.string.minute))
-//                    .append(" | ")
-//                    .append(order?.pickupAt?.toString("hh:mma"))
-//                    .toString()
-//            if (order?.pickupAt?.minus(DateTime.now().millis)?.millis ?: 0 < MINUTE.toLong()) {
-//                tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
-//                tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
-//            }
+            val orderPickupDate = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(MINUTE)
+            val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
+            tvOrderDate.text =
+                StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
+                    .append(getString(R.string.minute))
+                    .append(PIPE)
+                    .append(deliveryJob.deliveryAt?.toString(DTF))
+                    .toString()
+            if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < MINUTE.toLong()) {
+                tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
+                tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
+            }
             val totalCountText = "${order?.items?.size} ${getString(R.string.items)}"
             tvItemsCount.text = totalCountText
             tvTotalPrice.text = "${order?.totalPrice} ${getString(R.string.currency)}"
-            // tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
+            tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
             tvTotalCount.text = totalCountText
         }
         order?.items?.let { handleSubscriptionOrderItems(it.toMutableList()) }
-        // handleOrderButton(order.acceptanceStatus!!)
+        handleSubscriptionButton(order)
+    }
+
+    private fun handleSubscriptionButton(order: SubscriptionsDetailsResponse?) = binding.btnAcceptOrder.apply {
+        if (order?.isAccepted != true) {
+            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.green))
+            binding.tvLetsDoIt.text = getText(R.string.accept_let_do_it)
+            binding.tvDecline.visibility = View.VISIBLE
+        } else if (order.subscriptions.any { it.isCurrent == true } && order.subscriptions.find { it.isCurrent == true }?.isMarkedReadyToPickup != true) {
+            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, getActionButtonColor(R.color.sky_blue)))
+            binding.tvLetsDoIt.text = getText(R.string.ready_label)
+            binding.tvDecline.visibility = View.GONE
+        } else {
+            visibility = View.GONE
+            binding.tvDecline.visibility = View.GONE
+        }
     }
 
     private fun handleSubscriptionOrderItems(subscriptionOrder: MutableList<SubscriptionOrder>) {
@@ -88,8 +104,8 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
             tvOrderDate.text =
                 StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
                     .append(getString(R.string.minute))
-                    .append(" | ")
-                    .append(order.pickupAt.toString("hh:mma"))
+                    .append(PIPE)
+                    .append(order.pickupAt.toString(DTF))
                     .toString()
             if (order.pickupAt.minus(DateTime.now().millis).millis < MINUTE.toLong()) {
                 tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
@@ -128,5 +144,7 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
     companion object {
         const val ID_KEY = "id"
         const val SUBSCRIPTION_ID_KEY = "subscription_id"
+        const val PIPE = " | "
+        const val DTF = "hh:mma"
     }
 }

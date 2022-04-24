@@ -28,10 +28,16 @@ class OrderDetailsViewModel(application: Application) : BaseViewModel(applicatio
 
     fun onActionButtonClicked() = launchViewModelScope {
         isFormLoading.value = true
-        if (orderDetailsLiveData.value?.acceptanceStatus == NEW_ACCEPTANCE_STATUS) {
+        if (orderDetailsLiveData.value?.acceptanceStatus == NEW_ACCEPTANCE_STATUS && orderDetailsLiveData.value?.type == 1) {
             repository.acceptOrder(orderDetailsLiveData.value?.id!!)
+        } else if (subscriptionOrderDetailsLiveData.value?.isAccepted != true && subscriptionOrderDetailsLiveData.value?.type == 2) {
+            repository.acceptSubscription(subscriptionOrderDetailsLiveData.value?.id!!)
         } else {
-            repository.setOrderAsReadyForPick(orderDetailsLiveData.value?.id!!)
+            if (orderDetailsLiveData.value?.type == 1) {
+                repository.setOrderAsReadyForPick(orderDetailsLiveData.value?.id!!)
+            } else {
+                repository.setSubscriptionReadyForPickup(subscriptionOrderDetailsLiveData.value?.id!!)
+            }
         }
         onOrderAccepted.call()
         isFormLoading.value = false
@@ -39,7 +45,11 @@ class OrderDetailsViewModel(application: Application) : BaseViewModel(applicatio
 
     fun declineOrder() = launchViewModelScope {
         isFormLoading.value = true
-        repository.declineOrder(orderDetailsLiveData.value?.id!!)
+        if (orderDetailsLiveData.value?.type == 1) {
+            repository.declineOrder(orderDetailsLiveData.value?.id!!)
+        } else {
+            repository.declineSubscription(subscriptionOrderDetailsLiveData.value?.id!!)
+        }
         onOrderAccepted.call()
         isFormLoading.value = false
     }

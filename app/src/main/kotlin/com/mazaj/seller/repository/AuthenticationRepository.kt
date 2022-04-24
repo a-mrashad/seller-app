@@ -8,8 +8,8 @@ interface AuthenticationRepository {
     var authenticationApiService: AuthenticationApiService
     val appPreferences: AppPreferences
 
-    suspend fun authenticateUser(username: String, password: String) = authenticationApiService.login(
-        LoginBody(username, password)
+    suspend fun authenticateUser(username: String, password: String, deviceId: String) = authenticationApiService.login(
+        LoginBody(username, password, deviceId)
     ).body()?.apply {
         appPreferences.token = accessToken
         appPreferences.refreshToken = refreshToken

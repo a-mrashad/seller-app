@@ -34,7 +34,7 @@ class RespondedOrdersAdapter(
                 binding.root.layoutParams = params
             }
             binding.root.setOnClickListener {
-                if (order.type == 1) onClick(order.id, ID_KEY) else onClick(order.id, SUBSCRIPTION_ID_KEY)
+                if (order.type == 1) onClick(order.id, ID_KEY) else onClick(order.orderId!!, SUBSCRIPTION_ID_KEY)
             }
             binding.apply {
                 tvOrderId.text = "#${order.orderNumber}"

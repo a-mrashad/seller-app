@@ -37,6 +37,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         const val READY = "READY"
         const val READY_STATUS = 70
         const val NEW_ACCEPTANCE_STATUS = 2
+        const val NEW_SUBSCRIPTION_STATUS = 1
+        const val ACCEPTED_SUBSCRIPTION_STATUS = 15
         const val ACCEPTED_ACCEPTANCE_STATUS = 3
     }
 }
