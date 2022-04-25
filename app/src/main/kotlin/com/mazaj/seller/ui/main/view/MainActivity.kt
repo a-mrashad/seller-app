@@ -82,4 +82,14 @@ class MainActivity : BaseActivity(), OnFetchingData {
             binding.pullToRefresh.isRefreshing = false
         })
     }
+
+    override fun onNotificationStarted() {
+        binding.customNotification.customNotification.visibility = View.VISIBLE
+        binding.scrollView.visibility = View.GONE
+    }
+
+    override fun onNotificationEnded() {
+        binding.customNotification.customNotification.visibility = View.GONE
+        binding.scrollView.visibility = View.VISIBLE
+    }
 }

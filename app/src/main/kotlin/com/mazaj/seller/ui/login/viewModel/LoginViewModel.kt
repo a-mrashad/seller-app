@@ -1,7 +1,6 @@
 package com.mazaj.seller.ui.login.viewModel
 
 import android.app.Application
-import android.provider.Settings
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import com.mazaj.seller.R
@@ -32,13 +31,14 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
 
     fun onLoginClicked() = launchViewModelScope {
         clearErrorsLiveEvent.call()
-        if (!Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches() || password?.length ?: 0 < MIN_PASSWORD_LENGTH) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.toString().trim()).matches() || password?.length ?: 0 < MIN_PASSWORD_LENGTH) {
             messageLiveData.value = ErrorMessage(messageRes = R.string.invalid_email_password)
             loginErrorsLiveEvent.call()
             return@launchViewModelScope
         }
+        val fcmToken = repository.appPreferences.fcmToken ?: return@launchViewModelScope
         isFormLoading.value = true
-        repository.authenticateUser(email!!, password!!, Settings.Secure.getString(getApplication<Application>().contentResolver, Settings.Secure.ANDROID_ID))
+        repository.authenticateUser(email!!, password!!, fcmToken)
         isFormLoading.value = false
         onLoginSucceededLiveEvent.call()
     }

@@ -11,6 +11,11 @@ data class OrderResponse(
 )
 
 @Serializable
+data class NotificationOrderResponse(
+    val content: Order
+)
+
+@Serializable
 data class Order(
     val id: Long,
     @SerialName("order_number")
@@ -41,8 +46,14 @@ data class Order(
     @SerialName("add_ons")
     val addOns: OrderAddOns? = null,
     val options: OrderOptions? = null,
-    val variants: OrderVariants? = null
-)
+    val variants: OrderVariants? = null,
+    val deliveryJobId: String? = null,
+    val status: Int? = null,
+    @SerialName("time_to_auto_decline")
+    @Serializable(with = DateTimeSerializer::class)
+    val timeToAutoDecline: DateTime? = null,
+    val dateString: String? = null
+) : java.io.Serializable
 
 @Serializable
 data class OrderItem(
@@ -64,7 +75,7 @@ data class OrderItem(
     val options: MutableList<OrderOptions>? = null,
     val variants: MutableList<OrderVariants>? = null,
     val price: OrderPrice? = null
-)
+) : java.io.Serializable
 
 @Serializable
 data class OrderAdditionalInformation(
@@ -120,7 +131,7 @@ data class OrderPrice(
     @SerialName("created_at")
     @Serializable(with = DateTimeSerializer::class)
     val createdAt: DateTime? = null
-)
+) : java.io.Serializable
 
 @Serializable
 data class OrderAddOns(
@@ -136,7 +147,7 @@ data class OrderAddOns(
     @SerialName("created_at")
     @Serializable(with = DateTimeSerializer::class)
     val createdAt: DateTime? = null
-)
+) : java.io.Serializable
 
 @Serializable
 data class OrderOptions(
@@ -154,7 +165,7 @@ data class OrderOptions(
     val createdAt: DateTime? = null,
     @SerialName("item_option")
     val itemOption: OrderItemOption? = null
-)
+) : java.io.Serializable
 
 @Serializable
 data class OrderItemOption(
@@ -168,7 +179,7 @@ data class OrderItemOption(
     @SerialName("created_at")
     @Serializable(with = DateTimeSerializer::class)
     val createdAt: DateTime? = null
-)
+) : java.io.Serializable
 
 @Serializable
 data class OrderVariants(
@@ -177,14 +188,14 @@ data class OrderVariants(
     val quantity: Long? = null,
     @SerialName("en_name")
     val name: String? = null
-)
+) : java.io.Serializable
 
 @Serializable
 data class OrderVariantDetails(
     val id: Long,
     val quantity: Long? = null,
     val name: String? = null
-)
+) : java.io.Serializable
 
 @Serializable
 data class OrderReplyResponse(

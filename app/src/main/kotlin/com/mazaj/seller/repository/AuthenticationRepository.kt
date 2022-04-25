@@ -12,8 +12,8 @@ interface AuthenticationRepository {
         LoginBody(username, password, deviceId)
     ).body()?.apply {
         appPreferences.token = accessToken
-        appPreferences.refreshToken = refreshToken
+        appPreferences.fcmToken = refreshToken
     }
 
-    fun alreadyAuthenticated() = appPreferences.let { listOf(it.token, it.refreshToken).all { value -> value?.isNotEmpty()!! } }
+    fun alreadyAuthenticated() = appPreferences.let { listOf(it.token, it.fcmToken).all { value -> value?.isNotEmpty()!! } }
 }

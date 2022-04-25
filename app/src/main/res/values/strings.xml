@@ -63,4 +63,5 @@
     <string name="minute">mins</string>
     <string name="no_items_found">No items found</string>
     <string name="variants">Variants</string>
+    <string name="view_order_details">View order details</string>
 </resources>

@@ -16,12 +16,12 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val overviewCountsLiveData = MutableLiveData<List<OrdersOverviewCounts>?>()
 
     fun getOrders() = launchViewModelScope {
-        isScreenLoading.value = true
+//        isScreenLoading.value = true
         readyOrdersLiveData.value = repository.getOrders(READY).body()?.data
         acceptedOrdersLiveData.value = repository.getOrders(ACCEPTED).body()?.data
         newOrdersLiveData.value = repository.getOrders(NEW).body()?.data
         overviewCountsLiveData.value = repository.getOrdersOverviewCounts().body()
-        isScreenLoading.value = false
+//        isScreenLoading.value = false
     }
 
     fun onLogoutClicked() {

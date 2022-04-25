@@ -1,25 +1,64 @@
 package com.mazaj.seller.services
 
+import android.content.Intent
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.mazaj.seller.Constants.NOTIFICATION_EVENT_NAME
+import com.mazaj.seller.Constants.NOTIFICATION_ORDER_KEY
+import com.mazaj.seller.repository.networking.models.Order
+import com.mazaj.seller.repository.preferences.AppPreferences
+import com.mazaj.seller.utils.AppState
 import com.mazaj.seller.utils.NotificationHelperUtils
+import org.joda.time.DateTime
 
 class CustomMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
-        // ignore for now
+        AppPreferences.fcmToken = token
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        val data = remoteMessage.data
+        val data: Map<String, String> = remoteMessage.data
         if (data.isNullOrEmpty()) {
-            val notificationParams = NotificationParams(title = remoteMessage.notification?.title, body = remoteMessage.notification?.body)
+            val notificationParams = NotificationParams(
+                title = remoteMessage.notification?.title,
+                body = remoteMessage.notification?.body
+            )
             val notificationUtil = NotificationHelperUtils(applicationContext)
             notificationUtil.buildNotificationWithIntent(notificationParams)
-        } else {
-            val notificationParams = NotificationParams(content = data["content"].orEmpty())
-            val notificationUtil = NotificationHelperUtils(applicationContext)
-            notificationUtil.buildNotificationWithIntent(notificationParams)
+            return
         }
+        if (AppState.isAppOnForeground(baseContext)) {
+            val orderId: Long? = data["id"]?.toLong()
+            val orderNumber: String? = data["order_number"]
+            val type: Int? = data["type"]?.toInt()
+            val itemsCount: Int? = data["items_count"]?.toInt()
+            // val deliveryType: Int? = data["delivery_type"]?.toInt()
+            val deliveryAt: String? = data["delivery_at"]
+            val timeToAutoDecline: String? = data["time_to_auto_decline"]
+            val order = Order(
+                id = orderId ?: 0L,
+                orderId = orderId,
+                orderNumber = orderNumber ?: "",
+                type = type ?: 0,
+                itemsCount = itemsCount ?: 0,
+                deliveryAt = DateTime.now(),
+                dateString = deliveryAt,
+                timeToAutoDecline = DateTime.parse(timeToAutoDecline)
+            )
+            showNotificationView(order)
+            return
+        }
+
+        val notificationParams = NotificationParams(content = data["content"].orEmpty())
+        val notificationUtil = NotificationHelperUtils(applicationContext)
+        notificationUtil.buildNotificationWithIntent(notificationParams)
+    }
+
+    private fun showNotificationView(orderJson: Order) {
+        val eventIntent = Intent(NOTIFICATION_EVENT_NAME).apply {
+            putExtra(NOTIFICATION_ORDER_KEY, orderJson)
+        }
+        this.sendBroadcast(eventIntent)
     }
 }
 

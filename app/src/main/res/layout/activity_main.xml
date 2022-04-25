@@ -6,195 +6,213 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primaryColor">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/logout"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvSellerStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_rounded_white"
-                android:drawablePadding="5dp"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="25dp"
-                android:paddingBottom="10dp"
-                android:textSize="20sp"
-                app:drawableStartCompat="@drawable/ic_green_baseline_circle_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Open" />
-
-            <TextView
-                android:id="@+id/tvNewOrdersTitle"
-                style="@style/h1_28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="35dp"
-                android:text="@string/new_label"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/logout" />
-
-            <TextView
-                android:id="@+id/tvNewCounter"
-                style="@style/h1_28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:drawablePadding="5dp"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvNewOrdersTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvNewOrdersTitle"
-                tools:text="0" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNewOrders"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_rounded_white"
-                android:backgroundTint="@color/egg_shell"
-                android:padding="5dp"
-                app:layout_constraintTop_toBottomOf="@id/tvNewOrdersTitle" />
-
-            <TextView
-                android:id="@+id/tvNoNewOrdersFound"
-                style="@style/h2_16"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_new_orders"
-                app:layout_constraintBottom_toBottomOf="@id/rvNewOrders"
-                app:layout_constraintEnd_toEndOf="@id/rvNewOrders"
-                app:layout_constraintStart_toStartOf="@id/rvNewOrders"
-                app:layout_constraintTop_toTopOf="@id/rvNewOrders" />
+                android:background="@color/primaryColor">
 
-            <TextView
-                android:id="@+id/tvAcceptedOrdersTitle"
-                style="@style/h1_28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="35dp"
-                android:text="@string/accepted_label"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvNewOrders" />
+                <TextView
+                    android:id="@+id/logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/logout"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvAcceptedCounter"
-                style="@style/h1_28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:drawablePadding="5dp"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvAcceptedOrdersTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvAcceptedOrdersTitle"
-                tools:text="0" />
+                <TextView
+                    android:id="@+id/tvSellerStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_rounded_white"
+                    android:drawablePadding="5dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="25dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_green_baseline_circle_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Open" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvAcceptedOrders"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_rounded_white"
-                android:backgroundTint="@color/egg_shell"
-                android:padding="5dp"
-                app:layout_constraintTop_toBottomOf="@id/tvAcceptedCounter" />
+                <TextView
+                    android:id="@+id/tvNewOrdersTitle"
+                    style="@style/h1_28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/new_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/logout" />
 
-            <TextView
-                android:id="@+id/tvNoAcceptedOrdersFound"
-                style="@style/h2_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_accepted_orders"
-                app:layout_constraintBottom_toBottomOf="@id/rvAcceptedOrders"
-                app:layout_constraintEnd_toEndOf="@id/rvAcceptedOrders"
-                app:layout_constraintStart_toStartOf="@id/rvAcceptedOrders"
-                app:layout_constraintTop_toTopOf="@id/rvAcceptedOrders" />
+                <TextView
+                    android:id="@+id/tvNewCounter"
+                    style="@style/h1_28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:drawablePadding="5dp"
+                    app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNewOrdersTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvNewOrdersTitle"
+                    tools:text="0" />
 
-            <TextView
-                android:id="@+id/tvReadyOrdersTitle"
-                style="@style/h1_28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="35dp"
-                android:text="@string/ready_label"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvAcceptedOrders" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNewOrders"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="17dp"
+                    android:background="@drawable/bg_rounded_white"
+                    android:backgroundTint="@color/egg_shell"
+                    android:padding="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvNewOrdersTitle" />
 
-            <TextView
-                android:id="@+id/tvReadyCounter"
-                style="@style/h1_28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:drawablePadding="5dp"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvReadyOrdersTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvReadyOrdersTitle"
-                tools:text="0" />
+                <TextView
+                    android:id="@+id/tvNoNewOrdersFound"
+                    style="@style/h2_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_new_orders"
+                    app:layout_constraintBottom_toBottomOf="@id/rvNewOrders"
+                    app:layout_constraintEnd_toEndOf="@id/rvNewOrders"
+                    app:layout_constraintStart_toStartOf="@id/rvNewOrders"
+                    app:layout_constraintTop_toTopOf="@id/rvNewOrders" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvReadyOrders"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="17dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_rounded_white"
-                android:backgroundTint="@color/egg_shell"
-                android:padding="5dp"
-                android:paddingBottom="5dp"
-                app:layout_constraintTop_toBottomOf="@id/tvReadyCounter" />
+                <TextView
+                    android:id="@+id/tvAcceptedOrdersTitle"
+                    style="@style/h1_28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/accepted_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rvNewOrders" />
 
-            <TextView
-                android:id="@+id/tvNoReadyOrdersFound"
-                style="@style/h2_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_ready_orders"
-                app:layout_constraintBottom_toBottomOf="@id/rvReadyOrders"
-                app:layout_constraintEnd_toEndOf="@id/rvReadyOrders"
-                app:layout_constraintStart_toStartOf="@id/rvReadyOrders"
-                app:layout_constraintTop_toTopOf="@id/rvReadyOrders" />
+                <TextView
+                    android:id="@+id/tvAcceptedCounter"
+                    style="@style/h1_28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:drawablePadding="5dp"
+                    app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tvAcceptedOrdersTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvAcceptedOrdersTitle"
+                    tools:text="0" />
 
-            <include
-                android:id="@+id/loadingBar"
-                layout="@layout/loading_bar" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAcceptedOrders"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="17dp"
+                    android:background="@drawable/bg_rounded_white"
+                    android:backgroundTint="@color/egg_shell"
+                    android:padding="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvAcceptedCounter" />
+
+                <TextView
+                    android:id="@+id/tvNoAcceptedOrdersFound"
+                    style="@style/h2_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_accepted_orders"
+                    app:layout_constraintBottom_toBottomOf="@id/rvAcceptedOrders"
+                    app:layout_constraintEnd_toEndOf="@id/rvAcceptedOrders"
+                    app:layout_constraintStart_toStartOf="@id/rvAcceptedOrders"
+                    app:layout_constraintTop_toTopOf="@id/rvAcceptedOrders" />
+
+                <TextView
+                    android:id="@+id/tvReadyOrdersTitle"
+                    style="@style/h1_28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/ready_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rvAcceptedOrders" />
+
+                <TextView
+                    android:id="@+id/tvReadyCounter"
+                    style="@style/h1_28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:drawablePadding="5dp"
+                    app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tvReadyOrdersTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvReadyOrdersTitle"
+                    tools:text="0" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvReadyOrders"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_rounded_white"
+                    android:backgroundTint="@color/egg_shell"
+                    android:padding="5dp"
+                    android:paddingBottom="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvReadyCounter" />
+
+                <TextView
+                    android:id="@+id/tvNoReadyOrdersFound"
+                    style="@style/h2_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_ready_orders"
+                    app:layout_constraintBottom_toBottomOf="@id/rvReadyOrders"
+                    app:layout_constraintEnd_toEndOf="@id/rvReadyOrders"
+                    app:layout_constraintStart_toStartOf="@id/rvReadyOrders"
+                    app:layout_constraintTop_toTopOf="@id/rvReadyOrders" />
+
+                <include
+                    android:id="@+id/loadingBar"
+                    layout="@layout/loading_bar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+        <include
+            android:id="@+id/customNotification"
+            layout="@layout/custom_notification"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
