@@ -39,7 +39,18 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.login.view.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https"
+                    android:host="stg-api.mazaj.app"
+                    android:pathPrefix="/password/reset" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.forgetPassword.view.ForgetPasswordActivity"
             android:screenOrientation="portrait"

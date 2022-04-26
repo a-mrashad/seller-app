@@ -23,10 +23,11 @@
     <string name="reset_password_subtitle">Please create a new password that is at least 8 characters long.</string>
     <string name="new_password_hint">New password</string>
     <string name="confirm_password_hint">Confirm password</string>
-    <string name="invalid_email_password">Invalid email or password less than 6</string>
+    <string name="invalid_email_password">Invalid email or password less than 8</string>
     <string name="invalid_credentials">Invalid email or password</string>
     <string name="invalid_email">Invalid email</string>
     <string name="reset_email_sent">An email with reset link was sent to your registered email address</string>
+    <string name="successful_reset">Password reset successful</string>
     <string name="check_your_email">Check your email!</string>
     <string name="sent_reset_password_email_hint">We sent an email to %s\nwith a magic link that\'ll reset your password</string>
     <string name="resend_reset_password_email_text">I didn\'t get an email</string>

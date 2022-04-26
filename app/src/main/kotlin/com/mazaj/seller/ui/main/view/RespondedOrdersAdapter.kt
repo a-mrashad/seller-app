@@ -38,7 +38,9 @@ class RespondedOrdersAdapter(
             }
             binding.apply {
                 tvOrderId.text = "#${order.orderNumber}"
-                tvPickupTime.text = "${order.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(MINUTE)}"
+                tvPickupTime.text = "${order.deliveryAt.minus(DateTime.now().millis)?.millis?.div(MINUTE)}"
+                tvOrderTypeOneTime.visibility = if (order.type == 1) View.VISIBLE else View.GONE
+                tvOrderTypeSubscription.visibility = if (order.type == 2) View.VISIBLE else View.GONE
                 tvPaymentStatus.text = order.paymentStatusLabel
                 tvItemsCount.text = "${order.itemsCount} items"
             }

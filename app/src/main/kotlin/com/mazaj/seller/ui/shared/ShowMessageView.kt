@@ -12,7 +12,8 @@ interface ShowMessageView : BaseView {
 
     fun setupShowMessageView() = viewModel.messageLiveData.observe(activity, Observer { message: Message ->
         when (message) {
-            is ErrorMessage -> activity.showError(View.VISIBLE, message.toString(activity)!!)
+            is ErrorMessage -> activity.showSnackBar(message = message.toString(activity)!!)
+            is CustomizedErrorMessage -> activity.showError(View.VISIBLE, message.toString(activity)!!)
             is SuccessMessage -> activity.showSnackBar(message = message.toString(activity)!!)
         }
     })

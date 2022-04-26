@@ -2,6 +2,7 @@ package com.mazaj.seller.ui.shared
 
 import android.content.Intent
 import android.view.View
+import com.mazaj.seller.Constants.SPACE
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseView
 import com.mazaj.seller.base.BaseViewModel
@@ -18,7 +19,6 @@ import java.util.concurrent.TimeUnit
 import org.joda.time.DateTime
 
 interface NotificationView : BaseView {
-
     val viewModel: BaseViewModel
     val customNotificationView: View?
         get() = activity.findViewById(R.id.customNotification)
@@ -43,9 +43,9 @@ interface NotificationView : BaseView {
                 tvSubscriptionType.visibility = View.GONE
             }
             val timeToFinish = order.timeToAutoDecline?.millis?.minus(DateTime.now().millis) ?: 0L
-            val date = order.dateString?.split(" ")?.getOrNull(0)
+            val date = order.dateString?.split(SPACE)?.getOrNull(0)
             tvOrderDateDay.text = date?.let { DateTime.parse(it).toString("EEEE") }
-            val timeFormatted = SimpleDateFormat("hh:mm:ss", Locale.US).parse(order.dateString?.split(" ")?.getOrNull(1) ?: "")
+            val timeFormatted = SimpleDateFormat("hh:mm:ss", Locale.US).parse(order.dateString?.split(SPACE)?.getOrNull(1) ?: "")
             val time = timeFormatted?.let { SimpleDateFormat("hh:mm a", Locale.US).format(it) }.toString()
             tvOrderDateTime.text = time
             progressCircular.progress = 0f

@@ -1,244 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/primaryColor">
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/icBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/customNotification"
+        layout="@layout/custom_notification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tvDecline"
-        style="@style/h2_16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="@string/decline"
-        android:textColor="@color/light_red"
-        app:layout_constraintBottom_toBottomOf="@+id/icBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/icBack" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryColor">
 
-    <TextView
-        android:id="@+id/tvOrderNumber"
-        style="@style/h1_25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        tools:text="#33277635"
-        app:layout_constraintStart_toStartOf="@+id/icBack"
-        app:layout_constraintTop_toBottomOf="@+id/icBack" />
-
-    <TextView
-        android:id="@+id/tvOrderType"
-        style="@style/h2_12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_rounded_white_3dp"
-        android:backgroundTint="@color/sky_blue"
-        android:padding="4dp"
-        tools:text="One Time"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/tvOrderNumber"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber" />
-
-    <TextView
-        android:id="@+id/tvOrderDate"
-        style="@style/h1_14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_rounded_white_3dp"
-        android:backgroundTint="@color/light_sky_blue"
-        android:padding="5dp"
-        tools:text="Pickup in 15 min | 10:00 AM"
-        app:layout_constraintBottom_toBottomOf="@+id/tvOrderType"
-        app:layout_constraintEnd_toStartOf="@+id/activity_order_detail_pickup"
-        app:layout_constraintStart_toEndOf="@+id/tvOrderType"
-        app:layout_constraintTop_toTopOf="@+id/tvOrderType" />
-
-    <TextView
-        android:id="@+id/activity_order_detail_pickup"
-        style="@style/h2_12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="6dp"
-        android:text="@string/pickup"
-        app:drawableStartCompat="@drawable/ic_pickup"
-        app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate"
-        app:layout_constraintEnd_toEndOf="@+id/tvDecline"
-        app:layout_constraintTop_toTopOf="@+id/tvOrderDate" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvOrderDetails"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrderType" />
-
-    <TextView
-        android:id="@+id/tvItemsCount"
-        style="@style/h2_12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/primaryColor"
-        android:padding="4dp"
-        tools:text="2 items"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/tvOrderType"
-        app:layout_constraintStart_toStartOf="@+id/tvOrderType"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrderType" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/tvTotal"
-            style="@style/h1_28"
-            android:textColor="@color/black"
+        <ImageView
+            android:id="@+id/icBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="22dp"
-            android:text="@string/total"
+            android:layout_marginTop="18dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTotalPrice"
-            style="@style/h1_28"
-            android:textColor="@color/black"
+            android:id="@+id/tvDecline"
+            style="@style/h2_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            tools:text="150 SAR"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTotal"
+            android:text="@string/decline"
+            android:textColor="@color/light_red"
+            app:layout_constraintBottom_toBottomOf="@+id/icBack"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTotal" />
+            app:layout_constraintTop_toTopOf="@+id/icBack" />
 
         <TextView
-            android:id="@+id/tvVatDetails"
-            style="@style/h2_14"
+            android:id="@+id/tvOrderNumber"
+            style="@style/h1_25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:text="VAT 15% Inclusive 20 SAR"
-            app:layout_constraintStart_toStartOf="@+id/tvTotal"
-            app:layout_constraintTop_toBottomOf="@+id/tvTotal" />
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@+id/icBack"
+            app:layout_constraintTop_toBottomOf="@+id/icBack"
+            tools:text="#33277635" />
 
         <TextView
-            android:id="@+id/tvPaymentType"
-            style="@style/h2_14"
+            android:id="@+id/tvOrderType"
+            style="@style/h2_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:drawablePadding="4dp"
-            android:text="@string/cash_on_delivery"
-            app:drawableStartCompat="@drawable/ic_cash_icon"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_rounded_white_3dp"
+            android:backgroundTint="@color/sky_blue"
+            android:padding="4dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tvOrderNumber"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber"
+            android:text="One Time" />
+
+        <TextView
+            android:id="@+id/tvSubscriptionType"
+            style="@style/h2_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_rounded_white_3dp"
+            android:backgroundTint="@color/orange"
+            android:padding="4dp"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tvOrderNumber"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber"
+            android:text="Subscription" />
+
+        <TextView
+            android:id="@+id/tvOrderDate"
+            style="@style/h1_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="160dp"
+            android:background="@drawable/bg_rounded_white_3dp"
+            android:backgroundTint="@color/light_sky_blue"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvOrderType"
+            app:layout_constraintEnd_toStartOf="@+id/activity_order_detail_pickup"
+            app:layout_constraintStart_toEndOf="@+id/tvOrderType"
+            app:layout_constraintTop_toTopOf="@+id/tvOrderType"
+            tools:text="Pickup in 15 min | 10:00 AM" />
+
+        <TextView
+            android:id="@+id/activity_order_detail_pickup"
+            style="@style/h2_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="6dp"
+            android:text="@string/pickup"
+            app:drawableStartCompat="@drawable/ic_pickup"
+            app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate"
+            app:layout_constraintEnd_toEndOf="@+id/tvDecline"
+            app:layout_constraintTop_toTopOf="@+id/tvOrderDate" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrderDetails"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/layoutAction"
-            app:layout_constraintTop_toBottomOf="@+id/tvVatDetails" />
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderType" />
+
+        <TextView
+            android:id="@+id/tvItemsCount"
+            style="@style/h2_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/primaryColor"
+            android:padding="4dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/tvOrderType"
+            app:layout_constraintStart_toStartOf="@+id/tvOrderType"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderType"
+            tools:text="2 items" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutAction"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:elevation="9dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPaymentType"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/tvPickupInLabel"
-                style="@style/h2_12"
+                android:id="@+id/tvTotal"
+                style="@style/h1_28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/pickup_in"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.42"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"
+                android:text="@string/total"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvPickupTime"
-                style="@style/h1_12"
+                android:id="@+id/tvTotalPrice"
+                style="@style/h1_28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                tools:text="15 min"
-                app:layout_constraintBottom_toBottomOf="@+id/tvPickupInLabel"
-                app:layout_constraintStart_toEndOf="@id/tvPickupInLabel"
-                app:layout_constraintTop_toTopOf="@+id/tvPickupInLabel" />
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTotal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTotal"
+                tools:text="150 SAR" />
+
+            <TextView
+                android:id="@+id/tvVatDetails"
+                style="@style/h2_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@+id/tvTotal"
+                app:layout_constraintTop_toBottomOf="@+id/tvTotal"
+                tools:text="VAT 15% Inclusive 20 SAR" />
+
+            <TextView
+                android:id="@+id/tvPaymentType"
+                style="@style/h2_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="4dp"
+                android:text="@string/cash_on_delivery"
+                app:drawableStartCompat="@drawable/ic_cash_icon"
+                app:layout_constraintBottom_toTopOf="@id/layoutAction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVatDetails" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnAcceptOrder"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_green_button"
+                android:id="@+id/layoutAction"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:elevation="9dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPickupInLabel">
+                app:layout_constraintTop_toBottomOf="@+id/tvPaymentType"
+                app:layout_constraintVertical_bias="1.0">
 
                 <TextView
-                    android:id="@+id/tvLetsDoIt"
-                    style="@style/h1_16"
+                    android:id="@+id/tvPickupInLabel"
+                    style="@style/h2_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/accept_let_do_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/pickup_in"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.42"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvTotalCount"
-                    style="@style/h2_12"
+                    android:id="@+id/tvPickupTime"
+                    style="@style/h1_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="22dp"
-                    tools:text="12 items"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvLetsDoIt"
+                    android:layout_marginStart="3dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPickupInLabel"
+                    app:layout_constraintStart_toEndOf="@id/tvPickupInLabel"
+                    app:layout_constraintTop_toTopOf="@+id/tvPickupInLabel"
+                    tools:text="15 min" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnAcceptOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_green_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvLetsDoIt" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPickupInLabel">
+
+                    <TextView
+                        android:id="@+id/tvLetsDoIt"
+                        style="@style/h1_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/accept_let_do_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvTotalCount"
+                        style="@style/h2_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="22dp"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvLetsDoIt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvLetsDoIt"
+                        tools:text="12 items" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/progress_bar"
-        android:id="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/progress_bar"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

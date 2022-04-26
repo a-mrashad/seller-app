@@ -50,7 +50,8 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
         binding.apply {
             val deliveryJob = order?.subscriptions?.filter { it.isCurrent == true }?.getOrNull(0) ?: order?.subscriptions?.getOrNull(0) ?: return
             tvOrderNumber.text = deliveryJob.subscriptionNo
-            tvOrderType.text = order?.typeLabel
+            tvOrderType.visibility = if (order?.type == 1) View.VISIBLE else View.GONE
+            tvSubscriptionType.visibility = if (order?.type == 2) View.VISIBLE else View.GONE
             val orderPickupDate = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(MINUTE)
             val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
             tvOrderDate.text =
@@ -140,6 +141,20 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
     private fun getActionButtonColor(status: Int): Int = if (status == NEW_ACCEPTANCE_STATUS) R.color.green else R.color.sky_blue
 
     private fun getActionButtonText(status: Int): Int = if (status == NEW_ACCEPTANCE_STATUS) R.string.accept_let_do_it else R.string.ready_label
+
+    override fun onNotificationStarted() {
+        binding.customNotification.customNotification.visibility = View.VISIBLE
+        binding.layout.visibility = View.GONE
+    }
+
+    override fun onNotificationEnded() {
+        binding.customNotification.customNotification.visibility = View.GONE
+        binding.layout.visibility = View.VISIBLE
+    }
+
+    override fun onBackPressed() {
+        if (binding.layout.visibility == View.VISIBLE) super.onBackPressed()
+    }
 
     companion object {
         const val ID_KEY = "id"

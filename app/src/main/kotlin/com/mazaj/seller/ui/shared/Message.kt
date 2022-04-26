@@ -12,3 +12,9 @@ sealed class Message(open val messageString: String? = null, open val messageRes
 
 data class SuccessMessage(override val messageString: String? = null, override val messageRes: Int? = null, override val value: String? = null) : Message()
 data class ErrorMessage(override val messageString: String? = null, override val messageRes: Int? = null, override val value: String? = null) : Message()
+data class CustomizedErrorMessage(
+    override val messageString: String? =
+null,
+    override val messageRes: Int? = null,
+    override val value: String? = null
+) : Message()

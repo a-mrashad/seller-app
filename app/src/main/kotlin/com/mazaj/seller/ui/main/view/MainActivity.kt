@@ -92,4 +92,8 @@ class MainActivity : BaseActivity(), OnFetchingData {
         binding.customNotification.customNotification.visibility = View.GONE
         binding.scrollView.visibility = View.VISIBLE
     }
+
+    override fun onBackPressed() {
+        if (binding.scrollView.visibility == View.VISIBLE) super.onBackPressed()
+    }
 }

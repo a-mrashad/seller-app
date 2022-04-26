@@ -52,5 +52,19 @@ class OrdersListActivity : BaseActivity(), OnFetchingData {
         })
     }
 
+    override fun onNotificationStarted() {
+        binding.customNotification.customNotification.visibility = View.VISIBLE
+        binding.layout.visibility = View.GONE
+    }
+
+    override fun onNotificationEnded() {
+        binding.customNotification.customNotification.visibility = View.GONE
+        binding.layout.visibility = View.VISIBLE
+    }
+
+    override fun onBackPressed() {
+        if (binding.layout.visibility == View.VISIBLE) super.onBackPressed()
+    }
+
     companion object { const val STATUS_KEY = "status_key" }
 }

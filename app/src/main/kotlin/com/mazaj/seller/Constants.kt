@@ -6,6 +6,8 @@ object Constants {
     const val MINUTE = 60_000
     const val PATH = "v1/seller/"
     const val DELAY_TIME_2 = 2000L
+    const val SPACE = " "
+    const val MIN_PASSWORD_LENGTH = 8
 
     const val ORDER_ID_KEY = "order_id_key"
     const val NOTIFICATION_EVENT_NAME = "NOTIFICATION_EVENT_NAME"

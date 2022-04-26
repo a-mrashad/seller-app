@@ -3,12 +3,15 @@ package com.mazaj.seller.ui.login.viewModel
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.mazaj.seller.Constants.MIN_PASSWORD_LENGTH
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseViewModel
 import com.mazaj.seller.common.SingleLiveEvent
 import com.mazaj.seller.extensions.isPresent
 import com.mazaj.seller.repository.repository
-import com.mazaj.seller.ui.shared.ErrorMessage
+import com.mazaj.seller.ui.shared.CustomizedErrorMessage
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
     var enableLoginButtonLiveData = MutableLiveData<Boolean>()
@@ -29,10 +32,27 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
 
     private fun onFieldUpdated() { enableLoginButtonLiveData.value = email.isPresent() && password.isPresent() }
 
-    fun onLoginClicked() = launchViewModelScope {
+    fun onLoginClicked() {
         clearErrorsLiveEvent.call()
+        if (repository.appPreferences.fcmToken.isNullOrEmpty()) {
+            FirebaseInstanceId.getInstance().instanceId
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        messageLiveData.value = CustomizedErrorMessage(messageRes = R.string.no_internet)
+                        return@OnCompleteListener
+                    }
+                    val token = task.result?.token
+                    repository.appPreferences.fcmToken = token
+                    login()
+                })
+        } else {
+            login()
+        }
+    }
+
+    private fun login() = launchViewModelScope {
         if (!Patterns.EMAIL_ADDRESS.matcher(email.toString().trim()).matches() || password?.length ?: 0 < MIN_PASSWORD_LENGTH) {
-            messageLiveData.value = ErrorMessage(messageRes = R.string.invalid_email_password)
+            messageLiveData.value = CustomizedErrorMessage(messageRes = R.string.invalid_email_password)
             loginErrorsLiveEvent.call()
             return@launchViewModelScope
         }
@@ -42,6 +62,4 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         isFormLoading.value = false
         onLoginSucceededLiveEvent.call()
     }
-
-    companion object { const val MIN_PASSWORD_LENGTH = 8 }
 }
