@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,7 +13,7 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,7 +53,7 @@
             tools:text="#33277635" />
 
         <TextView
-            android:id="@+id/tvOrderType"
+            android:id="@+id/tvTypeOrder"
             style="@style/h2_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,7 +67,7 @@
             android:text="One Time" />
 
         <TextView
-            android:id="@+id/tvSubscriptionType"
+            android:id="@+id/tvTypeSubscription"
             style="@style/h2_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,14 +86,14 @@
             style="@style/h1_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="160dp"
+            android:maxWidth="290dp"
             android:background="@drawable/bg_rounded_white_3dp"
             android:backgroundTint="@color/light_sky_blue"
             android:padding="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvOrderType"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTypeOrder"
             app:layout_constraintEnd_toStartOf="@+id/activity_order_detail_pickup"
-            app:layout_constraintStart_toEndOf="@+id/tvOrderType"
-            app:layout_constraintTop_toTopOf="@+id/tvOrderType"
+            app:layout_constraintStart_toEndOf="@+id/tvTypeOrder"
+            app:layout_constraintTop_toTopOf="@+id/tvTypeOrder"
             tools:text="Pickup in 15 min | 10:00 AM" />
 
         <TextView
@@ -102,9 +103,10 @@
             android:layout_height="wrap_content"
             android:drawablePadding="6dp"
             android:text="@string/pickup"
+            android:layout_marginEnd="16dp"
             app:drawableStartCompat="@drawable/ic_pickup"
             app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate"
-            app:layout_constraintEnd_toEndOf="@+id/tvDecline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvOrderDate" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -116,10 +118,10 @@
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvOrderType" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTypeOrder" />
 
         <TextView
-            android:id="@+id/tvItemsCount"
+            android:id="@+id/tvTotalItemsCount"
             style="@style/h2_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,10 +129,10 @@
             android:background="@color/primaryColor"
             android:padding="4dp"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tvOrderType"
-            app:layout_constraintStart_toStartOf="@+id/tvOrderType"
-            app:layout_constraintTop_toBottomOf="@+id/tvOrderType"
-            tools:text="2 items" />
+            app:layout_constraintEnd_toEndOf="@+id/tvTypeOrder"
+            app:layout_constraintStart_toStartOf="@+id/tvTypeOrder"
+            app:layout_constraintTop_toBottomOf="@+id/tvTypeOrder"
+            tools:text="4 items"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"

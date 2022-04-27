@@ -4,7 +4,6 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mazaj.seller.Constants.MINUTE
@@ -41,37 +40,37 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
     }
 
     private fun setObservers() {
-        viewModel.orderDetailsLiveData.observe(this, Observer { setOrderData(it) })
-        viewModel.subscriptionOrderDetailsLiveData.observe(this, Observer { setSubscriptionData(it) })
-        viewModel.onOrderAccepted.observe(this, Observer { finish() })
+        viewModel.orderDetailsLiveData.observe(this) { setOrderData(it) }
+        viewModel.subscriptionOrderDetailsLiveData.observe(this) { setSubscriptionData(it) }
+        viewModel.onOrderAccepted.observe(this) { finish() }
     }
 
-    private fun setSubscriptionData(order: SubscriptionsDetailsResponse?) {
-        binding.apply {
-            val deliveryJob = order?.subscriptions?.filter { it.isCurrent == true }?.getOrNull(0) ?: order?.subscriptions?.getOrNull(0) ?: return
-            tvOrderNumber.text = deliveryJob.subscriptionNo
-            tvOrderType.visibility = if (order?.type == 1) View.VISIBLE else View.GONE
-            tvSubscriptionType.visibility = if (order?.type == 2) View.VISIBLE else View.GONE
-            val orderPickupDate = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(MINUTE)
-            val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
-            tvOrderDate.text =
-                StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
-                    .append(getString(R.string.minute))
-                    .append(PIPE)
-                    .append(deliveryJob.deliveryAt?.toString(DTF))
-                    .toString()
-            if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < MINUTE.toLong()) {
-                tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
-                tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
-            }
-            val totalCountText = "${order?.items?.size} ${getString(R.string.items)}"
-            tvItemsCount.text = totalCountText
-            tvTotalPrice.text = "${order?.totalPrice} ${getString(R.string.currency)}"
-            tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
-            tvTotalCount.text = totalCountText
+    private fun setSubscriptionData(subscription: SubscriptionsDetailsResponse?) = binding.apply {
+        val deliveryJob = subscription?.subscriptions?.filter {
+            it.isCurrent == true
+        }?.getOrNull(0) ?: subscription?.subscriptions?.getOrNull(0) ?: return this
+        tvOrderNumber.text = deliveryJob.subscriptionNo
+        tvTypeSubscription.visibility = View.VISIBLE
+        tvPaymentType.text = subscription?.paymentStatusLabel
+        val totalCountText = "${subscription?.itemsCount} ${getString(R.string.items)}"
+        tvTotalItemsCount.text = totalCountText
+        tvTotalPrice.text = "${subscription?.totalPrice} ${getString(R.string.currency)}"
+        tvTotalCount.text = totalCountText
+        val orderPickupDate = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(MINUTE)
+        val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
+        tvOrderDate.text =
+            StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
+                .append(getString(R.string.minute))
+                .append(PIPE)
+                .append(deliveryJob.deliveryAt?.toString(DTF))
+                .toString()
+        tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
+        if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < MINUTE.toLong()) {
+            tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
+            tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
         }
-        order?.items?.let { handleSubscriptionOrderItems(it.toMutableList()) }
-        handleSubscriptionButton(order)
+        subscription?.items?.let { handleSubscriptionOrderItems(it.toMutableList()) }
+        handleSubscriptionButton(subscription)
     }
 
     private fun handleSubscriptionButton(order: SubscriptionsDetailsResponse?) = binding.btnAcceptOrder.apply {
@@ -99,9 +98,13 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
     private fun setOrderData(order: OrderDetailResponse) {
         binding.apply {
             tvOrderNumber.text = order.orderNumber
-            tvOrderType.text = order.typeLabel
+            tvTypeOrder.text = order.typeLabel
             val orderPickupDate = order.pickupAt.minus(DateTime.now().millis).millis / MINUTE
             val orderPickupRemainingMinutes = if (orderPickupDate < 0) 0 else orderPickupDate
+            tvTotalItemsCount.text = "${order.items?.size} ${getString(R.string.items)}"
+            tvTotalPrice.text = "${order.totalPrice} ${getString(R.string.currency)}"
+            tvTotalCount.text = "${order.items?.size} ${getString(R.string.items)}"
+            tvPaymentType.text = order.paymentStatusLabel
             tvOrderDate.text =
                 StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
                     .append(getString(R.string.minute))
@@ -112,12 +115,8 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
                 tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
                 tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
             }
-            val totalCountText = "${order.items?.size} ${getString(R.string.items)}"
-            tvItemsCount.text = totalCountText
-            tvTotalPrice.text = "${order.totalPrice} ${getString(R.string.currency)}"
             tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
             // TODO Handle order Vat Text
-            tvTotalCount.text = totalCountText
         }
         order.items?.let { handleOrderItems(it) }
         handleOrderButton(order.acceptanceStatus!!)

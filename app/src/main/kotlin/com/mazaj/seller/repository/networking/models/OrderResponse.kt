@@ -64,6 +64,7 @@ data class OrderItem(
     val pricePerItem: Double? = null,
     @SerialName("en_unit_name")
     val enUnitName: String? = null,
+    val note: String? = null,
     @SerialName("ar_unit_name")
     val arUnitName: String? = null,
     val quantity: Long? = null,

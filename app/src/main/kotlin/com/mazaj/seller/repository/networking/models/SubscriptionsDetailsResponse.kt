@@ -9,6 +9,7 @@ import org.joda.time.DateTime
 data class SubscriptionsDetailsResponse(
     val id: Long,
     val type: Int,
+    @SerialName("is_accepted")
     val isAccepted: Boolean? = null,
     @SerialName("type_label")
     val typeLabel: String,
@@ -16,6 +17,8 @@ data class SubscriptionsDetailsResponse(
     val itemsCount: Int = 0,
     @SerialName("total_price")
     val totalPrice: Double? = null,
+    @SerialName("payment_status_label")
+    val paymentStatusLabel: String,
     val items: List<SubscriptionOrder>,
     val subscriptions: List<SubscriptionsJobDetails>
 )

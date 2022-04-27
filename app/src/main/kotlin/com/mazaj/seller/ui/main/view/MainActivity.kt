@@ -71,7 +71,7 @@ class MainActivity : BaseActivity(), OnFetchingData {
         viewModel.readyOrdersLiveData.observe(this, Observer {
             binding.tvNoReadyOrdersFound.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             binding.rvReadyOrders.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            binding.rvAcceptedOrders.adapter = RespondedOrdersAdapter(it.toMutableList(), onRequestClicked)
+            binding.rvReadyOrders.adapter = RespondedOrdersAdapter(it.toMutableList(), onRequestClicked)
             binding.pullToRefresh.isRefreshing = false
         })
         viewModel.overviewCountsLiveData.observe(this, Observer { counts ->

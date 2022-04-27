@@ -24,7 +24,10 @@ class OrderItemsAdapter(private val items: MutableList<OrderItem>) : RecyclerVie
             binding.apply {
                 tvQuantity.text = "${order.quantity}x"
                 tvItemName.text = order.additionalInformation?.enName
-                // TODO handle order comment
+                if (order.note?.isNotEmpty() == true) {
+                    tvOrderComment.text = order.note
+                    tvOrderComment.visibility = View.VISIBLE
+                }
                 handleOrderOptions(order.options)
                 handleAddonsView(order.addOns)
                 handleVariantsView(order.variants)
