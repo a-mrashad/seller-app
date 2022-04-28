@@ -3,9 +3,11 @@ package com.mazaj.seller.ui.main.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseActivity
 import com.mazaj.seller.databinding.ActivityMainBinding
 import com.mazaj.seller.extensions.newTask
@@ -81,6 +83,11 @@ class MainActivity : BaseActivity(), OnFetchingData {
             binding.tvReadyCounter.text = counts?.filter { it.status == READY }?.getOrNull(0)?.total?.toString() ?: zeroCount
             binding.pullToRefresh.isRefreshing = false
         })
+        viewModel.branchStatusMutableLiveData.observe(this) {
+            binding.tvSellerStatus.text = if (it) "Open" else "Closed"
+            val drawable = ContextCompat.getDrawable(this, if (it) R.drawable.ic_green_baseline_circle_24 else R.drawable.ic_red_baseline_circle_24)
+            binding.tvSellerStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
+        }
     }
 
     override fun onNotificationStarted() {

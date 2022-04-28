@@ -9,7 +9,7 @@ interface OrdersApiService {
     suspend fun getOrders(@Query("status_group") status: String): Response<OrderResponse>
 
     @GET("orders/counts")
-    suspend fun getOrdersOverviewCounts(): Response<List<OrdersOverviewCounts>>
+    suspend fun getOrdersOverviewCounts(): Response<OrderOverviewCountsResponse>
 
     @GET("orders/{id}")
     suspend fun getOrderDetails(@Path("id") id: Long): Response<OrderDetailResponse>

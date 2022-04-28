@@ -14,13 +14,17 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val acceptedOrdersLiveData = MutableLiveData<List<Order>>()
     val readyOrdersLiveData = MutableLiveData<List<Order>>()
     val overviewCountsLiveData = MutableLiveData<List<OrdersOverviewCounts>?>()
+    val branchStatusMutableLiveData = MutableLiveData<Boolean>()
 
     fun getOrders() = launchViewModelScope {
         isScreenLoading.value = true
         readyOrdersLiveData.value = repository.getOrders(READY).body()?.data
         acceptedOrdersLiveData.value = repository.getOrders(ACCEPTED).body()?.data
         newOrdersLiveData.value = repository.getOrders(NEW).body()?.data
-        overviewCountsLiveData.value = repository.getOrdersOverviewCounts().body()
+        repository.getOrdersOverviewCounts().body()?.apply {
+            overviewCountsLiveData.value = data
+            branchStatusMutableLiveData.value = sellerInfo.isOpened
+        }
         isScreenLoading.value = false
     }
 

@@ -2,7 +2,7 @@ package com.mazaj.seller.repository
 
 import com.mazaj.seller.repository.networking.api.OrdersApiService
 import com.mazaj.seller.repository.networking.models.DeclineOrderBody
-import com.mazaj.seller.repository.networking.models.OrdersOverviewCounts
+import com.mazaj.seller.repository.networking.models.OrderOverviewCountsResponse
 import com.mazaj.seller.repository.preferences.AppPreferences
 import retrofit2.Response
 
@@ -12,7 +12,7 @@ interface OrdersRepository {
 
     suspend fun getOrders(status: String) = orderApiService.getOrders(status)
 
-    suspend fun getOrdersOverviewCounts(): Response<List<OrdersOverviewCounts>> = orderApiService.getOrdersOverviewCounts()
+    suspend fun getOrdersOverviewCounts(): Response<OrderOverviewCountsResponse> = orderApiService.getOrdersOverviewCounts()
 
     suspend fun getOrderDetails(orderId: Long) = orderApiService.getOrderDetails(orderId)
 
