@@ -1,5 +1,6 @@
 package com.mazaj.seller.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
@@ -8,6 +9,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseActivity
 import com.mazaj.seller.databinding.ActivityMainNavigationBinding
+import com.mazaj.seller.extensions.newTask
+import com.mazaj.seller.ui.intro.IntroActivity
 import com.mazaj.seller.ui.main.viewModel.MainViewModel
 import com.mazaj.seller.ui.shared.network.OnFetchingData
 
@@ -21,5 +24,9 @@ class MainNavigationActivity : BaseActivity(), OnFetchingData {
 
         val navController = findNavController(R.id.nav_host_fragment)
         binding.navView.setupWithNavController(navController)
+        binding.tvLogout.setOnClickListener { viewModel.onLogoutClicked() }
+        viewModel.onLogoutSucceeded.observe(this) {
+            startActivity(Intent(this, IntroActivity::class.java).newTask())
+        }
     }
 }

@@ -30,11 +30,31 @@
         style="@style/NavigationDrawerStyle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/primaryColor"
         android:layout_gravity="start"
+        android:background="@color/primaryColor"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:itemTextColor="@color/verdigris"
         app:itemBackground="@color/drawer_item"
-        app:menu="@menu/drawer_menu" />
+        app:itemTextColor="@color/verdigris"
+        app:menu="@menu/drawer_menu">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvLogout"
+                android:textColor="#FF2929"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="start"
+                android:text="Logout" />
+        </LinearLayout>
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
