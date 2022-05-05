@@ -20,13 +20,15 @@ interface OrdersRepository {
 
     suspend fun getOrdersList(status: Int) = orderApiService.getOrdersList(status)
 
+    suspend fun getSubscriptions() = orderApiService.getSubscriptionsList()
+
     suspend fun acceptOrder(orderId: Long) = orderApiService.acceptOrder(orderId)
 
-    suspend fun declineOrder(orderId: Long) = orderApiService.declineOrder(orderId, DeclineOrderBody("order_reason"))
+    suspend fun declineOrder(orderId: Long, reason: String) = orderApiService.declineOrder(orderId, DeclineOrderBody(reason))
 
     suspend fun acceptSubscription(orderId: Long) = orderApiService.acceptSubscriptions(orderId)
 
-    suspend fun declineSubscription(orderId: Long) = orderApiService.declineSubscriptions(orderId, DeclineOrderBody("subscription_reason"))
+    suspend fun declineSubscription(orderId: Long, reason: String) = orderApiService.declineSubscriptions(orderId, DeclineOrderBody(reason))
 
     suspend fun setOrderAsReadyForPick(orderId: Long) = orderApiService.setOrderAsReadyForPick(orderId)
 

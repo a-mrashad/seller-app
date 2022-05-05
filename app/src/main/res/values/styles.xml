@@ -37,6 +37,23 @@
         <item name="android:paddingBottom">15dp</item>
     </style>
 
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">70sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
+
+        <!-- item size in menu-->
+        <item name="android:listPreferredItemHeightSmall">40dp</item>
+        <item name="listPreferredItemHeightSmall">40dp</item>
+
+        <!-- item padding left in menu-->
+        <item name="android:listPreferredItemPaddingLeft">8dp</item>
+        <item name="listPreferredItemPaddingLeft">8dp</item>
+
+        <!-- item padding right in menu-->
+        <item name="android:listPreferredItemPaddingRight">8dp</item>
+        <item name="listPreferredItemPaddingRight">8dp</item>
+    </style>
+
     <style name="p14">
         <item name="android:textSize">14sp</item>
         <item name="android:letterSpacing">-0.03</item>

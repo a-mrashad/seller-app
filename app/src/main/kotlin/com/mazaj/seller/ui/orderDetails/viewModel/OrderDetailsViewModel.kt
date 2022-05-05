@@ -43,12 +43,12 @@ class OrderDetailsViewModel(application: Application) : BaseViewModel(applicatio
         isFormLoading.value = false
     }
 
-    fun declineOrder() = launchViewModelScope {
+    fun declineOrder(reason: String) = launchViewModelScope {
         isFormLoading.value = true
         if (orderDetailsLiveData.value?.type == 1) {
-            repository.declineOrder(orderDetailsLiveData.value?.id!!)
+            repository.declineOrder(orderDetailsLiveData.value?.id!!, reason)
         } else {
-            repository.declineSubscription(subscriptionOrderDetailsLiveData.value?.id!!)
+            repository.declineSubscription(subscriptionOrderDetailsLiveData.value?.id!!, reason)
         }
         onOrderAccepted.call()
         isFormLoading.value = false

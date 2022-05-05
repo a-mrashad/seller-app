@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.mazaj.seller.base.BaseViewModel
 import com.mazaj.seller.common.SingleLiveEvent
+import com.mazaj.seller.repository.networking.models.MySubscriptionData
 import com.mazaj.seller.repository.networking.models.Order
 import com.mazaj.seller.repository.networking.models.OrdersOverviewCounts
+import com.mazaj.seller.repository.networking.models.SellerInfoDetails
 import com.mazaj.seller.repository.repository
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
@@ -14,7 +16,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val acceptedOrdersLiveData = MutableLiveData<List<Order>>()
     val readyOrdersLiveData = MutableLiveData<List<Order>>()
     val overviewCountsLiveData = MutableLiveData<List<OrdersOverviewCounts>?>()
-    val branchStatusMutableLiveData = MutableLiveData<Boolean>()
+    val branchStatusMutableLiveData = MutableLiveData<SellerInfoDetails>()
+    val subscriptionsLiveData = MutableLiveData<List<MySubscriptionData>>()
 
     fun getOrders() = launchViewModelScope {
         isScreenLoading.value = true
@@ -23,8 +26,15 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         newOrdersLiveData.value = repository.getOrders(NEW).body()?.data
         repository.getOrdersOverviewCounts().body()?.apply {
             overviewCountsLiveData.value = data
-            branchStatusMutableLiveData.value = sellerInfo.isOpened
+            branchStatusMutableLiveData.value = sellerInfo
         }
+        getSubscriptions()
+        isScreenLoading.value = false
+    }
+
+    fun getSubscriptions() = launchViewModelScope {
+        isScreenLoading.value = true
+        subscriptionsLiveData.value = repository.getSubscriptions().body()?.data
         isScreenLoading.value = false
     }
 

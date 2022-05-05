@@ -102,6 +102,7 @@ dependencies {
 
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // Glide

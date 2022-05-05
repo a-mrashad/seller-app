@@ -21,7 +21,7 @@ import com.mazaj.seller.extensions.newTask
 import com.mazaj.seller.extensions.toRGB
 import com.mazaj.seller.repository.preferences.AppPreferences
 import com.mazaj.seller.services.NotificationParams
-import com.mazaj.seller.ui.main.view.MainActivity
+import com.mazaj.seller.ui.main.MainNavigationActivity
 import kotlin.time.seconds
 
 class NotificationHelperUtils(context: Context?) : ContextWrapper(context) {
@@ -82,7 +82,7 @@ class NotificationHelperUtils(context: Context?) : ContextWrapper(context) {
 
     private fun buildIntents(params: NotificationParams): Array<Intent?> {
         params.content
-        val intentList = mutableListOf(Intent(applicationContext, MainActivity::class.java).newTask())
+        val intentList = mutableListOf(Intent(applicationContext, MainNavigationActivity::class.java).newTask())
         return intentList.toTypedArray()
     }
 

@@ -12,9 +12,11 @@ interface OnFetchingData : BaseView {
 
     fun setupOnFetchingData() = viewModel.isScreenLoading.observe(activity, Observer { if (it) showProgressBar() else hideProgressBar() })
 
-    fun showProgressBar() = activity.apply {
-        progressBarView()?.visibility = View.VISIBLE
-        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    fun showProgressBar() {
+        activity.apply {
+            progressBarView()?.visibility = View.VISIBLE
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
     }
 
     fun hideProgressBar() = activity.apply {

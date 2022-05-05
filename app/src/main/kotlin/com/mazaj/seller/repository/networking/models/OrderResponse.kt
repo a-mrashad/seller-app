@@ -1,5 +1,6 @@
 package com.mazaj.seller.repository.networking.models
 
+import com.mazaj.seller.ui.shared.pagination.ListItem
 import com.mazaj.seller.utils.DateTimeSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -7,12 +8,8 @@ import org.joda.time.DateTime
 
 @Serializable
 data class OrderResponse(
-    val data: List<Order>
-)
-
-@Serializable
-data class NotificationOrderResponse(
-    val content: Order
+    val data: List<Order>,
+    val meta: MetaData
 )
 
 @Serializable
@@ -53,7 +50,7 @@ data class Order(
     @Serializable(with = DateTimeSerializer::class)
     val timeToAutoDecline: DateTime? = null,
     val dateString: String? = null
-) : java.io.Serializable
+) : ListItem(), java.io.Serializable
 
 @Serializable
 data class OrderItem(
@@ -206,4 +203,12 @@ data class OrderReplyResponse(
 @Serializable
 data class DeclineOrderBody(
     val reason: String
+)
+
+@Serializable
+data class MetaData(
+    @SerialName("current_page")
+    val currentPage: Int,
+    @SerialName("last_page")
+    val lastPage: Int
 )

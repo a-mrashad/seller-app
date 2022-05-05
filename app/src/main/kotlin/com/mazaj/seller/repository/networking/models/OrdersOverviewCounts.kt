@@ -21,5 +21,9 @@ data class OrdersOverviewCounts(
 @Serializable
 data class SellerInfoDetails(
     @SerialName("is_opened")
-    val isOpened: Boolean? = true
+    val isOpened: Boolean? = true,
+    @SerialName("seller_name")
+    val sellerName: String? = "",
+    @SerialName("branch_name")
+    val branchName: String? = ""
 )

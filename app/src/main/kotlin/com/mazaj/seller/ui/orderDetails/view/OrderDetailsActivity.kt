@@ -10,6 +10,7 @@ import com.mazaj.seller.Constants.MINUTE
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseActivity
 import com.mazaj.seller.databinding.ActivityOrderDetailsBinding
+import com.mazaj.seller.extensions.showDeclineReasonDialog
 import com.mazaj.seller.repository.networking.models.OrderDetailResponse
 import com.mazaj.seller.repository.networking.models.OrderItem
 import com.mazaj.seller.repository.networking.models.SubscriptionOrder
@@ -36,7 +37,7 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
     private fun setListeners() = binding.apply {
         icBack.setOnClickListener { onBackPressed() }
         btnAcceptOrder.setOnClickListener { viewModel.onActionButtonClicked() }
-        tvDecline.setOnClickListener { viewModel.declineOrder() }
+        tvDecline.setOnClickListener { showDeclineReasonDialog { viewModel.declineOrder(it) } }
     }
 
     private fun setObservers() {
@@ -116,6 +117,7 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
                 tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
             }
             tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
+            tvVatDetails
             // TODO Handle order Vat Text
         }
         order.items?.let { handleOrderItems(it) }

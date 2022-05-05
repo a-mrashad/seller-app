@@ -65,4 +65,9 @@
     <string name="no_items_found">No items found</string>
     <string name="variants">Variants</string>
     <string name="view_order_details">View order details</string>
+    <string name="completed">Completed</string>
+    <string name="accepted">Accepted</string>
+    <string name="view_subscription_details">View subscription details</string>
+    <string name="decline_reason">Enter decline reason</string>
+    <string name="decline_reason_title">Decline reason</string>
 </resources>

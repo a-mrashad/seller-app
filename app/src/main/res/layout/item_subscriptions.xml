@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="3dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_rounded_white">
+
+    <TextView
+        android:id="@+id/tvOrderId"
+        style="@style/h2_16_medium"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="#555684"/>
+
+    <TextView
+        android:id="@+id/tvPickupDate"
+        style="@style/h2_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/pickup_in"
+        app:layout_constraintTop_toBottomOf="@id/tvDeliveryType"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvCompleted"
+        style="@style/h2_16_medium"
+        android:visibility="visible"
+        android:background="@drawable/bg_rounded_white"
+        android:backgroundTint="@color/light_green"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/completed"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvAccepted"
+        style="@style/h2_16_medium"
+        android:visibility="gone"
+        android:background="@drawable/bg_rounded_white"
+        android:backgroundTint="@color/light_green_alpha_10"
+        android:textColor="@color/green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/accepted"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvDeliveryType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/h2_16"
+        android:text="@string/delivery"
+        app:drawableStartCompat="@drawable/ic_delivery"
+        android:drawablePadding="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvPickupType"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/tvPickupType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/h2_16"
+        android:text="@string/pickup"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_pickup"
+        android:drawablePadding="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvOrderId"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/tvItemsCount"
+        style="@style/h2_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDeliveryType"
+        tools:text="12 Items"/>
+
+    <Button
+        android:id="@+id/btnViewSubscriptionDetails"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:fontFamily="@font/roboto_medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/verdigris"
+        android:text="@string/view_subscription_details"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvItemsCount"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,14 +22,13 @@
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor">
 
-                <TextView
-                    android:id="@+id/logout"
+                <ImageView
+                    android:id="@+id/ivMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
-                    android:text="@string/logout"
-                    android:textSize="20sp"
+                    android:src="@drawable/ic_baseline_menu_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +63,7 @@
                     android:layout_marginTop="35dp"
                     android:text="@string/new_label"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/logout" />
+                    app:layout_constraintTop_toBottomOf="@id/ivMenu" />
 
                 <TextView
                     android:id="@+id/tvNewCounter"

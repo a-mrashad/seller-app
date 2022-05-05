@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseActivity
@@ -17,7 +16,7 @@ import com.mazaj.seller.extensions.showError
 import com.mazaj.seller.extensions.showSnackBar
 import com.mazaj.seller.ui.forgetPassword.view.ForgetPasswordActivity
 import com.mazaj.seller.ui.login.viewModel.LoginViewModel
-import com.mazaj.seller.ui.main.view.MainActivity
+import com.mazaj.seller.ui.main.MainNavigationActivity
 import com.mazaj.seller.ui.resetPassword.view.ResetPasswordActivity
 import com.mazaj.seller.ui.shared.network.OnFormSubmitted
 
@@ -54,15 +53,15 @@ class LoginActivity : BaseActivity(), OnFormSubmitted {
     }
 
     private fun setObservers() {
-        viewModel.enableLoginButtonLiveData.observe(this, Observer { binding.btnNext.isEnabled = it })
-        viewModel.onLoginSucceededLiveEvent.observe(this, Observer { startActivity(Intent(this, MainActivity::class.java).newTask()) })
-        viewModel.loginErrorsLiveEvent.observe(this, Observer { listOf(binding.tiEmail, binding.tiPassword).forEach {
-            it.error = " "
-        } })
-        viewModel.clearErrorsLiveEvent.observe(this, Observer { listOf(binding.tiEmail, binding.tiPassword).forEach {
-            showError(View.GONE)
-            it.error = ""
-        } })
+        viewModel.enableLoginButtonLiveData.observe(this) { binding.btnNext.isEnabled = it }
+        viewModel.onLoginSucceededLiveEvent.observe(this) { startActivity(Intent(this, MainNavigationActivity::class.java).newTask()) }
+        viewModel.loginErrorsLiveEvent.observe(this) { listOf(binding.tiEmail, binding.tiPassword).forEach { it.error = " " } }
+        viewModel.clearErrorsLiveEvent.observe(this) {
+            listOf(binding.tiEmail, binding.tiPassword).forEach {
+                showError(View.GONE)
+                it.error = ""
+            }
+        }
     }
 
     private fun handleResetPassword() {
