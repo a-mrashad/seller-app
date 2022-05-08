@@ -38,6 +38,8 @@ data class OrderDetailResponse(
     val totalItemsVatValue: Double? = null,
     @SerialName("total_vat")
     val totalVat: Double? = null,
+    @SerialName("vat_details")
+    val vatDetails: String? = null,
     val tracking: Tracking? = null,
     @SerialName("can_refund")
     val canRefund: Boolean? = null,

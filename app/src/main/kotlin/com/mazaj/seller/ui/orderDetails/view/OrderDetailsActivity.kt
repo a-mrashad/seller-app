@@ -117,8 +117,7 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
                 tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
             }
             tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
-            tvVatDetails
-            // TODO Handle order Vat Text
+            tvVatDetails.text = order.vatDetails
         }
         order.items?.let { handleOrderItems(it) }
         handleOrderButton(order.acceptanceStatus!!)

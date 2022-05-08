@@ -30,7 +30,7 @@ class MySubscriptionsAdapter(
             binding.tvPickupDate.text = subscription.deliveryAt?.toString("hh:mm a")
             binding.tvAccepted.visibility = if (item.status == ACCEPTED_SUBSCRIPTION_STATUS) View.VISIBLE else View.GONE
             binding.tvCompleted.visibility = if (item.status == ACCEPTED_SUBSCRIPTION_STATUS) View.GONE else View.VISIBLE
-            binding.btnViewSubscriptionDetails.setOnClickListener { onRequestClicked(subscription.id, OrderDetailsActivity.SUBSCRIPTION_ID_KEY) }
+            binding.btnViewSubscriptionDetails.setOnClickListener { onRequestClicked(item.id, OrderDetailsActivity.SUBSCRIPTION_ID_KEY) }
         }
     }
 }

@@ -58,6 +58,7 @@ class SubscriptionDetailsFragment : BaseFragment(), OnFormSubmitted {
         val totalCountText = "${subscription?.itemsCount} ${getString(R.string.items)}"
         tvTotalPrice.text = "${subscription?.totalPrice} ${getString(R.string.currency)}"
         tvTotalCount.text = totalCountText
+        tvVatDetails.text = subscription?.vatDetails
         val orderPickupDate = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(Constants.MINUTE)
         val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
         tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"

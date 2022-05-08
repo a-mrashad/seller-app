@@ -96,7 +96,6 @@ class SubscriptionOrderItemsAdapter(
             binding.apply {
                 tvQuantity.text = "${order.quantity}x"
                 tvItemName.text = order.title
-                // TODO handle order comment
                 order.note?.apply {
                     tvOrderComment.text = this
                     tvOrderComment.visibility = View.VISIBLE

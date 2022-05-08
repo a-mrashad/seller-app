@@ -17,6 +17,8 @@ data class SubscriptionsDetailsResponse(
     val itemsCount: Int = 0,
     @SerialName("total_price")
     val totalPrice: Double? = null,
+    @SerialName("vat_details")
+    val vatDetails: String? = null,
     @SerialName("payment_status_label")
     val paymentStatusLabel: String,
     val items: List<SubscriptionOrder>,
