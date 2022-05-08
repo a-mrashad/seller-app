@@ -2,12 +2,14 @@ package com.mazaj.seller.ui.orderDetails.viewModel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseViewModel
 import com.mazaj.seller.common.SingleLiveEvent
 import com.mazaj.seller.repository.networking.models.OrderDetailResponse
 import com.mazaj.seller.repository.networking.models.SubscriptionsDetailsResponse
 import com.mazaj.seller.repository.repository
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW_ACCEPTANCE_STATUS
+import com.mazaj.seller.ui.shared.ErrorMessage
 
 class OrderDetailsViewModel(application: Application) : BaseViewModel(application) {
     val orderDetailsLiveData = MutableLiveData<OrderDetailResponse>()
@@ -36,7 +38,14 @@ class OrderDetailsViewModel(application: Application) : BaseViewModel(applicatio
             if (orderDetailsLiveData.value?.type == 1) {
                 repository.setOrderAsReadyForPick(orderDetailsLiveData.value?.id!!)
             } else {
-                repository.setSubscriptionReadyForPickup(subscriptionOrderDetailsLiveData.value?.id!!)
+                val orderId = subscriptionOrderDetailsLiveData.value?.subscriptions?.find { it.isCurrent == true }?.id
+                if (orderId == null) {
+                    messageLiveData.value = ErrorMessage(messageRes = R.string.something_went_wrong)
+                    isFormLoading.value = false
+                    return@launchViewModelScope
+                } else {
+                    repository.setOrderAsReadyForPick(orderId)
+                }
             }
         }
         onOrderAccepted.call()

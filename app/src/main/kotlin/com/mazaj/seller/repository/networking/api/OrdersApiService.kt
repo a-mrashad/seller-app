@@ -37,7 +37,4 @@ interface OrdersApiService {
 
     @POST("orders/{id}/ready-for-pickup")
     suspend fun setOrderAsReadyForPick(@Path("id") id: Long): Response<OrderReplyResponse>
-
-    @POST("subscriptions/{id}/ready-for-pickup")
-    suspend fun setSubscriptionReadyForPickup(@Path("id") id: Long): Response<OrderReplyResponse>
 }

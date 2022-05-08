@@ -12,12 +12,6 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <include
-        android:id="@+id/progressBar"
-        layout="@layout/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         xmlns:tools="http://schemas.android.com/tools"
@@ -113,6 +107,12 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvOrderDate" />
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"

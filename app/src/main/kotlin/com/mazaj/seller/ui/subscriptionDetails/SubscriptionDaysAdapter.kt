@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mazaj.seller.R
 import com.mazaj.seller.databinding.ItemDayBinding
+import com.mazaj.seller.extensions.getMonthName
 import com.mazaj.seller.repository.networking.models.SubscriptionsJobDetails
 
 class SubscriptionDaysAdapter(private val days: List<SubscriptionsJobDetails>) : RecyclerView.Adapter<SubscriptionDaysAdapter.DaysViewHolder>() {
@@ -21,7 +22,9 @@ class SubscriptionDaysAdapter(private val days: List<SubscriptionsJobDetails>) :
         private val binding = ItemDayBinding.bind(itemView)
 
         fun bind(job: SubscriptionsJobDetails) {
-            binding.tvDate.text = job.deliveryAt?.toString("EE MMMM dd, YYYY")
+            var date = job.deliveryAt?.toString("EE dd, YYYY")
+            date = date?.replaceFirst(" ", " ${job.deliveryAt?.monthOfYear?.getMonthName()} ")
+            binding.tvDate.text = date
             binding.ivCheck.setImageDrawable(
                 ContextCompat.getDrawable(
                     itemView.context,

@@ -43,6 +43,7 @@ data class SubscriptionsJobDetails(
     val status: Int,
     @SerialName("is_current")
     val isCurrent: Boolean? = false,
+    @SerialName("is_marked_ready_to_pickup")
     val isMarkedReadyToPickup: Boolean? = false,
     @SerialName("delivery_time")
     @Serializable(with = DateTimeSerializer::class)

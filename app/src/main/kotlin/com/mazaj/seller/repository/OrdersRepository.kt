@@ -31,6 +31,4 @@ interface OrdersRepository {
     suspend fun declineSubscription(orderId: Long, reason: String) = orderApiService.declineSubscriptions(orderId, DeclineOrderBody(reason))
 
     suspend fun setOrderAsReadyForPick(orderId: Long) = orderApiService.setOrderAsReadyForPick(orderId)
-
-    suspend fun setSubscriptionReadyForPickup(orderId: Long) = orderApiService.setSubscriptionReadyForPickup(orderId)
 }
