@@ -54,6 +54,13 @@
         <item name="listPreferredItemPaddingRight">8dp</item>
     </style>
 
+    <style name="CustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/verdigris</item>
+    </style>
+
     <style name="p14">
         <item name="android:textSize">14sp</item>
         <item name="android:letterSpacing">-0.03</item>

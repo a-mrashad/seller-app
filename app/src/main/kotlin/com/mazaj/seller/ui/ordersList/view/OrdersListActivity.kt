@@ -1,6 +1,5 @@
 package com.mazaj.seller.ui.ordersList.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -9,18 +8,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseActivity
 import com.mazaj.seller.databinding.ActivityOrdersListBinding
+import com.mazaj.seller.extensions.getRequiredIntent
 import com.mazaj.seller.ui.main.view.RespondedOrdersAdapter
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW_STATUS
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.READY_STATUS
-import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity
 import com.mazaj.seller.ui.ordersList.viewModel.OrdersListViewModel
 import com.mazaj.seller.ui.shared.network.OnFetchingData
 
 class OrdersListActivity : BaseActivity(), OnFetchingData {
     override val viewModel by lazy { ViewModelProvider(this)[OrdersListViewModel::class.java] }
     private val binding by lazy { ActivityOrdersListBinding.inflate(layoutInflater) }
-    private val onRequestClicked: (Long, String) -> (Unit) =
-        { value, key -> startActivity(Intent(this, OrderDetailsActivity::class.java).apply { putExtra(key, value) }) }
+    private val onRequestClicked: (Long, String) -> (Unit) = { value, key -> startActivity(this.getRequiredIntent(key, value)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

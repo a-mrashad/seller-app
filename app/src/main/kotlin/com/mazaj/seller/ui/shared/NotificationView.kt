@@ -1,14 +1,13 @@
 package com.mazaj.seller.ui.shared
 
-import android.content.Intent
 import android.view.View
 import com.mazaj.seller.Constants.SPACE
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseView
 import com.mazaj.seller.base.BaseViewModel
 import com.mazaj.seller.databinding.CustomNotificationBinding
+import com.mazaj.seller.extensions.getRequiredIntent
 import com.mazaj.seller.repository.networking.models.Order
-import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity
 import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity.Companion.ID_KEY
 import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity.Companion.SUBSCRIPTION_ID_KEY
 import com.view.circulartimerview.CircularTimerListener
@@ -68,9 +67,7 @@ interface NotificationView : BaseView {
 
             btnViewOrderDetail.setOnClickListener {
                 hideNotificationView()
-                activity.startActivity(Intent(activity.applicationContext, OrderDetailsActivity::class.java).apply {
-                    putExtra(if (order.type == 1) ID_KEY else SUBSCRIPTION_ID_KEY, order.id)
-                })
+                activity.startActivity(activity.applicationContext.getRequiredIntent(if (order.type == 1) ID_KEY else SUBSCRIPTION_ID_KEY, order.id))
             }
         }
     }

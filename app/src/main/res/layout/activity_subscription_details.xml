@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/customNotification"
+        layout="@layout/custom_notification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/progressBar"
+        layout="@layout/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/icBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDecline"
+            style="@style/h2_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/decline"
+            android:textColor="@color/light_red"
+            app:layout_constraintBottom_toBottomOf="@+id/icBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/icBack" />
+
+        <TextView
+            android:id="@+id/tvOrderNumber"
+            style="@style/h1_25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@+id/icBack"
+            app:layout_constraintTop_toBottomOf="@+id/icBack"
+            tools:text="#33277635" />
+
+        <TextView
+            android:id="@+id/tvTypeOrder"
+            style="@style/h2_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_rounded_white_3dp"
+            android:backgroundTint="@color/sky_blue"
+            android:padding="4dp"
+            android:text="@string/one_time"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tvOrderNumber"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber" />
+
+        <TextView
+            android:id="@+id/tvTypeSubscription"
+            style="@style/h2_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_rounded_white_3dp"
+            android:backgroundTint="@color/orange"
+            android:padding="4dp"
+            android:text="@string/subscription"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvOrderNumber"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber" />
+
+        <TextView
+            android:id="@+id/tvOrderDate"
+            style="@style/h1_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_white_3dp"
+            android:backgroundTint="@color/light_sky_blue"
+            android:maxWidth="290dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTypeOrder"
+            app:layout_constraintEnd_toStartOf="@+id/activity_order_detail_pickup"
+            app:layout_constraintStart_toEndOf="@+id/tvTypeOrder"
+            app:layout_constraintTop_toTopOf="@+id/tvTypeOrder"
+            tools:text="Pickup in 15 min | 10:00 AM" />
+
+        <TextView
+            android:id="@+id/activity_order_detail_pickup"
+            style="@style/h2_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:drawablePadding="6dp"
+            android:text="@string/pickup"
+            app:drawableStartCompat="@drawable/ic_pickup"
+            app:layout_constraintBottom_toBottomOf="@+id/tvOrderDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvOrderDate" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/viewPager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_order_detail_pickup"
+            app:tabIndicatorColor="@color/verdigris"
+            app:tabSelectedTextColor="@color/verdigris"
+            app:tabTextAppearance="@style/CustomTabText"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

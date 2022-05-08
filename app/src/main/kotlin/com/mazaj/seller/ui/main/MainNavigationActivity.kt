@@ -25,8 +25,6 @@ class MainNavigationActivity : BaseActivity(), OnFetchingData {
         val navController = findNavController(R.id.nav_host_fragment)
         binding.navView.setupWithNavController(navController)
         binding.tvLogout.setOnClickListener { viewModel.onLogoutClicked() }
-        viewModel.onLogoutSucceeded.observe(this) {
-            startActivity(Intent(this, IntroActivity::class.java).newTask())
-        }
+        viewModel.onLogoutSucceeded.observe(this) { startActivity(Intent(this, IntroActivity::class.java).newTask()) }
     }
 }

@@ -1,6 +1,7 @@
 package com.mazaj.seller.extensions
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -18,6 +19,9 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.mazaj.seller.R
+import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity
+import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity.Companion.ID_KEY
+import com.mazaj.seller.ui.subscriptionDetails.SubscriptionDetailsActivity
 import com.mazaj.seller.utils.AlertDialogContent
 
 fun AppCompatActivity.showAlertDialog(alertDialogContent: AlertDialogContent) {
@@ -70,3 +74,8 @@ fun AppCompatActivity.showDeclineReasonDialog(onSubmit: (String) -> Unit) {
 }
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View = LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
+
+fun Context.getRequiredIntent(key: String, value: Long) = Intent(
+    this,
+    if (key == ID_KEY) OrderDetailsActivity::class.java else SubscriptionDetailsActivity::class.java
+).apply { putExtra(key, value) }

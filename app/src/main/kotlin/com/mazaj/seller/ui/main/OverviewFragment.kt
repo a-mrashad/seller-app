@@ -14,21 +14,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseFragment
 import com.mazaj.seller.databinding.FragmentOverviewBinding
+import com.mazaj.seller.extensions.getRequiredIntent
 import com.mazaj.seller.extensions.newTask
 import com.mazaj.seller.ui.login.view.LoginActivity
 import com.mazaj.seller.ui.main.view.NewOrdersAdapter
 import com.mazaj.seller.ui.main.view.RespondedOrdersAdapter
 import com.mazaj.seller.ui.main.viewModel.MainViewModel
-import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity
 import com.mazaj.seller.ui.ordersList.view.OrdersListActivity
 import com.mazaj.seller.ui.shared.network.OnFetchingData
 
 class OverviewFragment : BaseFragment(), OnFetchingData {
     override val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
     private val binding by lazy { FragmentOverviewBinding.inflate(layoutInflater) }
-    private val onRequestClicked: (Long, String) -> (Unit) = { value, key -> startActivity(Intent(requireContext(), OrderDetailsActivity::class.java).apply {
-        putExtra(key, value) })
-    }
+    private val onRequestClicked: (Long, String) -> (Unit) = { value, key -> startActivity(requireContext().getRequiredIntent(key, value)) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = binding.root
 
@@ -85,7 +83,9 @@ class OverviewFragment : BaseFragment(), OnFetchingData {
         }
         viewModel.branchStatusMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvSellerStatus.text = if (it?.isOpened != false) "Open" else "Closed"
-            val drawable = ContextCompat.getDrawable(requireContext(), if (it?.isOpened != false) R.drawable.ic_green_baseline_circle_24 else R.drawable.ic_red_baseline_circle_24)
+            val drawable = ContextCompat.getDrawable(
+                requireContext(), if (it?.isOpened != false) R.drawable.ic_green_baseline_circle_24 else R.drawable.ic_red_baseline_circle_24
+            )
             binding.tvSellerStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
             (((requireActivity() as MainNavigationActivity).binding.navView.getHeaderView(0) as ViewGroup)[0] as TextView).text = it.sellerName
         }
