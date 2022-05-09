@@ -19,39 +19,47 @@ class CustomMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val data: Map<String, String> = remoteMessage.data
         if (data.isNullOrEmpty()) {
-            val notificationParams = NotificationParams(
-                title = remoteMessage.notification?.title,
-                body = remoteMessage.notification?.body
-            )
-            val notificationUtil = NotificationHelperUtils(applicationContext)
-            notificationUtil.buildNotificationWithIntent(notificationParams)
+            handleNullDataNotification(remoteMessage)
             return
         }
         if (AppState.isAppOnForeground(baseContext)) {
-            val orderId: Long? = data["id"]?.toLong()
-            val orderNumber: String? = data["order_number"]
-            val type: Int? = data["type"]?.toInt()
-            val itemsCount: Int? = data["items_count"]?.toInt()
-            // val deliveryType: Int? = data["delivery_type"]?.toInt()
-            val deliveryAt: String? = data["delivery_at"]
-            val timeToAutoDecline: String? = data["time_to_auto_decline"]
-            val order = Order(
-                id = orderId ?: 0L,
-                orderId = orderId,
-                orderNumber = orderNumber ?: "",
-                type = type ?: 0,
-                itemsCount = itemsCount ?: 0,
-                deliveryAt = DateTime.now(),
-                dateString = deliveryAt,
-                timeToAutoDecline = DateTime.parse(timeToAutoDecline)
-            )
-            showNotificationView(order)
+            handleInAppNotification(remoteMessage.data)
             return
         }
-
         val notificationParams = NotificationParams(content = data["content"].orEmpty())
         val notificationUtil = NotificationHelperUtils(applicationContext)
         notificationUtil.buildNotificationWithIntent(notificationParams)
+    }
+
+    private fun handleNullDataNotification(remoteMessage: RemoteMessage) {
+        val notificationParams = NotificationParams(
+            title = remoteMessage.notification?.title,
+            body = remoteMessage.notification?.body
+        )
+        val notificationUtil = NotificationHelperUtils(applicationContext)
+        notificationUtil.buildNotificationWithIntent(notificationParams)
+        return
+    }
+
+    private fun handleInAppNotification(data: MutableMap<String, String>) {
+        val orderId: Long? = data["id"]?.toLong()
+        val orderNumber: String? = data["order_number"]
+        val type: Int? = data["type"]?.toInt()
+        val itemsCount: Int? = data["items_count"]?.toInt()
+        // val deliveryType: Int? = data["delivery_type"]?.toInt()
+        val deliveryAt: String? = data["delivery_at"]
+        val timeToAutoDecline: String? = data["time_to_auto_decline"]
+        val order = Order(
+            id = orderId ?: 0L,
+            orderId = orderId,
+            orderNumber = orderNumber ?: "",
+            type = type ?: 0,
+            itemsCount = itemsCount ?: 0,
+            deliveryAt = DateTime.now(),
+            dateString = deliveryAt,
+            timeToAutoDecline = DateTime.parse(timeToAutoDecline)
+        )
+        showNotificationView(order)
     }
 
     private fun showNotificationView(orderJson: Order) {

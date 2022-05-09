@@ -18,9 +18,9 @@ interface OrdersRepository {
 
     suspend fun getSubscriptionDetails(subId: Long) = orderApiService.getSubscriptionDetails(subId)
 
-    suspend fun getOrdersList(status: Int) = orderApiService.getOrdersList(status)
+    suspend fun getOrdersList(status: Int, page: Int) = orderApiService.getOrdersList(status, page)
 
-    suspend fun getSubscriptions() = orderApiService.getSubscriptionsList()
+    suspend fun getSubscriptions(page: Int) = orderApiService.getSubscriptionsList(page = page)
 
     suspend fun acceptOrder(orderId: Long) = orderApiService.acceptOrder(orderId)
 

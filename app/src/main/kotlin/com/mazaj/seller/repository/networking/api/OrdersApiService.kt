@@ -18,10 +18,10 @@ interface OrdersApiService {
     suspend fun getSubscriptionDetails(@Path("id") id: Long): Response<SubscriptionsDetailsResponse>
 
     @GET("orders/list")
-    suspend fun getOrdersList(@Query("status") status: Int): Response<OrderResponse>
+    suspend fun getOrdersList(@Query("status") status: Int, @Query("page") page: Int): Response<OrderResponse>
 
     @GET("subscriptions")
-    suspend fun getSubscriptionsList(@Query("status_group") status: String = "ALL"): Response<MySubscriptionsResponse>
+    suspend fun getSubscriptionsList(@Query("status_group") status: String = "ALL", @Query("page") page: Int): Response<MySubscriptionsResponse>
 
     @POST("orders/{id}/accept")
     suspend fun acceptOrder(@Path("id") id: Long): Response<OrderReplyResponse>

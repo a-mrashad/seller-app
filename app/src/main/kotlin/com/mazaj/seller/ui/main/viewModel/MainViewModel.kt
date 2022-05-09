@@ -4,20 +4,32 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.mazaj.seller.base.BaseViewModel
 import com.mazaj.seller.common.SingleLiveEvent
-import com.mazaj.seller.repository.networking.models.MySubscriptionData
 import com.mazaj.seller.repository.networking.models.Order
 import com.mazaj.seller.repository.networking.models.OrdersOverviewCounts
 import com.mazaj.seller.repository.networking.models.SellerInfoDetails
 import com.mazaj.seller.repository.repository
+import com.mazaj.seller.ui.shared.pagination.ListItem
+import com.mazaj.seller.ui.shared.pagination.PaginationViewModel
 
-class MainViewModel(application: Application) : BaseViewModel(application) {
+class MainViewModel(application: Application) : BaseViewModel(application), PaginationViewModel {
+    override val itemList = MutableLiveData<List<ListItem>>()
+    override var lastPageSize: Int? = null
+    override var page: Int = 1
+    override val isListLoading = MutableLiveData<Boolean>()
+
     val onLogoutSucceeded = SingleLiveEvent<Void>()
     val newOrdersLiveData = MutableLiveData<List<Order>>()
     val acceptedOrdersLiveData = MutableLiveData<List<Order>>()
     val readyOrdersLiveData = MutableLiveData<List<Order>>()
     val overviewCountsLiveData = MutableLiveData<List<OrdersOverviewCounts>?>()
     val branchStatusMutableLiveData = MutableLiveData<SellerInfoDetails>()
-    val subscriptionsLiveData = MutableLiveData<List<MySubscriptionData>>()
+
+    override suspend fun fetchItems(page: Int, perPage: Int): List<ListItem> {
+        val subscriptions = mutableListOf<ListItem>()
+        val responseData = repository.getSubscriptions(page).body()?.data
+        responseData?.forEach { subscriptions.add(it) }
+        return subscriptions
+    }
 
     fun getOrders() = launchViewModelScope {
         isScreenLoading.value = true
@@ -28,13 +40,6 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
             overviewCountsLiveData.value = data
             branchStatusMutableLiveData.value = sellerInfo
         }
-        getSubscriptions()
-        isScreenLoading.value = false
-    }
-
-    fun getSubscriptions() = launchViewModelScope {
-        isScreenLoading.value = true
-        subscriptionsLiveData.value = repository.getSubscriptions().body()?.data
         isScreenLoading.value = false
     }
 

@@ -53,6 +53,10 @@ class OrderDetailsViewModel(application: Application) : BaseViewModel(applicatio
     }
 
     fun declineOrder(reason: String) = launchViewModelScope {
+        if (orderDetailsLiveData.value?.id == null && subscriptionOrderDetailsLiveData.value?.id == null) {
+            messageLiveData.value = ErrorMessage("Can't decline this order.")
+            return@launchViewModelScope
+        }
         isFormLoading.value = true
         if (orderDetailsLiveData.value?.type == 1) {
             repository.declineOrder(orderDetailsLiveData.value?.id!!, reason)

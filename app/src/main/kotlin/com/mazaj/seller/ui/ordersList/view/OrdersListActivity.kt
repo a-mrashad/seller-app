@@ -2,7 +2,6 @@ package com.mazaj.seller.ui.ordersList.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mazaj.seller.R
@@ -14,24 +13,36 @@ import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW_STATUS
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.READY_STATUS
 import com.mazaj.seller.ui.ordersList.viewModel.OrdersListViewModel
 import com.mazaj.seller.ui.shared.network.OnFetchingData
+import com.mazaj.seller.ui.shared.pagination.PaginationView
 
-class OrdersListActivity : BaseActivity(), OnFetchingData {
+class OrdersListActivity : BaseActivity(), OnFetchingData, PaginationView {
     override val viewModel by lazy { ViewModelProvider(this)[OrdersListViewModel::class.java] }
     private val binding by lazy { ActivityOrdersListBinding.inflate(layoutInflater) }
+    override val recyclerView by lazy { binding.rvItems }
     private val onRequestClicked: (Long, String) -> (Unit) = { value, key -> startActivity(this.getRequiredIntent(key, value)) }
+    private val ordersAdapter = RespondedOrdersAdapter(mutableListOf(), onRequestClicked, isFullScreen = true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupOnFetchingData()
-        binding.rvItems.layoutManager = LinearLayoutManager(this)
+        viewModel.onStatusReceived(intent.extras?.getInt(STATUS_KEY, 0) ?: 0)
+        setupPagination()
         setListeners()
         setObservers()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.getOrdersList(intent.extras?.getInt(STATUS_KEY, 0) ?: 0)
+        viewModel.loadFirstPage()
+    }
+
+    private fun setupPagination() {
+        setupRecyclerViewPagination()
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@OrdersListActivity)
+            adapter = ordersAdapter
+        }
     }
 
     private fun setListeners() {
@@ -39,15 +50,24 @@ class OrdersListActivity : BaseActivity(), OnFetchingData {
     }
 
     private fun setObservers() {
-        viewModel.ordersLiveData.observe(this, Observer {
-            binding.rvItems.adapter = RespondedOrdersAdapter(it.toMutableList(), onRequestClicked, isFullScreen = true)
-            binding.tvNoItemsFound.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
-            binding.tvTitle.text = when (intent.extras?.getInt(STATUS_KEY, 0) ?: 0) {
+        viewModel.statusLiveData.observe(this) {
+            binding.tvTitle.text = when (it) {
                 NEW_STATUS -> getString(R.string.new_label)
                 READY_STATUS -> getString(R.string.ready_label)
                 else -> getString(R.string.accepted_label)
             }
-        })
+        }
+        viewModel.itemList.observe(this) {
+            if (it.isEmpty()) {
+                binding.tvNoItemsFound.visibility = View.VISIBLE
+                ordersAdapter.updateList(it)
+                recyclerView.visibility = View.GONE
+            } else {
+                binding.tvNoItemsFound.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                ordersAdapter.updateList(it)
+            }
+        }
     }
 
     override fun onNotificationStarted() {

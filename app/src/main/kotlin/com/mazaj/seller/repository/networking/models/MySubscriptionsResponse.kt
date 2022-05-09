@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MySubscriptionsResponse(
     val data: List<MySubscriptionData>
-) : ListItem()
+)
 
 @Serializable
 data class MySubscriptionData(
@@ -18,4 +18,4 @@ data class MySubscriptionData(
     @SerialName("items_count")
     val itemsCount: Int,
     val subscriptions: List<SubscriptionsJobDetails>
-)
+) : ListItem()

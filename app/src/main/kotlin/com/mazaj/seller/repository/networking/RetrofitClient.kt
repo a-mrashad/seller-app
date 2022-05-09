@@ -14,9 +14,9 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
-private const val CONNECT_TIMEOUT = 10L
-private const val WRITE_TIMEOUT = 5L
-private const val READ_TIMEOUT = 3L
+private const val CONNECT_TIMEOUT = 15L
+private const val WRITE_TIMEOUT = 10L
+private const val READ_TIMEOUT = 10L
 
 object RetrofitClient {
     private val responseInterceptor by lazy { ResponseInterceptor(ResponseInterceptor.Logger.DEFAULT, parsingErrors) }
