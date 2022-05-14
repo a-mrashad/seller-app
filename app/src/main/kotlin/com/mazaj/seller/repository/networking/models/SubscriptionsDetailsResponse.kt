@@ -46,7 +46,7 @@ data class SubscriptionsJobDetails(
     @SerialName("is_current")
     val isCurrent: Boolean? = false,
     @SerialName("is_marked_ready_to_pickup")
-    val isMarkedReadyToPickup: Boolean? = false,
+    val isMarkedReadyToPickup: Boolean? = true,
     @SerialName("delivery_time")
     @Serializable(with = DateTimeSerializer::class)
     val deliveryAt: DateTime? = null,

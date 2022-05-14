@@ -12,10 +12,9 @@ import com.mazaj.seller.ui.main.view.RespondedOrdersAdapter
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW_STATUS
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.READY_STATUS
 import com.mazaj.seller.ui.ordersList.viewModel.OrdersListViewModel
-import com.mazaj.seller.ui.shared.network.OnFetchingData
 import com.mazaj.seller.ui.shared.pagination.PaginationView
 
-class OrdersListActivity : BaseActivity(), OnFetchingData, PaginationView {
+class OrdersListActivity : BaseActivity(), PaginationView {
     override val viewModel by lazy { ViewModelProvider(this)[OrdersListViewModel::class.java] }
     private val binding by lazy { ActivityOrdersListBinding.inflate(layoutInflater) }
     override val recyclerView by lazy { binding.rvItems }
@@ -25,7 +24,6 @@ class OrdersListActivity : BaseActivity(), OnFetchingData, PaginationView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setupOnFetchingData()
         viewModel.onStatusReceived(intent.extras?.getInt(STATUS_KEY, 0) ?: 0)
         setupPagination()
         setListeners()
@@ -47,6 +45,7 @@ class OrdersListActivity : BaseActivity(), OnFetchingData, PaginationView {
 
     private fun setListeners() {
         binding.icBack.setOnClickListener { onBackPressed() }
+        binding.pullToRefresh.setOnRefreshListener { viewModel.loadFirstPage() }
     }
 
     private fun setObservers() {
@@ -67,6 +66,10 @@ class OrdersListActivity : BaseActivity(), OnFetchingData, PaginationView {
                 recyclerView.visibility = View.VISIBLE
                 ordersAdapter.updateList(it)
             }
+            binding.pullToRefresh.isRefreshing = false
+        }
+        viewModel.isListLoading.observe(this) {
+            binding.loadingBar.loadingBar.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 

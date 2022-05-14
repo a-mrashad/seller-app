@@ -79,7 +79,7 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.green))
             binding.tvLetsDoIt.text = getText(R.string.accept_let_do_it)
             binding.tvDecline.visibility = View.VISIBLE
-        } else if (order.subscriptions.any { it.isCurrent == true } && order.subscriptions.find { it.isCurrent == true }?.isMarkedReadyToPickup != true) {
+        } else if (order.subscriptions.any { it.isCurrent == true } && order.subscriptions.find { it.isCurrent == true }?.isMarkedReadyToPickup != false) {
             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, getActionButtonColor(R.color.sky_blue)))
             binding.tvLetsDoIt.text = getText(R.string.ready_label)
             binding.tvDecline.visibility = View.GONE

@@ -70,7 +70,7 @@ class SubscriptionDetailsFragment : BaseFragment(), OnFormSubmitted {
         if (order?.isAccepted != true) {
             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.green))
             binding.tvLetsDoIt.text = getText(R.string.accept_let_do_it)
-        } else if (order.subscriptions.any { it.isCurrent == true } && order.subscriptions.find { it.isCurrent == true }?.isMarkedReadyToPickup != true) {
+        } else if (order.subscriptions.any { it.isCurrent == true } && order.subscriptions.find { it.isCurrent == true }?.isMarkedReadyToPickup != false) {
             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), getActionButtonColor(R.color.sky_blue)))
             binding.tvLetsDoIt.text = getText(R.string.ready_label)
         } else {

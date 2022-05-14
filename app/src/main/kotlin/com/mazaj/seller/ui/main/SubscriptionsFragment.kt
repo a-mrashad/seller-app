@@ -12,10 +12,9 @@ import com.mazaj.seller.base.BaseFragment
 import com.mazaj.seller.databinding.FragmentSubscriptionsBinding
 import com.mazaj.seller.extensions.getRequiredIntent
 import com.mazaj.seller.ui.main.viewModel.MainViewModel
-import com.mazaj.seller.ui.shared.network.OnFetchingData
 import com.mazaj.seller.ui.shared.pagination.PaginationView
 
-class SubscriptionsFragment : BaseFragment(), OnFetchingData, PaginationView {
+class SubscriptionsFragment : BaseFragment(), PaginationView {
     override val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
     private val binding by lazy { FragmentSubscriptionsBinding.inflate(layoutInflater) }
     override val recyclerView: RecyclerView by lazy { binding.rvItems }
@@ -26,7 +25,6 @@ class SubscriptionsFragment : BaseFragment(), OnFetchingData, PaginationView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupOnFetchingData()
         setupRecyclerViewPagination()
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -43,6 +41,7 @@ class SubscriptionsFragment : BaseFragment(), OnFetchingData, PaginationView {
 
     private fun setListeners() {
         binding.icMenu.setOnClickListener { (requireActivity() as MainNavigationActivity).binding.drawerLayout.openDrawer(GravityCompat.START) }
+        binding.pullToRefresh.setOnRefreshListener { viewModel.loadFirstPage() }
     }
 
     private fun setObservers() {
@@ -56,6 +55,10 @@ class SubscriptionsFragment : BaseFragment(), OnFetchingData, PaginationView {
                 recyclerView.visibility = View.VISIBLE
                 subscriptionsAdapter.updateList(it)
             }
+            binding.pullToRefresh.isRefreshing = false
+        }
+        viewModel.isListLoading.observe(viewLifecycleOwner) {
+            binding.loadingBar.loadingBar.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 }
