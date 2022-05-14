@@ -5,6 +5,7 @@ import com.mazaj.seller.R
 import com.mazaj.seller.databinding.ItemSubscriptionsBinding
 import com.mazaj.seller.repository.networking.models.MySubscriptionData
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.ACCEPTED_SUBSCRIPTION_STATUS
+import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW_SUBSCRIPTION_STATUS
 import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity
 import com.mazaj.seller.ui.shared.pagination.ListItem
 import com.mazaj.seller.ui.shared.pagination.PagedAdapter
@@ -20,8 +21,13 @@ class MySubscriptionsAdapter(override var itemList: List<ListItem>, private val 
             tvOrderId.text = subscription.subscriptionNo
             tvItemsCount.text = "${item.itemsCount} items"
             tvPickupDate.text = subscription.deliveryAt?.toString("hh:mm a")
-            tvAccepted.visibility = if (item.status == ACCEPTED_SUBSCRIPTION_STATUS) View.VISIBLE else View.GONE
-            tvCompleted.visibility = if (item.status == ACCEPTED_SUBSCRIPTION_STATUS) View.GONE else View.VISIBLE
+            listOf(tvCompleted, tvAccepted, tvNew).forEach { it.visibility = View.GONE }
+            //TODO: To be enhanced when backend confirms the new params
+            when (item.status) {
+                ACCEPTED_SUBSCRIPTION_STATUS -> tvAccepted.visibility = View.VISIBLE
+                NEW_SUBSCRIPTION_STATUS -> tvNew.visibility = View.VISIBLE
+                else -> tvCompleted.visibility = View.VISIBLE
+            }
             btnViewSubscriptionDetails.setOnClickListener { onRequestClicked(item.id, OrderDetailsActivity.SUBSCRIPTION_ID_KEY) }
         }
     }
