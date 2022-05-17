@@ -14,7 +14,6 @@ interface AuthenticationRepository {
         LoginBody(username, password, deviceId)
     ).body()?.apply {
         appPreferences.token = accessToken
-        appPreferences.fcmToken = refreshToken
     }
 
     suspend fun forgetPassword(email: String) = authenticationApiService.forgetPassword(ForgetPasswordBody(email))

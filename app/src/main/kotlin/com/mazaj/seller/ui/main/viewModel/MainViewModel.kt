@@ -45,6 +45,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), Pagi
 
     fun onLogoutClicked() {
         repository.appPreferences.token = null
+        repository.appPreferences.fcmToken = null
         onLogoutSucceeded.call()
     }
 

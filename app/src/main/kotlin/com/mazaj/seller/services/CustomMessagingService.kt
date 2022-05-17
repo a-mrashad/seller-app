@@ -42,6 +42,7 @@ class CustomMessagingService : FirebaseMessagingService() {
     }
 
     private fun handleInAppNotification(data: MutableMap<String, String>) {
+        if (AppPreferences.token == null) return
         val orderId: Long? = data["id"]?.toLong()
         val orderNumber: String? = data["order_number"]
         val type: Int? = data["type"]?.toInt()
