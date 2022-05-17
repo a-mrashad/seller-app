@@ -3,8 +3,7 @@ package com.mazaj.seller.ui.login.viewModel
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mazaj.seller.Constants.MIN_PASSWORD_LENGTH
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseViewModel
@@ -35,16 +34,15 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     fun onLoginClicked() {
         clearErrorsLiveEvent.call()
         if (repository.appPreferences.fcmToken.isNullOrEmpty()) {
-            FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        messageLiveData.value = CustomizedErrorMessage(messageRes = R.string.no_internet)
-                        return@OnCompleteListener
-                    }
-                    val token = task.result?.token
-                    repository.appPreferences.fcmToken = token
-                    login()
-                })
+            FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                if (!it.isSuccessful) {
+                    messageLiveData.value = CustomizedErrorMessage(messageRes = R.string.no_internet)
+                    return@addOnCompleteListener
+                }
+                val fcmToken = it.result
+                repository.appPreferences.fcmToken = fcmToken
+                login()
+            }
         } else {
             login()
         }

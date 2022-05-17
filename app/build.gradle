@@ -120,7 +120,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx:18.0.3'
     implementation 'com.google.firebase:firebase-crashlytics:17.4.1'
     implementation 'com.google.firebase:firebase-crashlytics-ndk:17.4.1'
-    implementation 'com.google.firebase:firebase-messaging:20.2.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.4'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.4'
 
     // Upload Files
     implementation "net.gotev:uploadservice:4.5.2"
