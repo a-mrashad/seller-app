@@ -1,10 +1,12 @@
 package com.mazaj.seller.services
 
 import android.content.Intent
+import android.media.MediaPlayer
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.mazaj.seller.Constants.NOTIFICATION_EVENT_NAME
 import com.mazaj.seller.Constants.NOTIFICATION_ORDER_KEY
+import com.mazaj.seller.R
 import com.mazaj.seller.repository.networking.models.Order
 import com.mazaj.seller.repository.preferences.AppPreferences
 import com.mazaj.seller.utils.AppState
@@ -17,6 +19,8 @@ class CustomMessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(applicationContext, R.raw.notification_sound)
+        mediaPlayer.start()
         val data: Map<String, String> = remoteMessage.data
         if (data.isNullOrEmpty()) {
             handleNullDataNotification(remoteMessage)
@@ -45,7 +49,8 @@ class CustomMessagingService : FirebaseMessagingService() {
         if (AppPreferences.token == null) return
         val orderId: Long? = data["id"]?.toLong()
         val orderNumber: String? = data["order_number"]
-        val type: Int? = data["type"]?.toInt()
+        //TODO: To be uncommented after API fix
+        // val type: Int? = data["type"]?.toInt()
         val itemsCount: Int? = data["items_count"]?.toInt()
         // val deliveryType: Int? = data["delivery_type"]?.toInt()
         val deliveryAt: String? = data["delivery_at"]
@@ -54,7 +59,7 @@ class CustomMessagingService : FirebaseMessagingService() {
             id = orderId ?: 0L,
             orderId = orderId,
             orderNumber = orderNumber ?: "",
-            type = type ?: 0,
+            type = 0 ?: 0,
             itemsCount = itemsCount ?: 0,
             deliveryAt = DateTime.now(),
             dateString = deliveryAt,

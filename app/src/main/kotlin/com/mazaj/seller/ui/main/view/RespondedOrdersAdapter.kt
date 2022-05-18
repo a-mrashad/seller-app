@@ -2,9 +2,9 @@ package com.mazaj.seller.ui.main.view
 
 import android.view.View
 import android.view.ViewGroup
-import com.mazaj.seller.Constants.MINUTE
 import com.mazaj.seller.R
 import com.mazaj.seller.databinding.ItemRespondedRequestBinding
+import com.mazaj.seller.extensions.toHoursAndMinutes
 import com.mazaj.seller.repository.networking.models.Order
 import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity.Companion.ID_KEY
 import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity.Companion.SUBSCRIPTION_ID_KEY
@@ -33,7 +33,7 @@ class RespondedOrdersAdapter(
                 if (order.type == 1) onClick(order.id, ID_KEY) else onClick(order.orderId!!, SUBSCRIPTION_ID_KEY)
             }
             tvOrderId.text = "#${order.orderNumber}"
-            tvPickupTime.text = "${order.deliveryAt.minus(DateTime.now().millis)?.millis?.div(MINUTE)}"
+            tvPickupTime.text = order.deliveryAt.minus(DateTime.now().millis)?.millis?.toHoursAndMinutes()
             tvOrderTypeOneTime.visibility = if (order.type == 1) View.VISIBLE else View.GONE
             tvOrderTypeSubscription.visibility = if (order.type == 2) View.VISIBLE else View.GONE
             tvPaymentStatus.text = order.paymentStatusLabel

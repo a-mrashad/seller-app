@@ -51,6 +51,25 @@
             app:layout_constraintTop_toBottomOf="@+id/icBack"
             tools:text="#33277635" />
 
+        <com.view.circulartimerview.CircularTimerView
+            android:id="@+id/timerView"
+            style="@style/h2_14"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:backgroundColor="@color/primaryColor"
+            app:backgroundWidth="3"
+            app:isClockwise="true"
+            app:layout_constraintEnd_toEndOf="@id/tvDecline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvOrderNumber"
+            app:layout_constraintBottom_toBottomOf="@id/tvOrderNumber"
+            app:layout_constraintHorizontal_bias="1"
+            app:progressBackgroundColor="@color/pearl"
+            app:progressColor="@color/green"
+            app:progressTextColor="@color/verdigris"
+            app:startingPoint="top"
+            app:textSize="14sp" />
+
         <TextView
             android:id="@+id/tvTypeOrder"
             style="@style/h2_12"

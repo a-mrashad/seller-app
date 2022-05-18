@@ -51,5 +51,8 @@ data class SubscriptionsJobDetails(
     @Serializable(with = DateTimeSerializer::class)
     val deliveryAt: DateTime? = null,
     @SerialName("is_delivered")
-    val isDelivered: Boolean = false
+    val isDelivered: Boolean = false,
+    @SerialName("time_to_auto_decline")
+    @Serializable(with = DateTimeSerializer::class)
+    val timeToAutoDecline: DateTime? = null
 )

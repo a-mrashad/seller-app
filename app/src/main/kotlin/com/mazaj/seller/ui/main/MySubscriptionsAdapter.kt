@@ -22,7 +22,7 @@ class MySubscriptionsAdapter(override var itemList: List<ListItem>, private val 
             tvItemsCount.text = "${item.itemsCount} items"
             tvPickupDate.text = subscription.deliveryAt?.toString("hh:mm a")
             listOf(tvCompleted, tvAccepted, tvNew).forEach { it.visibility = View.GONE }
-            //TODO: To be enhanced when backend confirms the new params
+            // TODO: To be enhanced when backend confirms the new params
             when (item.status) {
                 ACCEPTED_SUBSCRIPTION_STATUS -> tvAccepted.visibility = View.VISIBLE
                 NEW_SUBSCRIPTION_STATUS -> tvNew.visibility = View.VISIBLE

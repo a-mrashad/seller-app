@@ -10,10 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.updateMargins
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mazaj.seller.Constants
 import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseFragment
 import com.mazaj.seller.databinding.ActivityOrderDetailsBinding
+import com.mazaj.seller.extensions.toHoursOrMinutes
 import com.mazaj.seller.repository.networking.models.SubscriptionOrder
 import com.mazaj.seller.repository.networking.models.SubscriptionsDetailsResponse
 import com.mazaj.seller.ui.main.viewModel.MainViewModel
@@ -59,9 +59,8 @@ class SubscriptionDetailsFragment : BaseFragment(), OnFormSubmitted {
         tvTotalPrice.text = "${subscription?.totalPrice} ${getString(R.string.currency)}"
         tvTotalCount.text = totalCountText
         tvVatDetails.text = subscription?.vatDetails
-        val orderPickupDate = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(Constants.MINUTE)
-        val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
-        tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
+        val orderPickupRemainingMinutes = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
+        tvPickupTime.text = orderPickupRemainingMinutes
         subscription?.items?.let { handleSubscriptionOrderItems(it.toMutableList()) }
         handleSubscriptionButton(subscription)
     }

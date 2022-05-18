@@ -12,10 +12,14 @@ import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseActivity
 import com.mazaj.seller.databinding.ActivitySubscriptionDetailsBinding
 import com.mazaj.seller.extensions.showDeclineReasonDialog
+import com.mazaj.seller.extensions.toHoursOrMinutes
 import com.mazaj.seller.repository.networking.models.SubscriptionsDetailsResponse
 import com.mazaj.seller.ui.orderDetails.view.OrderDetailsActivity
 import com.mazaj.seller.ui.orderDetails.viewModel.OrderDetailsViewModel
 import com.mazaj.seller.ui.shared.network.OnFetchingData
+import com.view.circulartimerview.CircularTimerListener
+import com.view.circulartimerview.TimeFormatEnum
+import java.util.concurrent.TimeUnit
 import org.joda.time.DateTime
 
 class SubscriptionDetailsActivity : BaseActivity(), OnFetchingData {
@@ -47,25 +51,44 @@ class SubscriptionDetailsActivity : BaseActivity(), OnFetchingData {
         }?.getOrNull(0) ?: details?.subscriptions?.getOrNull(0) ?: return this
         tvOrderNumber.text = deliveryJob.subscriptionNo
         tvTypeSubscription.visibility = View.VISIBLE
-        val orderPickupDate = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(Constants.MINUTE)
-        val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
+        val orderPickupRemainingMinutes = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
         tvOrderDate.text =
             StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
-                .append(getString(R.string.minute))
                 .append(OrderDetailsActivity.PIPE)
                 .append(deliveryJob.deliveryAt?.toString(OrderDetailsActivity.DTF))
                 .toString()
-        if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < Constants.MINUTE.toLong()) {
+        if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < Constants.MINUTE) {
             tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@SubscriptionDetailsActivity, R.color.light_red))
             tvOrderDate.setTextColor(ContextCompat.getColor(this@SubscriptionDetailsActivity, R.color.white))
         }
         tabLayout.getTabAt(0)?.text = "No. of items ${details?.itemsCount} items"
         tabLayout.getTabAt(1)?.text = "No. of days ${details?.subscriptions?.size} days"
         handleSubscriptionButton(details)
+        handleTimer(deliveryJob.timeToAutoDecline?.millis?.minus(DateTime.now().millis) ?: 2 * Constants.MINUTE)
+    }
+
+    private fun handleTimer(timeToFinish: Long) = binding.apply {
+        timerView.progress = 0f
+        timerView.setCircularTimerListener(object : CircularTimerListener {
+            override fun updateDataOnTick(remainingTimeInMs: Long): String {
+                return String.format(
+                    "%d:%d",
+                    TimeUnit.MILLISECONDS.toMinutes(remainingTimeInMs),
+                    TimeUnit.MILLISECONDS.toSeconds(remainingTimeInMs) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTimeInMs))
+                )
+            }
+
+            override fun onTimerFinished() {
+                timerView.setText("0:00")
+            }
+        }, timeToFinish, TimeFormatEnum.MILLIS)
+
+        timerView.startTimer()
     }
 
     private fun handleSubscriptionButton(order: SubscriptionsDetailsResponse?) {
         binding.tvDecline.visibility = if (order?.isAccepted != true) View.VISIBLE else View.GONE
+        binding.timerView.visibility = if (order?.isAccepted != true) View.VISIBLE else View.GONE
     }
 
     override fun onNotificationStarted() {

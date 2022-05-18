@@ -78,7 +78,10 @@ data class OrderDetailResponse(
     @SerialName("can_update_delivery_time")
     val canUpdateDeliveryTime: Boolean? = null,
     @SerialName("coupon_id")
-    val couponId: Long? = null
+    val couponId: Long? = null,
+    @SerialName("time_to_auto_decline")
+    @Serializable(with = DateTimeSerializer::class)
+    val timeToAutoDecline: DateTime? = null
 )
 
 @Serializable

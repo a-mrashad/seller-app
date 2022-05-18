@@ -10,7 +10,6 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.media.RingtoneManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -53,7 +52,6 @@ class NotificationHelperUtils(context: Context?) : ContextWrapper(context) {
     fun buildNotificationWithIntent(notificationParams: NotificationParams) {
         val intents = buildIntents(notificationParams)
         val requestCode = System.currentTimeMillis().toInt()
-
         val notificationBuilder = NotificationCompat.Builder(this, MODULE_CHANNEL_ID)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_round))
             .setTicker(getString(R.string.app_name))
@@ -64,7 +62,6 @@ class NotificationHelperUtils(context: Context?) : ContextWrapper(context) {
             .setAutoCancel(true)
             .setContentIntent(PendingIntent.getActivities(this, requestCode, intents, PendingIntent.FLAG_IMMUTABLE))
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setPriority(PRIORITY_MAX)
             .setWhen(System.currentTimeMillis())
             .setVibrate(VIBRATION_PATTERN)

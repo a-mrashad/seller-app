@@ -11,6 +11,7 @@ import com.mazaj.seller.R
 import com.mazaj.seller.base.BaseActivity
 import com.mazaj.seller.databinding.ActivityOrderDetailsBinding
 import com.mazaj.seller.extensions.showDeclineReasonDialog
+import com.mazaj.seller.extensions.toHoursOrMinutes
 import com.mazaj.seller.repository.networking.models.OrderDetailResponse
 import com.mazaj.seller.repository.networking.models.OrderItem
 import com.mazaj.seller.repository.networking.models.SubscriptionOrder
@@ -18,6 +19,9 @@ import com.mazaj.seller.repository.networking.models.SubscriptionsDetailsRespons
 import com.mazaj.seller.ui.main.viewModel.MainViewModel.Companion.NEW_ACCEPTANCE_STATUS
 import com.mazaj.seller.ui.orderDetails.viewModel.OrderDetailsViewModel
 import com.mazaj.seller.ui.shared.network.OnFormSubmitted
+import com.view.circulartimerview.CircularTimerListener
+import com.view.circulartimerview.TimeFormatEnum
+import java.util.concurrent.TimeUnit
 import org.joda.time.DateTime
 
 class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
@@ -57,21 +61,20 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
         tvTotalItemsCount.text = totalCountText
         tvTotalPrice.text = "${subscription?.totalPrice} ${getString(R.string.currency)}"
         tvTotalCount.text = totalCountText
-        val orderPickupDate = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.div(MINUTE)
-        val orderPickupRemainingMinutes = if (orderPickupDate ?: -1 < 0) 0 else orderPickupDate
+        val orderPickupRemainingMinutes = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
         tvOrderDate.text =
             StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
-                .append(getString(R.string.minute))
                 .append(PIPE)
                 .append(deliveryJob.deliveryAt?.toString(DTF))
                 .toString()
         tvPickupTime.text = "$orderPickupRemainingMinutes ${getString(R.string.minute)}"
-        if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < MINUTE.toLong()) {
+        if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < MINUTE) {
             tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
             tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
         }
         subscription?.items?.let { handleSubscriptionOrderItems(it.toMutableList()) }
         handleSubscriptionButton(subscription)
+        handleTimer(deliveryJob.timeToAutoDecline?.millis?.minus(DateTime.now().millis) ?: 4 * MINUTE)
     }
 
     private fun handleSubscriptionButton(order: SubscriptionsDetailsResponse?) = binding.btnAcceptOrder.apply {
@@ -79,13 +82,16 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.green))
             binding.tvLetsDoIt.text = getText(R.string.accept_let_do_it)
             binding.tvDecline.visibility = View.VISIBLE
+            binding.timerView.visibility = View.VISIBLE
         } else if (order.subscriptions.any { it.isCurrent == true } && order.subscriptions.find { it.isCurrent == true }?.isMarkedReadyToPickup != false) {
             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, getActionButtonColor(R.color.sky_blue)))
             binding.tvLetsDoIt.text = getText(R.string.ready_label)
             binding.tvDecline.visibility = View.GONE
+            binding.timerView.visibility = View.GONE
         } else {
             visibility = View.GONE
             binding.tvDecline.visibility = View.GONE
+            binding.timerView.visibility = View.GONE
         }
     }
 
@@ -100,19 +106,18 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
         binding.apply {
             tvOrderNumber.text = order.orderNumber
             tvTypeOrder.text = order.typeLabel
-            val orderPickupDate = order.pickupAt.minus(DateTime.now().millis).millis / MINUTE
-            val orderPickupRemainingMinutes = if (orderPickupDate < 0) 0 else orderPickupDate
+            // val orderPickupDate = order.pickupAt.minus(DateTime.now().millis).millis / MINUTE
+            val orderPickupRemainingMinutes = order.pickupAt.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
             tvTotalItemsCount.text = "${order.items?.size} ${getString(R.string.items)}"
             tvTotalPrice.text = "${order.totalPrice} ${getString(R.string.currency)}"
             tvTotalCount.text = "${order.items?.size} ${getString(R.string.items)}"
             tvPaymentType.text = order.paymentStatusLabel
             tvOrderDate.text =
                 StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
-                    .append(getString(R.string.minute))
                     .append(PIPE)
                     .append(order.pickupAt.toString(DTF))
                     .toString()
-            if (order.pickupAt.minus(DateTime.now().millis).millis < MINUTE.toLong()) {
+            if (order.pickupAt.minus(DateTime.now().millis).millis < MINUTE) {
                 tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
                 tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))
             }
@@ -121,6 +126,7 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
         }
         order.items?.let { handleOrderItems(it) }
         handleOrderButton(order.acceptanceStatus!!)
+        handleTimer(order.timeToAutoDecline?.millis?.minus(DateTime.now().millis) ?: 4 * MINUTE)
     }
 
     private fun handleOrderItems(items: MutableList<OrderItem>) {
@@ -136,6 +142,26 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
             binding.tvLetsDoIt.text = getText(getActionButtonText(acceptanceStatus))
         }
         binding.tvDecline.visibility = if (acceptanceStatus == NEW_ACCEPTANCE_STATUS) View.VISIBLE else View.GONE
+        binding.timerView.visibility = if (acceptanceStatus == NEW_ACCEPTANCE_STATUS) View.VISIBLE else View.GONE
+    }
+
+    private fun handleTimer(timeToFinish: Long) = binding.apply {
+        timerView.progress = 0f
+        timerView.setCircularTimerListener(object : CircularTimerListener {
+            override fun updateDataOnTick(remainingTimeInMs: Long): String {
+                return String.format(
+                    "%d:%d",
+                    TimeUnit.MILLISECONDS.toMinutes(remainingTimeInMs),
+                    TimeUnit.MILLISECONDS.toSeconds(remainingTimeInMs) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTimeInMs))
+                )
+            }
+
+            override fun onTimerFinished() {
+                timerView.setText("0:00")
+            }
+        }, timeToFinish, TimeFormatEnum.MILLIS)
+
+        timerView.startTimer()
     }
 
     private fun getActionButtonColor(status: Int): Int = if (status == NEW_ACCEPTANCE_STATUS) R.color.green else R.color.sky_blue
