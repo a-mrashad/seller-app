@@ -102,7 +102,7 @@
 
         <TextView
             android:id="@+id/tvOrderDate"
-            style="@style/h1_14"
+            style="@style/h2_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="290dp"

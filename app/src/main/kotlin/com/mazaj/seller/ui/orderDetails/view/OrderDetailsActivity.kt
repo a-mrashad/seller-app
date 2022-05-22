@@ -1,7 +1,12 @@
 package com.mazaj.seller.ui.orderDetails.view
 
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -106,17 +111,19 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
         binding.apply {
             tvOrderNumber.text = order.orderNumber
             tvTypeOrder.text = order.typeLabel
-            // val orderPickupDate = order.pickupAt.minus(DateTime.now().millis).millis / MINUTE
             val orderPickupRemainingMinutes = order.pickupAt.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
             tvTotalItemsCount.text = "${order.items?.size} ${getString(R.string.items)}"
             tvTotalPrice.text = "${order.totalPrice} ${getString(R.string.currency)}"
             tvTotalCount.text = "${order.items?.size} ${getString(R.string.items)}"
             tvPaymentType.text = order.paymentStatusLabel
-            tvOrderDate.text =
-                StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
-                    .append(PIPE)
-                    .append(order.pickupAt.toString(DTF))
-                    .toString()
+            val spannablePickupIn = SpannableString("Pickup in | ")
+            val spannableRemainingTime = SpannableString("$orderPickupRemainingMinutes ${order.pickupAt.toString(DTF)}")
+            spannableRemainingTime.setSpan(StyleSpan(Typeface.BOLD), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            val builder = SpannableStringBuilder().apply {
+                append(spannablePickupIn)
+                append(spannableRemainingTime)
+            }
+            tvOrderDate.text = builder
             if (order.pickupAt.minus(DateTime.now().millis).millis < MINUTE) {
                 tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@OrderDetailsActivity, R.color.light_red))
                 tvOrderDate.setTextColor(ContextCompat.getColor(this@OrderDetailsActivity, R.color.white))

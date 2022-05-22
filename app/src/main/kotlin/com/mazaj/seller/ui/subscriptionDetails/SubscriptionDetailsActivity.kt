@@ -1,7 +1,12 @@
 package com.mazaj.seller.ui.subscriptionDetails
 
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
@@ -52,17 +57,20 @@ class SubscriptionDetailsActivity : BaseActivity(), OnFetchingData {
         tvOrderNumber.text = deliveryJob.subscriptionNo
         tvTypeSubscription.visibility = View.VISIBLE
         val orderPickupRemainingMinutes = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
-        tvOrderDate.text =
-            StringBuilder().append("Pickup in $orderPickupRemainingMinutes ")
-                .append(OrderDetailsActivity.PIPE)
-                .append(deliveryJob.deliveryAt?.toString(OrderDetailsActivity.DTF))
-                .toString()
+        val spannablePickupIn = SpannableString("Pickup in | ")
+        val spannableRemainingTime = SpannableString("$orderPickupRemainingMinutes ${deliveryJob.deliveryAt?.toString(OrderDetailsActivity.DTF)}")
+        spannableRemainingTime.setSpan(StyleSpan(Typeface.BOLD), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        val builder = SpannableStringBuilder().apply {
+            append(spannablePickupIn)
+            append(spannableRemainingTime)
+        }
+        tvOrderDate.text = builder
         if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < Constants.MINUTE) {
             tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@SubscriptionDetailsActivity, R.color.light_red))
             tvOrderDate.setTextColor(ContextCompat.getColor(this@SubscriptionDetailsActivity, R.color.white))
         }
-        tabLayout.getTabAt(0)?.text = "No. of items ${details?.itemsCount} items"
-        tabLayout.getTabAt(1)?.text = "No. of days ${details?.subscriptions?.size} days"
+        tabLayout.getTabAt(0)?.text = "No. of items - ${details?.itemsCount} items"
+        tabLayout.getTabAt(1)?.text = "No. of days - ${details?.subscriptions?.size} days"
         handleSubscriptionButton(details)
         handleTimer(deliveryJob.timeToAutoDecline?.millis?.minus(DateTime.now().millis) ?: 2 * Constants.MINUTE)
     }
