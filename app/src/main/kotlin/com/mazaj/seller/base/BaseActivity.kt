@@ -67,13 +67,6 @@ abstract class BaseActivity : AppCompatActivity(), ShowMessageView, NetworkStatu
     private val notificationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             intent.extras?.let {
-//                val text = it.getString(NOTIFICATION_ORDER_KEY) ?: ""
-//                val order = Json.decodeFromString(Order.serializer(), text.substring(12, text.length-2).replace("\\", ""))
-//                order
-//                val order = Json.decodeFromString(
-//                    NotificationOrderResponse.serializer(),
-//                    it.getString(NOTIFICATION_ORDER_KEY, "")
-//                )
                 setupNotificationView(it.getSerializable(NOTIFICATION_ORDER_KEY) as? Order)
             }
         }

@@ -2,6 +2,7 @@ package com.mazaj.seller.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -26,5 +27,15 @@ class MainNavigationActivity : BaseActivity(), OnFetchingData {
         binding.navView.setupWithNavController(navController)
         binding.tvLogout.setOnClickListener { viewModel.onLogoutClicked() }
         viewModel.onLogoutSucceeded.observe(this) { startActivity(Intent(this, IntroActivity::class.java).newTask()) }
+    }
+
+    override fun onNotificationStarted() {
+        binding.customNotification.customNotification.visibility = View.VISIBLE
+        binding.drawerLayout.visibility = View.GONE
+    }
+
+    override fun onNotificationEnded() {
+        binding.customNotification.customNotification.visibility = View.GONE
+        binding.drawerLayout.visibility = View.VISIBLE
     }
 }
