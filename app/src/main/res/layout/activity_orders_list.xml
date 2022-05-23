@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/tvListTitle"
                 style="@style/h1_25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 app:layout_constraintBottom_toBottomOf="@id/icBack"
-                app:layout_constraintStart_toEndOf="@id/tvTitle"
+                app:layout_constraintStart_toEndOf="@id/tvListTitle"
                 app:layout_constraintTop_toTopOf="@id/icBack"
                 tools:text="(25)" />
 
@@ -64,7 +64,7 @@
                 android:layout_marginTop="25dp"
                 android:padding="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintTop_toBottomOf="@id/tvListTitle" />
 
             <TextView
                 android:id="@+id/tvNoItemsFound"

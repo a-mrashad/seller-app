@@ -12,6 +12,7 @@ class OrdersListViewModel(application: Application) : BaseViewModel(application)
     override var lastPageSize: Int? = null
     override var page: Int = 1
     override val isListLoading = MutableLiveData<Boolean>()
+    val countLiveData = MutableLiveData<Int>()
 
     val statusLiveData = MutableLiveData<Int>()
 
@@ -21,8 +22,9 @@ class OrdersListViewModel(application: Application) : BaseViewModel(application)
 
     override suspend fun fetchItems(page: Int, perPage: Int): List<ListItem> {
         val orders = mutableListOf<ListItem>()
-        val responseData = repository.getOrdersList(statusLiveData.value!!, page).body()?.data
-        responseData?.forEach { orders.add(it) }
+        val response = repository.getOrdersList(statusLiveData.value!!, page).body()
+        countLiveData.value = response?.meta?.total ?: 0
+        response?.data?.forEach { orders.add(it) }
         return orders
     }
 }

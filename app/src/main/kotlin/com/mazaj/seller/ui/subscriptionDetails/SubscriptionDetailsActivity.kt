@@ -7,6 +7,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
+import android.text.style.TextAppearanceSpan
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
@@ -58,8 +59,10 @@ class SubscriptionDetailsActivity : BaseActivity(), OnFetchingData {
         tvTypeSubscription.visibility = View.VISIBLE
         val orderPickupRemainingMinutes = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
         val spannablePickupIn = SpannableString("Pickup in | ")
+        spannablePickupIn.setSpan(TextAppearanceSpan(this@SubscriptionDetailsActivity, R.style.h2_14), 0, spannablePickupIn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val spannableRemainingTime = SpannableString("$orderPickupRemainingMinutes ${deliveryJob.deliveryAt?.toString(OrderDetailsActivity.DTF)}")
         spannableRemainingTime.setSpan(StyleSpan(Typeface.BOLD), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableRemainingTime.setSpan(TextAppearanceSpan(this@SubscriptionDetailsActivity, R.style.h2_14), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val builder = SpannableStringBuilder().apply {
             append(spannablePickupIn)
             append(spannableRemainingTime)

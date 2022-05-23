@@ -72,7 +72,9 @@ data class OrderItem(
     val addOns: MutableList<OrderAddOns>? = null,
     val options: MutableList<OrderOptions>? = null,
     val variants: MutableList<OrderVariants>? = null,
-    val price: OrderPrice? = null
+    val price: OrderPrice? = null,
+    @SerialName("price_option")
+    val priceOptions: OrderPriceOptions? = null
 ) : java.io.Serializable
 
 @Serializable
@@ -210,5 +212,17 @@ data class MetaData(
     @SerialName("current_page")
     val currentPage: Int,
     @SerialName("last_page")
-    val lastPage: Int
+    val lastPage: Int,
+    val total: Int? = null
 )
+
+@Serializable
+data class OrderPriceOptions(
+    val unit: OrderPriceOptionsUnit
+) : java.io.Serializable
+
+@Serializable
+data class OrderPriceOptionsUnit(
+    val id: Long,
+    val name: String
+) : java.io.Serializable

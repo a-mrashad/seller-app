@@ -50,7 +50,7 @@ class OrdersListActivity : BaseActivity(), PaginationView {
 
     private fun setObservers() {
         viewModel.statusLiveData.observe(this) {
-            binding.tvTitle.text = when (it) {
+            binding.tvListTitle.text = when (it) {
                 NEW_STATUS -> getString(R.string.new_label)
                 READY_STATUS -> getString(R.string.ready_label)
                 else -> getString(R.string.accepted_label)
@@ -61,6 +61,7 @@ class OrdersListActivity : BaseActivity(), PaginationView {
                 binding.tvNoItemsFound.visibility = View.VISIBLE
                 ordersAdapter.updateList(it)
                 recyclerView.visibility = View.GONE
+                binding.tvCount.text = "(0)"
             } else {
                 binding.tvNoItemsFound.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
@@ -70,6 +71,9 @@ class OrdersListActivity : BaseActivity(), PaginationView {
         }
         viewModel.isListLoading.observe(this) {
             binding.loadingBar.loadingBar.visibility = if (it) View.VISIBLE else View.GONE
+        }
+        viewModel.countLiveData.observe(this) {
+            binding.tvCount.text = "($it)"
         }
     }
 

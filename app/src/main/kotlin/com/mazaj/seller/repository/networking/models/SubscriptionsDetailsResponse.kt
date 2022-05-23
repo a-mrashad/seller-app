@@ -32,6 +32,8 @@ data class SubscriptionOrder(
     val title: String,
     val note: String? = null,
     val total: Double? = null,
+    @SerialName("price_option")
+    val priceOptions: OrderPriceOptions? = null,
     val addOns: MutableList<OrderAddOns>? = null,
     val options: MutableList<OrderOptions>? = null,
     val variants: MutableList<OrderVariants>? = null

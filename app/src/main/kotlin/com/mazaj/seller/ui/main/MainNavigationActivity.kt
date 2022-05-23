@@ -3,7 +3,6 @@ package com.mazaj.seller.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -37,5 +36,9 @@ class MainNavigationActivity : BaseActivity(), OnFetchingData {
     override fun onNotificationEnded() {
         binding.customNotification.customNotification.visibility = View.GONE
         binding.drawerLayout.visibility = View.VISIBLE
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.visibility == View.VISIBLE) super.onBackPressed()
     }
 }
