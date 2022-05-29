@@ -13,6 +13,16 @@ data class SubscriptionsDetailsResponse(
     val isAccepted: Boolean? = null,
     @SerialName("type_label")
     val typeLabel: String,
+    @SerialName("order_number")
+    val orderNumber: String?,
+    @SerialName("delivery_at")
+    @Serializable( with = DateTimeSerializer::class)
+    val deliveryAt: DateTime?= null,
+    @SerialName("time_to_auto_decline")
+    @Serializable(with = DateTimeSerializer::class)
+    val timeToAutoDecline: DateTime? = null,
+    @SerialName("pickup_at")
+    val pickupAt: String,
     @SerialName("items_count")
     val itemsCount: Int = 0,
     @SerialName("total_price")
@@ -44,7 +54,6 @@ data class SubscriptionsJobDetails(
     val id: Long,
     @SerialName("subscription_no")
     val subscriptionNo: String,
-    val status: Int,
     @SerialName("is_current")
     val isCurrent: Boolean? = false,
     @SerialName("is_marked_ready_to_pickup")

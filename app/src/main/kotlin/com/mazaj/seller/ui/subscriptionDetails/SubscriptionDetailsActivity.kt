@@ -52,15 +52,13 @@ class SubscriptionDetailsActivity : BaseActivity(), OnFetchingData {
     }
 
     private fun setHeaderDetails(details: SubscriptionsDetailsResponse?) = binding.apply {
-        val deliveryJob = details?.subscriptions?.filter {
-            it.isCurrent == true
-        }?.getOrNull(0) ?: details?.subscriptions?.getOrNull(0) ?: return this
-        tvOrderNumber.text = deliveryJob.subscriptionNo
+
+        tvOrderNumber.text = details?.orderNumber ?: ""
         tvTypeSubscription.visibility = View.VISIBLE
-        val orderPickupRemainingMinutes = deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
+        val orderPickupRemainingMinutes = details?.deliveryAt?.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
         val spannablePickupIn = SpannableString("Pickup in | ")
         spannablePickupIn.setSpan(TextAppearanceSpan(this@SubscriptionDetailsActivity, R.style.h2_14), 0, spannablePickupIn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        val spannableRemainingTime = SpannableString("$orderPickupRemainingMinutes ${deliveryJob.deliveryAt?.toString(OrderDetailsActivity.DTF)}")
+        val spannableRemainingTime = SpannableString("$orderPickupRemainingMinutes ${details?.deliveryAt?.toString(OrderDetailsActivity.DTF)}")
         spannableRemainingTime.setSpan(StyleSpan(Typeface.BOLD), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableRemainingTime.setSpan(TextAppearanceSpan(this@SubscriptionDetailsActivity, R.style.h2_14), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val builder = SpannableStringBuilder().apply {
@@ -68,14 +66,14 @@ class SubscriptionDetailsActivity : BaseActivity(), OnFetchingData {
             append(spannableRemainingTime)
         }
         tvOrderDate.text = builder
-        if (deliveryJob.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < Constants.MINUTE) {
+        if (details?.deliveryAt?.minus(DateTime.now().millis)?.millis ?: 0 < Constants.MINUTE) {
             tvOrderDate.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@SubscriptionDetailsActivity, R.color.light_red))
             tvOrderDate.setTextColor(ContextCompat.getColor(this@SubscriptionDetailsActivity, R.color.white))
         }
         tabLayout.getTabAt(0)?.text = "No. of items - ${details?.itemsCount} items"
         tabLayout.getTabAt(1)?.text = "No. of days - ${details?.subscriptions?.size} days"
         handleSubscriptionButton(details)
-        handleTimer(deliveryJob.timeToAutoDecline?.millis?.minus(DateTime.now().millis) ?: 2 * Constants.MINUTE)
+        handleTimer(details?.timeToAutoDecline?.millis?.minus(DateTime.now().millis) ?: 2 * Constants.MINUTE)
     }
 
     private fun handleTimer(timeToFinish: Long) = binding.apply {

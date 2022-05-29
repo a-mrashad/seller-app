@@ -17,10 +17,10 @@ class MySubscriptionsAdapter(override var itemList: List<ListItem>, private val 
     override fun bind(item: ListItem, holder: PagedViewHolder) {
         val binding = ItemSubscriptionsBinding.bind(holder.itemView)
         binding.apply {
-            val subscription = (item as MySubscriptionData).subscriptions.find { it.isCurrent == true } ?: item.subscriptions.first()
-            tvOrderId.text = subscription.subscriptionNo
+            val subscription = (item as MySubscriptionData)
+            tvOrderId.text = subscription.orderNumber
             tvItemsCount.text = "${item.itemsCount} items"
-            tvPickupDate.text = subscription.deliveryAt?.toString("hh:mm a")
+            tvPickupDate.text = subscription.deliveryAt
             listOf(tvCompleted, tvAccepted, tvNew).forEach { it.visibility = View.GONE }
             // TODO: To be enhanced when backend confirms the new params
             when (item.status) {
