@@ -17,7 +17,7 @@ class MySubscriptionsAdapter(override var itemList: List<ListItem>, private val 
     override fun bind(item: ListItem, holder: PagedViewHolder) {
         val binding = ItemSubscriptionsBinding.bind(holder.itemView)
         binding.apply {
-            val subscription = (item as MySubscriptionData)
+            val subscription = item as MySubscriptionData
             tvOrderId.text = subscription.orderNumber
             tvItemsCount.text = "${item.itemsCount} items"
             tvPickupDate.text = subscription.deliveryAt

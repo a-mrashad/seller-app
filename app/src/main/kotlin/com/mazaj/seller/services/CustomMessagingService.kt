@@ -49,7 +49,7 @@ class CustomMessagingService : FirebaseMessagingService() {
         if (AppPreferences.token == null) return
         val orderId: Long? = data["id"]?.toLong()
         val orderNumber: String? = data["order_number"]
-         val type: Int? = data["type"]?.toInt()
+        val type: Int? = data["type"]?.toInt()
         val itemsCount: Int? = data["items_count"]?.toInt()
         // val deliveryType: Int? = data["delivery_type"]?.toInt()
         val deliveryAt: String? = data["delivery_at"]

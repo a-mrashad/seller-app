@@ -16,8 +16,8 @@ data class SubscriptionsDetailsResponse(
     @SerialName("order_number")
     val orderNumber: String?,
     @SerialName("delivery_at")
-    @Serializable( with = DateTimeSerializer::class)
-    val deliveryAt: DateTime?= null,
+    @Serializable(with = DateTimeSerializer::class)
+    val deliveryAt: DateTime? = null,
     @SerialName("time_to_auto_decline")
     @Serializable(with = DateTimeSerializer::class)
     val timeToAutoDecline: DateTime? = null,

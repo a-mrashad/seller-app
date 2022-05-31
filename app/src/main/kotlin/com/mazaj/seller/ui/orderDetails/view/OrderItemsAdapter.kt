@@ -29,7 +29,7 @@ class OrderItemsAdapter(private val items: MutableList<OrderItem>) : RecyclerVie
                     tvOrderComment.visibility = View.VISIBLE
                 }
                 val options = mutableListOf<OrderOptions>()
-                order.priceOptions?.apply { options.add(OrderOptions(id = this.unit.id, name = this.unit.name)) }
+                order.priceOptions?.apply { options.add(OrderOptions(id = this.unit?.id, name = this.unit?.name)) }
                 options.addAll(order.options ?: mutableListOf())
                 handleOrderOptions(options)
                 handleAddonsView(order.addOns)
@@ -104,7 +104,7 @@ class SubscriptionOrderItemsAdapter(
                     tvOrderComment.visibility = View.VISIBLE
                 }
                 val options = mutableListOf<OrderOptions>()
-                order.priceOptions?.apply { options.add(OrderOptions(id = this.unit.id, name = this.unit.name)) }
+                order.priceOptions?.unit?.apply { options.add(OrderOptions(id = this.id, name = this.name)) }
                 options.addAll(order.options ?: mutableListOf())
                 handleOrderOptions(options)
                 handleAddonsView(order.addOns)

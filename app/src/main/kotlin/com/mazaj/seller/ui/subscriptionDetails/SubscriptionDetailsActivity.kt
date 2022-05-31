@@ -52,15 +52,20 @@ class SubscriptionDetailsActivity : BaseActivity(), OnFetchingData {
     }
 
     private fun setHeaderDetails(details: SubscriptionsDetailsResponse?) = binding.apply {
-
         tvOrderNumber.text = details?.orderNumber ?: ""
         tvTypeSubscription.visibility = View.VISIBLE
         val orderPickupRemainingMinutes = details?.deliveryAt?.minus(DateTime.now().millis)?.millis?.toHoursOrMinutes()
         val spannablePickupIn = SpannableString("Pickup in | ")
-        spannablePickupIn.setSpan(TextAppearanceSpan(this@SubscriptionDetailsActivity, R.style.h2_14), 0, spannablePickupIn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannablePickupIn.setSpan(
+            TextAppearanceSpan(this@SubscriptionDetailsActivity, R.style.h2_14), 0, spannablePickupIn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         val spannableRemainingTime = SpannableString("$orderPickupRemainingMinutes ${details?.deliveryAt?.toString(OrderDetailsActivity.DTF)}")
         spannableRemainingTime.setSpan(StyleSpan(Typeface.BOLD), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableRemainingTime.setSpan(TextAppearanceSpan(this@SubscriptionDetailsActivity, R.style.h2_14), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableRemainingTime.setSpan(
+            TextAppearanceSpan(this@SubscriptionDetailsActivity, R.style.h2_14),
+            0, spannableRemainingTime.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         val builder = SpannableStringBuilder().apply {
             append(spannablePickupIn)
             append(spannableRemainingTime)

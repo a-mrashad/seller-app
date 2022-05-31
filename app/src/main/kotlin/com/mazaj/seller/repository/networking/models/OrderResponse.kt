@@ -119,18 +119,7 @@ data class OrderPrice(
     val unitNameEn: String? = null,
     @SerialName("unit_name_ar")
     val unitNameAr: String? = null,
-    val price: Double? = null,
-    @SerialName("of_serves")
-    val ofServes: Long? = null,
-    @SerialName("allow_to_choose")
-    val allowToChoose: Long? = null,
-    @SerialName("unit_id")
-    val unitId: Long? = null,
-    @SerialName("item_id")
-    val itemId: Long? = null,
-    @SerialName("created_at")
-    @Serializable(with = DateTimeSerializer::class)
-    val createdAt: DateTime? = null
+    val price: Double? = null
 ) : java.io.Serializable
 
 @Serializable
@@ -218,7 +207,7 @@ data class MetaData(
 
 @Serializable
 data class OrderPriceOptions(
-    val unit: OrderPriceOptionsUnit
+    val unit: OrderPriceOptionsUnit? = null
 ) : java.io.Serializable
 
 @Serializable

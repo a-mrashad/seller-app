@@ -118,10 +118,14 @@ class OrderDetailsActivity : BaseActivity(), OnFormSubmitted {
             tvTotalCount.text = "${order.items?.size} ${getString(R.string.items)}"
             tvPaymentType.text = order.paymentStatusLabel
             val spannablePickupIn = SpannableString("Pickup in | ")
-            spannablePickupIn.setSpan(TextAppearanceSpan(this@OrderDetailsActivity, R.style.h2_14), 0, spannablePickupIn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannablePickupIn.setSpan(
+                TextAppearanceSpan(this@OrderDetailsActivity, R.style.h2_14), 0, spannablePickupIn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             val spannableRemainingTime = SpannableString("$orderPickupRemainingMinutes ${order.pickupAt.toString(DTF)}")
             spannableRemainingTime.setSpan(StyleSpan(Typeface.BOLD), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            spannableRemainingTime.setSpan(TextAppearanceSpan(this@OrderDetailsActivity, R.style.h2_14), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannableRemainingTime.setSpan(
+                TextAppearanceSpan(this@OrderDetailsActivity, R.style.h2_14), 0, spannableRemainingTime.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             val builder = SpannableStringBuilder().apply {
                 append(spannablePickupIn)
                 append(spannableRemainingTime)
