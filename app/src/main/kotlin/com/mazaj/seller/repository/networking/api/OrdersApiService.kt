@@ -37,4 +37,7 @@ interface OrdersApiService {
 
     @POST("orders/{id}/ready-for-pickup")
     suspend fun setOrderAsReadyForPick(@Path("id") id: Long): Response<OrderReplyResponse>
+
+    @GET("subscriptions/reminder-details")
+    suspend fun getReminderDetails(): Response<SubscriptionReminderData>
 }

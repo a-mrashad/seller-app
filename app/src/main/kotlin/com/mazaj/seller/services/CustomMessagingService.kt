@@ -9,6 +9,7 @@ import com.mazaj.seller.Constants.NOTIFICATION_ORDER_KEY
 import com.mazaj.seller.R
 import com.mazaj.seller.repository.networking.models.Order
 import com.mazaj.seller.repository.preferences.AppPreferences
+import com.mazaj.seller.ui.subscriptionReminder.SubscriptionReminderActivity
 import com.mazaj.seller.utils.AppState
 import com.mazaj.seller.utils.NotificationHelperUtils
 import org.joda.time.DateTime
@@ -47,6 +48,10 @@ class CustomMessagingService : FirebaseMessagingService() {
 
     private fun handleInAppNotification(data: MutableMap<String, String>) {
         if (AppPreferences.token == null) return
+        if (data["notification_type"] == "subscription_reminder") {
+            handleSubscriptionReminder(data)
+            return
+        }
         val orderId: Long? = data["id"]?.toLong()
         val orderNumber: String? = data["order_number"]
         val type: Int? = data["type"]?.toInt()
@@ -65,6 +70,14 @@ class CustomMessagingService : FirebaseMessagingService() {
             timeToAutoDecline = DateTime.parse(timeToAutoDecline)
         )
         showNotificationView(order)
+    }
+
+    private fun handleSubscriptionReminder(data: MutableMap<String, String>) {
+        startActivity(Intent(applicationContext, SubscriptionReminderActivity::class.java).apply {
+            putExtra("total_orders", data["total_orders"])
+            putExtra("reminder_duration", data["reminder_duration"])
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        })
     }
 
     private fun showNotificationView(orderJson: Order) {

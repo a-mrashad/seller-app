@@ -27,6 +27,9 @@
             android:name=".ui.ordersList.view.OrdersListActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.subscriptionReminder.SubscriptionReminderActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.view.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"

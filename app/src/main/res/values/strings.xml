@@ -70,4 +70,6 @@
     <string name="view_subscription_details">View subscription details</string>
     <string name="decline_reason">Enter decline reason</string>
     <string name="decline_reason_title">Decline reason</string>
+    <string name="subscription_order_reminder">Subscription order reminder</string>
+    <string name="acknowledge_print"><![CDATA[Acknowledge & print]]></string>
 </resources>

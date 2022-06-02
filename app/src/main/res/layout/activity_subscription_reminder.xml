@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_reminder"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"/>
+
+    <TextView
+        style="@style/h1_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/subscription_order_reminder"
+        android:layout_marginTop="12dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="13dp">
+
+        <TextView
+            android:id="@+id/tvOrdersCount"
+            style="@style/h1_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12 Orders"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:id="@+id/tvNotificationDate"
+            style="@style/h1_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/tvNotificationTime"
+            style="@style/h1_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9:00-1:00 AM"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="17dp">
+
+        <TextView
+            style="@style/h1_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order No."
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            style="@style/h1_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:text="Item No." />
+
+        <TextView
+            style="@style/h1_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pickup time"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"/>
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_weight="1"
+        android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvReminders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <include layout="@layout/loading_bar"
+            android:id="@+id/loadingBar"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_gravity="center|bottom">
+
+        <Button
+            style="@style/button_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="16dp"
+
+            android:layout_marginEnd="16dp"
+            android:text="@string/acknowledge_print" />
+    </FrameLayout>
+
+</LinearLayout>
